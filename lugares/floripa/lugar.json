@@ -1,0 +1,21 @@
+{
+  "slug": "floripa",
+  "nome": "Florianópolis",
+  "bbox": {
+    "norte": -27.3,
+    "sul": -27.9,
+    "oeste": -48.75,
+    "leste": -48.25
+  },
+  "largura_max_nos": 1024,
+  "terra": "copernicus",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado",
+    "passo_terra_m": 100,
+    "passo_mar_m": 20
+  }
+}

@@ -1,0 +1,11 @@
+node_modules/
+.DS_Store
+# dado bruto baixado (cache local, refaz com um comando)
+lugares/*/cache/
+# SVGs gerados (refaz com node cli/svg.mjs)
+lugares/*/svg/
+# quadros e vídeos capturados
+captura/saida/
+*.tif
+*.tiff
+*.nc

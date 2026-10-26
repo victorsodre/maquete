@@ -1,0 +1,21 @@
+{
+  "slug": "noronha",
+  "nome": "Fernando de Noronha",
+  "bbox": {
+    "norte": -3.78,
+    "sul": -3.94,
+    "oeste": -32.52,
+    "leste": -32.32
+  },
+  "largura_max_nos": 1024,
+  "terra": "copernicus",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado",
+    "passo_terra_m": 25,
+    "passo_mar_m": 250
+  }
+}

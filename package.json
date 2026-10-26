@@ -1,0 +1,27 @@
+{
+  "name": "maquete",
+  "version": "0.1.0",
+  "description": "Qualquer lugar do mundo vira uma maquete em lâminas, terra e fundo do mar, no navegador e em SVG para cortar. Dado aberto, um comando, sem chave.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Victor Sodré (@ovictor)",
+  "repository": "github:victorsodre/maquete",
+  "homepage": "https://victorsodre.github.io/maquete/",
+  "engines": { "node": ">=22" },
+  "bin": { "maquete": "cli/index.mjs" },
+  "files": ["cli", "!cli/*.test.mjs", "README.md", "README.en.md", "LICENSE"],
+  "scripts": {
+    "lugar": "node cli/index.mjs",
+    "serve": "node scripts/serve.mjs",
+    "capture": "node captura/capture.mjs",
+    "test": "node --test cli/*.test.mjs scripts/*.test.mjs captura/*.test.mjs"
+  },
+  "dependencies": {
+    "geotiff": "2.1.3",
+    "pngjs": "7.0.0"
+  },
+  "devDependencies": {
+    "playwright": "1.61.0",
+    "three": "0.185.1"
+  }
+}

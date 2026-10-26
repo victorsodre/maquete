@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>maquete</title>
+<meta name="description" content="Qualquer lugar do mundo vira uma maquete em lâminas: terra e fundo do mar no mesmo passo, com luz de estúdio no navegador e SVG para cortar a laser ou em papel. Dado aberto (Copernicus DEM e GMRT), sem chave, sem build.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='3' y='20' width='26' height='6' rx='1' fill='%232f5d87'/><rect x='7' y='14' width='18' height='6' rx='1' fill='%23c9a97a'/><rect x='11' y='8' width='10' height='6' rx='1' fill='%23b08f62'/></svg>">
+<link rel="stylesheet" href="./web/style.css">
+<!-- o importmap tem de vir ANTES de qualquer modulepreload (AGENTS.md: senão "three" não resolve) -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "./web/vendor/three/three.module.min.js",
+    "three/addons/": "./web/vendor/three/addons/"
+  }
+}
+</script>
+<link rel="modulepreload" href="./web/vendor/three/three.module.min.js">
+<link rel="modulepreload" href="./web/vendor/three/three.core.min.js">
+</head>
+<body>
+<canvas id="cena" aria-label="maquete em lâminas, 3D"></canvas>
+<div class="vinheta" aria-hidden="true"></div>
+<div id="ui" class="ui" hidden>
+  <header class="topo">
+    <h1 id="nome">…</h1>
+    <p id="sub"></p>
+    <p id="exagero"></p>
+    <p id="mar" hidden></p>
+    <p class="dica" id="dica">arraste para girar · roda do mouse para aproximar</p>
+  </header>
+  <div class="barra" role="group" aria-label="controles">
+    <button id="girar" type="button" aria-pressed="false">Girar</button>
+    <label class="campo"><span>Material</span>
+      <select id="material">
+        <option value="compensado">compensado</option>
+        <option value="cartao">cartão</option>
+        <option value="gesso">gesso</option>
+      </select>
+    </label>
+    <label class="campo"><span>Levantar o mar</span><input id="levantar" type="range" min="0" max="1" step="0.01" value="0"><output id="levantar-val">0 mm</output></label>
+    <button id="baixar" type="button" class="secundario">Baixar SVGs</button>
+  </div>
+  <footer class="creditos" id="creditos"></footer>
+</div>
+<div id="aviso" class="aviso" hidden></div>
+<script type="module" src="./web/app.js"></script>
+</body>
+</html>

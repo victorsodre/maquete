@@ -1,0 +1,167 @@
+{
+  "slug": "rio",
+  "largura": 1024,
+  "altura": 768,
+  "bbox": {
+    "norte": -22.72,
+    "sul": -23.1,
+    "oeste": -43.5,
+    "leste": -42.95
+  },
+  "graus_por_no": {
+    "lon": 0.0005371093749999972,
+    "lat": 0.00049479166666667
+  },
+  "metros_por_no": {
+    "x": 55.1,
+    "y": 55.1
+  },
+  "km": {
+    "largura": 56.4,
+    "altura": 42.3
+  },
+  "elev_min_m": -109.6,
+  "elev_max_m": 1018.3,
+  "fontes": [
+    {
+      "id": "gmrt",
+      "url": "https://www.gmrt.org/services/GridServer?north=-22.72&south=-23.1&west=-43.5&east=-42.95&layer=topo&format=geotiff&mresolution=55",
+      "camada": "topo",
+      "mresolution_pedido": 55,
+      "largura": 1003,
+      "altura": 753,
+      "metros_por_no_devolvido": {
+        "x": 56.4,
+        "y": 56.4
+      },
+      "bbox_devolvido": {
+        "norte": -22.71919029773344,
+        "sul": -23.100702813193774,
+        "oeste": -43.50064114325061,
+        "leste": -42.949126923155646
+      },
+      "nan": 1003,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T15:18:51-03:00",
+      "bytes": 3024418,
+      "sha256": "5ae6d2bab0d2577e4fa3c317d79d4a405eb3d7af9a89c65c51a5e93cea1513f2",
+      "cache": true
+    },
+    {
+      "id": "gmrt-topo-mask",
+      "url": "https://www.gmrt.org/services/GridServer?north=-22.72&south=-23.1&west=-43.5&east=-42.95&layer=topo-mask&format=geotiff&mresolution=55",
+      "camada": "topo-mask",
+      "mresolution_pedido": 55,
+      "largura": 1003,
+      "altura": 753,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T15:18:58-03:00",
+      "bytes": 3024418,
+      "sha256": "8e236ca788efdfd18e36369d12f5e4c5ccd8deaa5defc2f9dc246d26b868a2d7",
+      "cache": true
+    },
+    {
+      "id": "copernicus-glo30",
+      "url": "https://copernicus-dem-30m.s3.amazonaws.com",
+      "tiles": [
+        "Copernicus_DSM_COG_10_S23_00_W043_00_DEM",
+        "Copernicus_DSM_COG_10_S23_00_W044_00_DEM",
+        "Copernicus_DSM_COG_10_S24_00_W043_00_DEM",
+        "Copernicus_DSM_COG_10_S24_00_W044_00_DEM"
+      ],
+      "tiles_oceano": [],
+      "overview": 0,
+      "overview_nos": 3600,
+      "graus_por_no": 0.0002777777777777778,
+      "licenca": "Licence for Copernicus DEM instance COP-DEM-GLO-30-F Global 30m Full, Free & Open (ESA; texto em https://documentation.dataspace.copernicus.eu/APIs/SentinelHub/Data/DEM/resources/license/License-COPDEM-30.pdf)",
+      "atribuicao": "produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved. The organisations in charge of the Copernicus programme by law or by delegation do not incur any liability for any use of the Copernicus WorldDEM-30.",
+      "obtido_em": "2026-10-26T15:19:06-03:00",
+      "bytes": 16753142,
+      "sha256": "da59c2cb47f5fff42c581cb132f0125d7eccd2167307bfd2d257e44c2a549273",
+      "detalhe": [
+        {
+          "tile": "Copernicus_DSM_COG_10_S23_00_W043_00_DEM",
+          "janela": [
+            0,
+            2591,
+            182,
+            3600
+          ],
+          "bytes": 4849667,
+          "pedidos": 3,
+          "sha256": "f2ff3b4d25d889decd4dd035e57cab91a50b57db2bb662deba98bb6af6e54819",
+          "obtido_em": "2026-10-26T15:19:04-03:00",
+          "cache": true,
+          "nodata_nos": 0
+        },
+        {
+          "tile": "Copernicus_DSM_COG_10_S23_00_W044_00_DEM",
+          "janela": [
+            1799,
+            2591,
+            3600,
+            3600
+          ],
+          "bytes": 11011682,
+          "pedidos": 3,
+          "sha256": "28963395869b4be4a294872537b32ed8b3235de4d2390604be003f79c5b11e82",
+          "obtido_em": "2026-10-26T15:19:06-03:00",
+          "cache": true,
+          "nodata_nos": 0
+        },
+        {
+          "tile": "Copernicus_DSM_COG_10_S24_00_W043_00_DEM",
+          "janela": [
+            0,
+            0,
+            182,
+            362
+          ],
+          "bytes": 105359,
+          "pedidos": 1,
+          "sha256": "1e50de0c7fdd44e52702c46314fb9d530fe204dbd68c01597f4e7b31814c0c98",
+          "obtido_em": "2026-10-26T15:19:03-03:00",
+          "cache": true,
+          "nodata_nos": 0
+        },
+        {
+          "tile": "Copernicus_DSM_COG_10_S24_00_W044_00_DEM",
+          "janela": [
+            1799,
+            0,
+            3600,
+            362
+          ],
+          "bytes": 786434,
+          "pedidos": 2,
+          "sha256": "0ade2440d3aa3d998437aa5edd6ba9d0d1e301d6792f2f513fd172af9322a251",
+          "obtido_em": "2026-10-26T15:19:03-03:00",
+          "cache": true,
+          "nodata_nos": 0
+        }
+      ]
+    }
+  ],
+  "mascara": {
+    "pct_medido": 3.4,
+    "nos": 11702,
+    "nos_mar": 339886,
+    "base": "nós com elevação <= 0 m"
+  },
+  "nodata_preenchidos": 0,
+  "clampados": {
+    "abaixo": 0,
+    "acima": 0
+  },
+  "fixture": false,
+  "terra": "copernicus",
+  "mar": "gmrt",
+  "convencao": "nó = centro de célula; linha 0 = norte, coluna 0 = oeste; Terrain-RGB h = -10000 + (R*65536 + G*256 + B) * 0,1",
+  "png": {
+    "bytes": 836260
+  },
+  "gerado_por": "brasil-sem-mar 0.1.0",
+  "gerado_em": "2026-10-26T15:19:07-03:00"
+}
