@@ -1,0 +1,30 @@
+{
+  "slug": "cuiaba",
+  "nome": "Cuiabá",
+  "escala": "municipio",
+  "ibge": {
+    "nivel": "municipios",
+    "codigo": "5103403",
+    "nome": "Cuiabá",
+    "sigla": "MT",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -15.0114,
+    "sul": -16.5957,
+    "oeste": -56.349,
+    "leste": -55.0803
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "copernicus",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 231,
+    "espessura_mm": 3,
+    "material": "compensado",
+    "passo_terra_m": 250
+  }
+}

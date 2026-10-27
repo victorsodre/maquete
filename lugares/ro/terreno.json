@@ -1,0 +1,119 @@
+{
+  "slug": "ro",
+  "largura": 1024,
+  "altura": 847,
+  "bbox": {
+    "norte": -7.7472,
+    "sul": -13.9224,
+    "oeste": -67.0917,
+    "leste": -59.493
+  },
+  "graus_por_no": {
+    "lon": 0.007420605468750001,
+    "lat": 0.007290672963400235
+  },
+  "metros_por_no": {
+    "x": 811.3,
+    "y": 811.6
+  },
+  "km": {
+    "largura": 830.8,
+    "altura": 687.4
+  },
+  "elev_min_m": 40.9,
+  "elev_max_m": 1079,
+  "escala": "estado",
+  "recorte": {
+    "tipo": "contorno",
+    "ibge_nivel": "estados",
+    "ibge_codigo": "11",
+    "nos_dentro": 363511,
+    "fracao_dentro": 0.4191,
+    "nos_fora": 503817,
+    "nos_chapados": 0
+  },
+  "fontes": [
+    {
+      "id": "gmrt",
+      "url": "https://www.gmrt.org/services/GridServer?north=-7.7472&south=-13.9224&west=-67.0917&east=-59.493&layer=topo&format=geotiff&mresolution=811",
+      "camada": "topo",
+      "mresolution_pedido": 811,
+      "largura": 1731,
+      "altura": 1433,
+      "metros_por_no_devolvido": {
+        "x": 480.8,
+        "y": 480.6
+      },
+      "bbox_devolvido": {
+        "norte": -7.743670104099019,
+        "sul": -13.929827734626034,
+        "oeste": -67.09790166072074,
+        "leste": -59.48657099552926
+      },
+      "nan": 1731,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:46:21-03:00",
+      "bytes": 9933922,
+      "sha256": "8f929c22d80827a98a32b230dcee04479ad461a809cb9d39637c2872f41a7c83",
+      "cache": false
+    },
+    {
+      "id": "gmrt-topo-mask",
+      "url": "https://www.gmrt.org/services/GridServer?north=-7.7472&south=-13.9224&west=-67.0917&east=-59.493&layer=topo-mask&format=geotiff&mresolution=811",
+      "camada": "topo-mask",
+      "mresolution_pedido": 811,
+      "largura": 1731,
+      "altura": 1433,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:46:33-03:00",
+      "bytes": 9933922,
+      "sha256": "2e4ba96b9fbdcd8b00d3778094565212f8433edd9ee9493c18e972dcc25b7a59",
+      "cache": false
+    },
+    {
+      "id": "ibge-malha",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/estados/11?formato=application/vnd.geo+json&qualidade=maxima",
+      "nivel": "estados",
+      "codigo": "11",
+      "nome": "Rondônia",
+      "qualidade": "maxima",
+      "poligonos": 1,
+      "aneis": 1,
+      "pontos": 2045,
+      "bbox_malha": {
+        "norte": -7.9759,
+        "sul": -13.6937,
+        "oeste": -66.8103,
+        "leste": -59.7744
+      },
+      "licenca": "dado público do IBGE (API de localidades e malhas, sem chave); termos de uso do portal a confirmar",
+      "atribuicao": "IBGE, Malhas Territoriais",
+      "obtido_em": "2026-10-26T22:46:06-03:00",
+      "bytes": 43820,
+      "sha256": "2de84ac6649c87edfa042bf0d27274c32d3ecae8ada8d227c5ccbae1c6dbec05",
+      "cache": true
+    }
+  ],
+  "mascara": {
+    "pct_medido": 0,
+    "nos": 0,
+    "nos_mar": 0,
+    "base": "nós com elevação <= 0 m"
+  },
+  "nodata_preenchidos": 0,
+  "clampados": {
+    "abaixo": 0,
+    "acima": 0
+  },
+  "fixture": false,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "convencao": "nó = centro de célula; linha 0 = norte, coluna 0 = oeste; Terrain-RGB h = -10000 + (R*65536 + G*256 + B) * 0,1; h <= -9999 = fora do recorte (nem terra nem mar)",
+  "png": {
+    "bytes": 573998
+  },
+  "gerado_por": "maquete 0.1.0",
+  "gerado_em": "2026-10-26T22:46:33-03:00"
+}

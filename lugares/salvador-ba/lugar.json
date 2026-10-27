@@ -1,0 +1,30 @@
+{
+  "slug": "salvador-ba",
+  "nome": "Salvador",
+  "escala": "municipio",
+  "ibge": {
+    "nivel": "municipios",
+    "codigo": "2927408",
+    "nome": "Salvador",
+    "sigla": "BA",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -12.7223,
+    "sul": -13.0286,
+    "oeste": -38.7151,
+    "leste": -38.2885
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "copernicus",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado",
+    "passo_terra_m": 50
+  }
+}

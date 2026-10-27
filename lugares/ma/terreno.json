@@ -1,0 +1,119 @@
+{
+  "slug": "ma",
+  "largura": 1024,
+  "altura": 1362,
+  "bbox": {
+    "norte": -0.6811,
+    "sul": -10.628,
+    "oeste": -49.0335,
+    "leste": -41.5184
+  },
+  "graus_por_no": {
+    "lon": 0.007338964843749997,
+    "lat": 0.007303157121879588
+  },
+  "metros_por_no": {
+    "x": 813,
+    "y": 813
+  },
+  "km": {
+    "largura": 832.5,
+    "altura": 1107.3
+  },
+  "elev_min_m": -24.3,
+  "elev_max_m": 808.8,
+  "escala": "estado",
+  "recorte": {
+    "tipo": "contorno",
+    "ibge_nivel": "estados",
+    "ibge_codigo": "21",
+    "nos_dentro": 501848,
+    "fracao_dentro": 0.3598,
+    "nos_fora": 892840,
+    "nos_chapados": 0
+  },
+  "fontes": [
+    {
+      "id": "gmrt",
+      "url": "https://www.gmrt.org/services/GridServer?north=-0.6811&south=-10.628&west=-49.0335&east=-41.5184&layer=topo&format=geotiff&mresolution=813",
+      "camada": "topo",
+      "mresolution_pedido": 813,
+      "largura": 1712,
+      "altura": 2281,
+      "metros_por_no_devolvido": {
+        "x": 487.1,
+        "y": 486.4
+      },
+      "bbox_devolvido": {
+        "norte": -0.6701631248229915,
+        "sul": -10.636879481218145,
+        "oeste": -49.04077276857466,
+        "leste": -41.51293816892533
+      },
+      "nan": 3424,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:40:42-03:00",
+      "bytes": 15638902,
+      "sha256": "0152faee552d03a096601b8636e4feee875c0fe3089892a2f826a8e2e8a5d269",
+      "cache": false
+    },
+    {
+      "id": "gmrt-topo-mask",
+      "url": "https://www.gmrt.org/services/GridServer?north=-0.6811&south=-10.628&west=-49.0335&east=-41.5184&layer=topo-mask&format=geotiff&mresolution=813",
+      "camada": "topo-mask",
+      "mresolution_pedido": 813,
+      "largura": 1712,
+      "altura": 2281,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:41:02-03:00",
+      "bytes": 15638902,
+      "sha256": "86c125ab2bd5bc57a6b345d3a88d61367b63cffc190dc84ba8c035929c8041eb",
+      "cache": false
+    },
+    {
+      "id": "ibge-malha",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/estados/21?formato=application/vnd.geo+json&qualidade=maxima",
+      "nivel": "estados",
+      "codigo": "21",
+      "nome": "Maranhão",
+      "qualidade": "maxima",
+      "poligonos": 26,
+      "aneis": 26,
+      "pontos": 3226,
+      "bbox_malha": {
+        "norte": -1.0495,
+        "sul": -10.2596,
+        "oeste": -48.7552,
+        "leste": -41.7967
+      },
+      "licenca": "dado público do IBGE (API de localidades e malhas, sem chave); termos de uso do portal a confirmar",
+      "atribuicao": "IBGE, Malhas Territoriais",
+      "obtido_em": "2026-10-26T22:40:20-03:00",
+      "bytes": 67326,
+      "sha256": "d0bcf800a08d88cd3fa8a7d836100a589cee4a33344503b285719592430f48c7",
+      "cache": true
+    }
+  ],
+  "mascara": {
+    "pct_medido": 0,
+    "nos": 0,
+    "nos_mar": 1605,
+    "base": "nós com elevação <= 0 m"
+  },
+  "nodata_preenchidos": 0,
+  "clampados": {
+    "abaixo": 0,
+    "acima": 0
+  },
+  "fixture": false,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "convencao": "nó = centro de célula; linha 0 = norte, coluna 0 = oeste; Terrain-RGB h = -10000 + (R*65536 + G*256 + B) * 0,1; h <= -9999 = fora do recorte (nem terra nem mar)",
+  "png": {
+    "bytes": 808186
+  },
+  "gerado_por": "maquete 0.1.0",
+  "gerado_em": "2026-10-26T22:41:03-03:00"
+}

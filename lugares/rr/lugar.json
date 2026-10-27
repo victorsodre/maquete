@@ -1,0 +1,29 @@
+{
+  "slug": "rr",
+  "nome": "Roraima",
+  "escala": "estado",
+  "ibge": {
+    "nivel": "estados",
+    "codigo": "14",
+    "nome": "Roraima",
+    "sigla": "RR",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": 5.5459,
+    "sul": -1.8547,
+    "oeste": -65.0628,
+    "leste": -58.6494
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 260,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

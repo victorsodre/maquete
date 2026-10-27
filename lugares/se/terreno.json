@@ -1,0 +1,119 @@
+{
+  "slug": "se",
+  "largura": 1024,
+  "altura": 1157,
+  "bbox": {
+    "norte": -9.4329,
+    "sul": -11.6506,
+    "oeste": -38.319,
+    "leste": -36.3219
+  },
+  "graus_por_no": {
+    "lon": 0.0019502929687500031,
+    "lat": 0.001916767502160761
+  },
+  "metros_por_no": {
+    "x": 213.4,
+    "y": 213.4
+  },
+  "km": {
+    "largura": 218.6,
+    "altura": 246.9
+  },
+  "elev_min_m": -65,
+  "elev_max_m": 3118.8,
+  "escala": "estado",
+  "recorte": {
+    "tipo": "contorno",
+    "ibge_nivel": "estados",
+    "ibge_codigo": "28",
+    "nos_dentro": 484867,
+    "fracao_dentro": 0.4093,
+    "nos_fora": 699901,
+    "nos_chapados": 0
+  },
+  "fontes": [
+    {
+      "id": "gmrt",
+      "url": "https://www.gmrt.org/services/GridServer?north=-9.4329&south=-11.6506&west=-38.319&east=-36.3219&layer=topo&format=geotiff&mresolution=213",
+      "camada": "topo",
+      "mresolution_pedido": 213,
+      "largura": 1820,
+      "altura": 2054,
+      "metros_por_no_devolvido": {
+        "x": 120.3,
+        "y": 120.3
+      },
+      "bbox_devolvido": {
+        "norte": -9.43226527424004,
+        "sul": -11.651700681892269,
+        "oeste": -38.32086211839438,
+        "leste": -36.32025116285563
+      },
+      "nan": 3640,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:29:23-03:00",
+      "bytes": 14969918,
+      "sha256": "b1ff9c43f9ee913047afcce9cbc519e34e7211a3a88bfbbaf61f7308b408d425",
+      "cache": true
+    },
+    {
+      "id": "gmrt-topo-mask",
+      "url": "https://www.gmrt.org/services/GridServer?north=-9.4329&south=-11.6506&west=-38.319&east=-36.3219&layer=topo-mask&format=geotiff&mresolution=213",
+      "camada": "topo-mask",
+      "mresolution_pedido": 213,
+      "largura": 1820,
+      "altura": 2054,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:29:43-03:00",
+      "bytes": 14969918,
+      "sha256": "ca0a69e5c3549a39d837120faf1ac4950e3aaa9353666b38995a5e5667a71581",
+      "cache": true
+    },
+    {
+      "id": "ibge-malha",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/estados/28?formato=application/vnd.geo+json&qualidade=maxima",
+      "nivel": "estados",
+      "codigo": "28",
+      "nome": "Sergipe",
+      "qualidade": "maxima",
+      "poligonos": 1,
+      "aneis": 1,
+      "pontos": 490,
+      "bbox_malha": {
+        "norte": -9.515,
+        "sul": -11.5685,
+        "oeste": -38.245,
+        "leste": -36.3959
+      },
+      "licenca": "dado público do IBGE (API de localidades e malhas, sem chave); termos de uso do portal a confirmar",
+      "atribuicao": "IBGE, Malhas Territoriais",
+      "obtido_em": "2026-10-26T22:29:01-03:00",
+      "bytes": 10673,
+      "sha256": "88a6c8cfc9d3eb21c856ecf18cf7534c7410de9957095188c3a02599382a65be",
+      "cache": true
+    }
+  ],
+  "mascara": {
+    "pct_medido": 2.4,
+    "nos": 20,
+    "nos_mar": 824,
+    "base": "nós com elevação <= 0 m"
+  },
+  "nodata_preenchidos": 0,
+  "clampados": {
+    "abaixo": 0,
+    "acima": 0
+  },
+  "fixture": false,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "convencao": "nó = centro de célula; linha 0 = norte, coluna 0 = oeste; Terrain-RGB h = -10000 + (R*65536 + G*256 + B) * 0,1; h <= -9999 = fora do recorte (nem terra nem mar)",
+  "png": {
+    "bytes": 760603
+  },
+  "gerado_por": "maquete 0.1.0",
+  "gerado_em": "2026-10-26T22:48:08-03:00"
+}

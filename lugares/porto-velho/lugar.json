@@ -1,0 +1,29 @@
+{
+  "slug": "porto-velho",
+  "nome": "Porto Velho",
+  "escala": "municipio",
+  "ibge": {
+    "nivel": "municipios",
+    "codigo": "1100205",
+    "nome": "Porto Velho",
+    "sigla": "RO",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -7.8949,
+    "sul": -10.0814,
+    "oeste": -66.9932,
+    "leste": -62.0542
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

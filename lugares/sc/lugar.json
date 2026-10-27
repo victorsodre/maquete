@@ -1,0 +1,29 @@
+{
+  "slug": "sc",
+  "nome": "Santa Catarina",
+  "escala": "estado",
+  "ibge": {
+    "nivel": "estados",
+    "codigo": "42",
+    "nome": "Santa Catarina",
+    "sigla": "SC",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -25.8198,
+    "sul": -29.4911,
+    "oeste": -54.0562,
+    "leste": -48.1394
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

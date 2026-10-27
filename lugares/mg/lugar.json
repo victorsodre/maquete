@@ -1,0 +1,29 @@
+{
+  "slug": "mg",
+  "nome": "Minas Gerais",
+  "escala": "estado",
+  "ibge": {
+    "nivel": "estados",
+    "codigo": "31",
+    "nome": "Minas Gerais",
+    "sigla": "MG",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -13.8857,
+    "sul": -23.2704,
+    "oeste": -51.4937,
+    "leste": -39.4092
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

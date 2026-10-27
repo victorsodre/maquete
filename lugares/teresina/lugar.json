@@ -1,0 +1,30 @@
+{
+  "slug": "teresina",
+  "nome": "Teresina",
+  "escala": "municipio",
+  "ibge": {
+    "nivel": "municipios",
+    "codigo": "2211001",
+    "nome": "Teresina",
+    "sigla": "PI",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -4.7543,
+    "sul": -5.6186,
+    "oeste": -42.9856,
+    "leste": -42.5841
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "copernicus",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 139,
+    "espessura_mm": 3,
+    "material": "compensado",
+    "passo_terra_m": 100
+  }
+}

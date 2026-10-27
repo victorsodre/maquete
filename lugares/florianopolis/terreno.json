@@ -1,0 +1,152 @@
+{
+  "slug": "florianopolis",
+  "largura": 1024,
+  "altura": 2345,
+  "bbox": {
+    "norte": -27.2452,
+    "sul": -27.8712,
+    "oeste": -48.6249,
+    "leste": -48.3165
+  },
+  "graus_por_no": {
+    "lon": 0.0003011718749999989,
+    "lat": 0.00026695095948827346
+  },
+  "metros_por_no": {
+    "x": 29.7,
+    "y": 29.7
+  },
+  "km": {
+    "largura": 30.4,
+    "altura": 69.7
+  },
+  "elev_min_m": -38.3,
+  "elev_max_m": 535.3,
+  "escala": "municipio",
+  "recorte": {
+    "tipo": "contorno",
+    "ibge_nivel": "municipios",
+    "ibge_codigo": "4205407",
+    "nos_dentro": 766760,
+    "fracao_dentro": 0.3193,
+    "nos_fora": 1634520,
+    "nos_chapados": 0
+  },
+  "fontes": [
+    {
+      "id": "gmrt",
+      "url": "https://www.gmrt.org/services/GridServer?north=-27.2452&south=-27.8712&west=-48.6249&east=-48.3165&layer=topo&format=geotiff&mresolution=30",
+      "camada": "topo",
+      "mresolution_pedido": 30,
+      "largura": 564,
+      "altura": 1288,
+      "metros_por_no_devolvido": {
+        "x": 54.3,
+        "y": 54.3
+      },
+      "bbox_devolvido": {
+        "norte": -27.244618838954874,
+        "sul": -27.872345068194797,
+        "oeste": -48.62576342730073,
+        "leste": -48.31539868207427
+      },
+      "nan": 564,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:41:57-03:00",
+      "bytes": 2909534,
+      "sha256": "e968dbc5fe27d125aacdcfc89e7095111517847fce47c46c6587415f818f3bc1",
+      "cache": false
+    },
+    {
+      "id": "gmrt-topo-mask",
+      "url": "https://www.gmrt.org/services/GridServer?north=-27.2452&south=-27.8712&west=-48.6249&east=-48.3165&layer=topo-mask&format=geotiff&mresolution=30",
+      "camada": "topo-mask",
+      "mresolution_pedido": 30,
+      "largura": 564,
+      "altura": 1288,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:42:02-03:00",
+      "bytes": 2909534,
+      "sha256": "c49956265de988252c8baca25a08a754219553c4e151174857432243128a464d",
+      "cache": false
+    },
+    {
+      "id": "copernicus-glo30",
+      "url": "https://copernicus-dem-30m.s3.amazonaws.com",
+      "tiles": [
+        "Copernicus_DSM_COG_10_S28_00_W049_00_DEM"
+      ],
+      "tiles_oceano": [],
+      "overview": 0,
+      "overview_nos": 3600,
+      "graus_por_no": 0.0002777777777777778,
+      "licenca": "Licence for Copernicus DEM instance COP-DEM-GLO-30-F Global 30m Full, Free & Open (ESA; texto em https://documentation.dataspace.copernicus.eu/APIs/SentinelHub/Data/DEM/resources/license/License-COPDEM-30.pdf)",
+      "atribuicao": "produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved. The organisations in charge of the Copernicus programme by law or by delegation do not incur any liability for any use of the Copernicus WorldDEM-30.",
+      "obtido_em": "2026-10-26T22:42:07-03:00",
+      "bytes": 6829920,
+      "sha256": "6a00e4705ae6f15c46b88d555788e6193cdc912a4fe97c78740f76ef9bcd6c67",
+      "detalhe": [
+        {
+          "tile": "Copernicus_DSM_COG_10_S28_00_W049_00_DEM",
+          "janela": [
+            1349,
+            882,
+            2463,
+            3138
+          ],
+          "bytes": 6829920,
+          "pedidos": 5,
+          "sha256": "6a00e4705ae6f15c46b88d555788e6193cdc912a4fe97c78740f76ef9bcd6c67",
+          "obtido_em": "2026-10-26T22:42:07-03:00",
+          "cache": false,
+          "nodata_nos": 0
+        }
+      ]
+    },
+    {
+      "id": "ibge-malha",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/4205407?formato=application/vnd.geo+json&qualidade=maxima",
+      "nivel": "municipios",
+      "codigo": "4205407",
+      "nome": "Florianópolis",
+      "qualidade": "maxima",
+      "poligonos": 12,
+      "aneis": 12,
+      "pontos": 482,
+      "bbox_malha": {
+        "norte": -27.2684,
+        "sul": -27.848,
+        "oeste": -48.6135,
+        "leste": -48.3279
+      },
+      "licenca": "dado público do IBGE (API de localidades e malhas, sem chave); termos de uso do portal a confirmar",
+      "atribuicao": "IBGE, Malhas Territoriais",
+      "obtido_em": "2026-10-26T22:41:52-03:00",
+      "bytes": 10706,
+      "sha256": "70b85f7fdfdcb298805bf629dd687871d0a4ea2fab315c8d2390ddd2058eef90",
+      "cache": true
+    }
+  ],
+  "mascara": {
+    "pct_medido": 5.9,
+    "nos": 17401,
+    "nos_mar": 292847,
+    "base": "nós com elevação <= 0 m"
+  },
+  "nodata_preenchidos": 0,
+  "clampados": {
+    "abaixo": 0,
+    "acima": 0
+  },
+  "fixture": false,
+  "terra": "copernicus",
+  "mar": "gmrt",
+  "convencao": "nó = centro de célula; linha 0 = norte, coluna 0 = oeste; Terrain-RGB h = -10000 + (R*65536 + G*256 + B) * 0,1; h <= -9999 = fora do recorte (nem terra nem mar)",
+  "png": {
+    "bytes": 750713
+  },
+  "gerado_por": "maquete 0.1.0",
+  "gerado_em": "2026-10-26T22:42:09-03:00"
+}

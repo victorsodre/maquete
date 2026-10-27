@@ -1,0 +1,29 @@
+{
+  "slug": "am",
+  "nome": "Amazonas",
+  "escala": "estado",
+  "ibge": {
+    "nivel": "estados",
+    "codigo": "13",
+    "nome": "Amazonas",
+    "sigla": "AM",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": 2.7292,
+    "sul": -10.3006,
+    "oeste": -74.5098,
+    "leste": -55.3894
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

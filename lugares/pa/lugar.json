@@ -1,0 +1,29 @@
+{
+  "slug": "pa",
+  "nome": "Pará",
+  "escala": "estado",
+  "ibge": {
+    "nivel": "estados",
+    "codigo": "15",
+    "nome": "Pará",
+    "sigla": "PA",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": 3.0883,
+    "sul": -10.3385,
+    "oeste": -59.4118,
+    "leste": -45.5483
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

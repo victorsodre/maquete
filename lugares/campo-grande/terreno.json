@@ -1,0 +1,200 @@
+{
+  "slug": "campo-grande",
+  "largura": 1024,
+  "altura": 1175,
+  "bbox": {
+    "norte": -20.1093,
+    "sul": -21.6419,
+    "oeste": -54.9772,
+    "leste": -53.5479
+  },
+  "graus_por_no": {
+    "lon": 0.0013958007812500048,
+    "lat": 0.0013043404255319137
+  },
+  "metros_por_no": {
+    "x": 145.2,
+    "y": 145.2
+  },
+  "km": {
+    "largura": 148.7,
+    "altura": 170.6
+  },
+  "elev_min_m": 238.6,
+  "elev_max_m": 719.1,
+  "escala": "municipio",
+  "recorte": {
+    "tipo": "contorno",
+    "ibge_nivel": "municipios",
+    "ibge_codigo": "5002704",
+    "nos_dentro": 385418,
+    "fracao_dentro": 0.3203,
+    "nos_fora": 817782,
+    "nos_chapados": 0
+  },
+  "fontes": [
+    {
+      "id": "gmrt",
+      "url": "https://www.gmrt.org/services/GridServer?north=-20.1093&south=-21.6419&west=-54.9772&east=-53.5479&layer=topo&format=geotiff&mresolution=145",
+      "camada": "topo",
+      "mresolution_pedido": 145,
+      "largura": 1303,
+      "altura": 1494,
+      "metros_por_no_devolvido": {
+        "x": 114.4,
+        "y": 114.3
+      },
+      "bbox_devolvido": {
+        "norte": -20.10804135345114,
+        "sul": -21.642624810664984,
+        "oeste": -54.97833294143325,
+        "leste": -53.54571491012925
+      },
+      "nan": 1303,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:38:01-03:00",
+      "bytes": 7799046,
+      "sha256": "edd93a5ccdb60be2f089c60cb43b734155ac1334d9e447be01eb21c1fa777d81",
+      "cache": false
+    },
+    {
+      "id": "gmrt-topo-mask",
+      "url": "https://www.gmrt.org/services/GridServer?north=-20.1093&south=-21.6419&west=-54.9772&east=-53.5479&layer=topo-mask&format=geotiff&mresolution=145",
+      "camada": "topo-mask",
+      "mresolution_pedido": 145,
+      "largura": 1303,
+      "altura": 1494,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:38:12-03:00",
+      "bytes": 7799046,
+      "sha256": "edd93a5ccdb60be2f089c60cb43b734155ac1334d9e447be01eb21c1fa777d81",
+      "cache": false
+    },
+    {
+      "id": "copernicus-glo30",
+      "url": "https://copernicus-dem-30m.s3.amazonaws.com",
+      "tiles": [
+        "Copernicus_DSM_COG_10_S21_00_W054_00_DEM",
+        "Copernicus_DSM_COG_10_S21_00_W055_00_DEM",
+        "Copernicus_DSM_COG_10_S22_00_W054_00_DEM",
+        "Copernicus_DSM_COG_10_S22_00_W055_00_DEM"
+      ],
+      "tiles_oceano": [],
+      "overview": 2,
+      "overview_nos": 900,
+      "graus_por_no": 0.0011111111111111111,
+      "licenca": "Licence for Copernicus DEM instance COP-DEM-GLO-30-F Global 30m Full, Free & Open (ESA; texto em https://documentation.dataspace.copernicus.eu/APIs/SentinelHub/Data/DEM/resources/license/License-COPDEM-30.pdf)",
+      "atribuicao": "produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved. The organisations in charge of the Copernicus programme by law or by delegation do not incur any liability for any use of the Copernicus WorldDEM-30.",
+      "obtido_em": "2026-10-26T22:38:17-03:00",
+      "bytes": 9175048,
+      "sha256": "cccac586aa252477a97b4f5591ca4536844af81649af4f36e703fa52d4fcabb3",
+      "detalhe": [
+        {
+          "tile": "Copernicus_DSM_COG_10_S21_00_W054_00_DEM",
+          "janela": [
+            0,
+            97,
+            409,
+            900
+          ],
+          "bytes": 2359298,
+          "pedidos": 2,
+          "sha256": "e084fa2c5dca813cbf3e0197a6bf061221b977a329714aa0e35587c051ac7fd9",
+          "obtido_em": "2026-10-26T22:38:17-03:00",
+          "cache": false,
+          "nodata_nos": 0
+        },
+        {
+          "tile": "Copernicus_DSM_COG_10_S21_00_W055_00_DEM",
+          "janela": [
+            19,
+            97,
+            900,
+            900
+          ],
+          "bytes": 2359298,
+          "pedidos": 2,
+          "sha256": "873d97679ac3cc20b9a01d6b880d77903f63fae14d5ddc7da6d85a362da25086",
+          "obtido_em": "2026-10-26T22:38:15-03:00",
+          "cache": false,
+          "nodata_nos": 0
+        },
+        {
+          "tile": "Copernicus_DSM_COG_10_S22_00_W054_00_DEM",
+          "janela": [
+            0,
+            0,
+            409,
+            579
+          ],
+          "bytes": 2228226,
+          "pedidos": 2,
+          "sha256": "464d43ffcd07d2c9553cd48e4a9cd727122de6b00d634716e71cb29a5d5d69ff",
+          "obtido_em": "2026-10-26T22:38:16-03:00",
+          "cache": false,
+          "nodata_nos": 0
+        },
+        {
+          "tile": "Copernicus_DSM_COG_10_S22_00_W055_00_DEM",
+          "janela": [
+            19,
+            0,
+            900,
+            579
+          ],
+          "bytes": 2228226,
+          "pedidos": 2,
+          "sha256": "5b0efdf601806f22c8288b7685f0dce51c8a681efb384aca645f9aa538ce1b66",
+          "obtido_em": "2026-10-26T22:38:16-03:00",
+          "cache": false,
+          "nodata_nos": 0
+        }
+      ]
+    },
+    {
+      "id": "ibge-malha",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/5002704?formato=application/vnd.geo+json&qualidade=maxima",
+      "nivel": "municipios",
+      "codigo": "5002704",
+      "nome": "Campo Grande",
+      "qualidade": "maxima",
+      "poligonos": 1,
+      "aneis": 1,
+      "pontos": 2479,
+      "bbox_malha": {
+        "norte": -20.1661,
+        "sul": -21.5851,
+        "oeste": -54.9243,
+        "leste": -53.6008
+      },
+      "licenca": "dado público do IBGE (API de localidades e malhas, sem chave); termos de uso do portal a confirmar",
+      "atribuicao": "IBGE, Malhas Territoriais",
+      "obtido_em": "2026-10-26T22:37:47-03:00",
+      "bytes": 54160,
+      "sha256": "b70b219b0a840dbb5ff9039ddc3cf50180c52dfa82710b446581f47a544ef42a",
+      "cache": true
+    }
+  ],
+  "mascara": {
+    "pct_medido": 0,
+    "nos": 0,
+    "nos_mar": 0,
+    "base": "nós com elevação <= 0 m"
+  },
+  "nodata_preenchidos": 0,
+  "clampados": {
+    "abaixo": 0,
+    "acima": 0
+  },
+  "fixture": false,
+  "terra": "copernicus",
+  "mar": "gmrt",
+  "convencao": "nó = centro de célula; linha 0 = norte, coluna 0 = oeste; Terrain-RGB h = -10000 + (R*65536 + G*256 + B) * 0,1; h <= -9999 = fora do recorte (nem terra nem mar)",
+  "png": {
+    "bytes": 520351
+  },
+  "gerado_por": "maquete 0.1.0",
+  "gerado_em": "2026-10-26T22:38:18-03:00"
+}

@@ -1,0 +1,29 @@
+{
+  "slug": "es",
+  "nome": "Espírito Santo",
+  "escala": "estado",
+  "ibge": {
+    "nivel": "estados",
+    "codigo": "32",
+    "nome": "Espírito Santo",
+    "sigla": "ES",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -17.7555,
+    "sul": -21.4375,
+    "oeste": -41.9681,
+    "leste": -39.5793
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 183,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

@@ -38,7 +38,9 @@ canvas#cena { display: block; width: 100%; height: 100%; outline: none; }
 .topo p[hidden] { display: none; }
 
 .barra {
-  position: absolute; left: 50%; bottom: calc(var(--creditos-h, 34px) + 20px); transform: translateX(-50%);
+  /* left/right + width fit-content + margin auto: centrada e com a largura toda da tela para caber numa linha
+     (left: 50% + translate encolhia a barra a meia tela e ela quebrava cedo); --creditos-h é medida pelo app.js */
+  position: absolute; left: 12px; right: 12px; margin: 0 auto; width: fit-content; bottom: calc(var(--creditos-h, 34px) + 20px);
   display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: center;
   background: var(--painel); border: 1px solid var(--linha); border-radius: var(--r);
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
@@ -58,6 +60,10 @@ canvas#cena { display: block; width: 100%; height: 100%; outline: none; }
   font: 500 12px/1.2 inherit; font-family: inherit; color: var(--ink); background: #fff; border: 1px solid var(--linha);
   border-radius: var(--r); padding: 6px 8px; text-transform: none; letter-spacing: 0;
 }
+/* escala e lugar (de lugares/index.json): nomes longos cortam com reticências, nunca passam por cima do vizinho */
+.campo[hidden] { display: none; }
+.campo-navegar select { max-width: 220px; min-width: 96px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#escala { min-width: 88px; }
 input[type=range] { -webkit-appearance: none; appearance: none; width: 150px; height: 22px; background: transparent; cursor: ew-resize; }
 input[type=range]::-webkit-slider-runnable-track { height: 2px; background: rgba(42, 37, 34, 0.25); border-radius: 1px; }
 input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; margin-top: -6px; border-radius: 50%; background: var(--acento); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25); }
@@ -89,6 +95,7 @@ input[type=range]:disabled { opacity: 0.4; cursor: default; }
 @media (max-width: 640px) {
   .topo { max-width: calc(100vw - 24px); }
   .barra { gap: 10px; }
+  .campo-navegar select { max-width: 150px; }
   input[type=range] { width: 110px; }
   .creditos { font-size: 9.5px; max-width: calc(100vw - 24px); }
 }

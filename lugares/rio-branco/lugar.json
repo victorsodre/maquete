@@ -1,0 +1,29 @@
+{
+  "slug": "rio-branco",
+  "nome": "Rio Branco",
+  "escala": "municipio",
+  "ibge": {
+    "nivel": "municipios",
+    "codigo": "1200401",
+    "nome": "Rio Branco",
+    "sigla": "AC",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -9.466,
+    "sul": -10.5245,
+    "oeste": -69.4391,
+    "leste": -67.4069
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

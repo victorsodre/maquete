@@ -1,0 +1,29 @@
+{
+  "slug": "ap",
+  "nome": "Amapá",
+  "escala": "estado",
+  "ibge": {
+    "nivel": "estados",
+    "codigo": "16",
+    "nome": "Amapá",
+    "sigla": "AP",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": 4.7386,
+    "sul": -1.466,
+    "oeste": -55.0763,
+    "leste": -49.6758
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 261,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

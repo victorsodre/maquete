@@ -8,14 +8,38 @@
 // anti-horário, furos horários, fechados implicitamente, 2 casas decimais. Lâmina 0 é o retângulo.
 import fs from 'node:fs';
 import path from 'node:path';
-import { lerTerrenoPng, agoraIso, fmtBytes, fmtSegundos, fmtNum, minMax, arredondar } from './terrain.mjs';
-import { lerLugar, raizDosLugares } from './index.mjs';
+import { lerTerrenoPng, agoraIso, fmtBytes, fmtSegundos, fmtNum, minMax, arredondar, preencherNaN } from './terrain.mjs';
+import { lerLugar, raizDosLugares, KM_MAX_COPERNICUS_MUNICIPIO } from './index.mjs';
 import { PACOTE, escreverJson, ehPrincipal } from './rede.mjs';
 import { contours } from '../web/vendor/d3/d3-contour/src/index.js';
 import { blur2 } from '../web/vendor/d3/d3-array/src/blur.js';
 
-export const PASSOS_M = [5, 10, 20, 25, 50, 100, 200, 250, 500];
+export const PASSOS_M = [5, 10, 20, 25, 50, 100, 200, 250, 500, 750, 1000];
 export const MAX_LAMINAS_TERRA = 24;
+// Escalas (lugar.json "escala"; ausente = local). Nas três grandes, e no município com mais de 150 km
+// de largura (terra do GMRT), o passo da terra sai do percentil 99 das elevações de terra dentro do
+// recorte, contado a partir da base (8 a 14 lâminas até o P99, exagero até 500x). Teto: o nível logo
+// acima do P99 mais 3 passos (nunca acima de base + 16 passos); cume acima do teto é achatado na última
+// lâmina e o nível fica em "teto_m". Mar em caixa: no máximo 6 lâminas; em contorno, passo do mar igual
+// ao da terra e no máximo 2 lâminas de mar (bolsões abaixo de 0 m dentro do território).
+export const ESCALAS = ['pais', 'regiao', 'estado', 'municipio', 'local'];
+export const ESCALAS_GRANDES = ['pais', 'regiao', 'estado'];
+export const RECORTES = ['contorno', 'caixa'];
+export const MIN_LAMINAS_TERRA_ESCALA = 8;
+export const MAX_LAMINAS_TERRA_ESCALA = 14;
+export const TETO_LAMINAS_TERRA_ESCALA = 16;
+export const LAMINAS_ACIMA_P99 = 2;
+export const EXAGERO_TERRA_ESCALA_MAX = 500;
+export const MAX_LAMINAS_MAR_ESCALA = 6;
+export const MAX_LAMINAS_MAR_CONTORNO = 2;
+export const KM_MUNICIPIO_GRANDE = KM_MAX_COPERNICUS_MUNICIPIO;
+export const PERCENTIL_TERRA_ESCALA = 0.99;
+// Placa de água: só onde a terra suavizada fica abaixo de 0 m. Um nó em 0 m exato (vizinho chapado pelo
+// recorte caixa, platô do GMRT) recebe este valor negativo no campo contornado para ficar de fora.
+export const AGUA_EPS_M = 0.01;
+// Nó FORA do recorte: o terreno.png grava -10000 m exato (R=G=B=0); quem lê trata h <= -9999 como fora
+// (não é terra nem mar): sai de mínimo, máximo, percentil e de todo contorno.
+export const FORA_M = -9999;
 export const MAX_LAMINAS_MAR = 8;
 export const MIN_LAMINAS_MAR = 2;
 // Terra com menos lâminas que isso é "lugar plano": pode exagerar mais para não ficar sem relevo.
@@ -27,6 +51,9 @@ export const EXAGERO_TERRA_PLANA_MAX = 12;
 export const EXAGERO_MAR_MAX = 30;
 // O GMRT fora do multifeixe é GEBCO a ~450 m por nó, reamostrado em blocos: o raio do mar cobre um bloco.
 export const METROS_BLOCO_GEBCO = 450;
+// Nas escalas por percentil, anel de terra acima do P99 só entra com esta área: anéis de 10 a 20 mm²
+// nesses níveis são torres de um nó (chaminé da Neblina no Brasil, lasca na costa do ES), não montanha.
+export const AREA_MIN_TORRE_MM2 = 30;
 
 export const PADROES = Object.freeze({
   largura_mm: 300,
@@ -62,15 +89,26 @@ Opções (a linha de comando vence o bloco "maquete" do lugar.json, que vence o 
                        e até ${MAX_LAMINAS_TERRA} lâminas; lugar plano, com menos de ${MIN_LAMINAS_TERRA_PLANA} lâminas, aceita até ${EXAGERO_TERRA_PLANA_MAX}x)
   --passo-mar N        metros por lâmina no mar (padrão: o menor que dê até ${MAX_LAMINAS_MAR} lâminas, subindo até o
                        exagero do mar ficar em ${EXAGERO_MAR_MAX}x, sem descer de ${MIN_LAMINAS_MAR} lâminas)
-  --suavizar-terra N   raio do blur na terra, em nós (padrão ${PADROES.suavizar_terra_nos_fino} abaixo de ${PADROES.metros_por_no_fino} m por nó, senão ${PADROES.suavizar_terra_nos})
+  --suavizar-terra N   raio do blur na terra, em nós (padrão ${PADROES.suavizar_terra_nos_fino} abaixo de ${PADROES.metros_por_no_fino} m por nó, senão ${PADROES.suavizar_terra_nos};
+                       terra vinda do GMRT no lugar.json: ceil(${METROS_BLOCO_GEBCO} / metros por nó), como no mar)
   --suavizar-mar N     raio do blur no mar, em nós (padrão ceil(${METROS_BLOCO_GEBCO} / metros por nó))
   --area-min N         área mínima de um anel externo em mm² (padrão ${PADROES.area_min_mm2}; furos: ${PADROES.area_min_furo_mm2})
   --tolerancia-mm N    tolerância do Douglas-Peucker em mm (padrão ${PADROES.tolerancia_mm})
+  --escala E           ${ESCALAS.join(' | ')} (padrão: "escala" do lugar.json, senão local). Em estado, regiao,
+                       pais e municipio com mais de ${KM_MUNICIPIO_GRANDE} km o passo da terra sai do percentil 99 da terra, contado
+                       a partir da base (${MIN_LAMINAS_TERRA_ESCALA} a ${MAX_LAMINAS_TERRA_ESCALA} lâminas até o P99, exagero até ${EXAGERO_TERRA_ESCALA_MAX}x); teto = nível logo
+                       acima do P99 + ${LAMINAS_ACIMA_P99} passos (no máximo base + ${TETO_LAMINAS_TERRA_ESCALA} passos), cume acima é achatado, nível
+                       em "teto_m"; mar em caixa com até ${MAX_LAMINAS_MAR_ESCALA} lâminas. Esses passos não vão para o lugar.json
+  --recorte R          contorno | caixa (padrão: "recorte" do lugar.json; contorno se o terreno tem nós fora).
+                       Em contorno o mar são só os bolsões abaixo de 0 m dentro do território: passo do mar =
+                       passo da terra, subindo até caber em ${MAX_LAMINAS_MAR_CONTORNO} lâminas de mar; lâminas 0 e 1 são a base (terra)
   --silencioso         só erros
   --ajuda, -h          esta ajuda
 
-Sem --passo-terra/--passo-mar e sem passos no lugar.json, os passos escolhidos são gravados no bloco
-"maquete" do lugar.json, para a rodada seguinte sair igual. Antes, rode: node cli/index.mjs <slug>.`;
+Sem --passo-terra/--passo-mar e sem passos no lugar.json, os passos escolhidos pelas regras de local são
+gravados no bloco "maquete" do lugar.json, para a rodada seguinte sair igual; os passos das regras de
+escala (percentil 99) e o passo do mar em contorno saem da regra a cada rodada e não são gravados.
+Antes, rode: node cli/index.mjs <slug>.`;
 
 // ---------------------------------------------------------------------------
 // Passos e níveis
@@ -138,23 +176,94 @@ export function escolherPassoMar({ elevMin, espessuraMm = PADROES.espessura_mm, 
   return passos[i];
 }
 
+// Passo da terra nas escalas grandes (estado, região, país, município acima de 150 km): o menor passo
+// da lista que dá até `maximo` lâminas de terra entre a base (`elevMin`; com mar, 0) e o percentil 99
+// (`elevP99`), não o máximo: um pico isolado (a Neblina no Amazonas) não dita o passo. Só entram os
+// passos com exagero até `exageroMax` (500x; precisa de `mmPorKm`): se com eles não dá para chegar a
+// `minimo` lâminas, fica o menor passo permitido (menos lâminas: planície é planície). Se o passo
+// escolhido fica abaixo de `minimo` e o anterior permitido passa de `maximo`, vence o que fica mais
+// perto da faixa (empate: o menor passo, mais detalhe). O exagero é declarado, nunca escondido.
+export function escolherPassoTerraEscala({ elevP99, elevMin = 0, espessuraMm = PADROES.espessura_mm, mmPorKm = null }, {
+  minimo = MIN_LAMINAS_TERRA_ESCALA, maximo = MAX_LAMINAS_TERRA_ESCALA, exageroMax = EXAGERO_TERRA_ESCALA_MAX, passos = PASSOS_M,
+} = {}) {
+  if (!(elevP99 > 0)) throw new Error(`escolherPassoTerraEscala: elevP99 precisa ser > 0 (veio ${elevP99})`);
+  if (!(elevP99 >= elevMin)) throw new Error(`escolherPassoTerraEscala: elevP99 (${elevP99}) abaixo da base (${elevMin})`);
+  const contar = (p) => contarNiveisTerra(elevP99, p, elevMin);
+  let permitidos = passos;
+  if (mmPorKm > 0 && Number.isFinite(exageroMax)) {
+    permitidos = passos.filter((p) => exageroDe(espessuraMm, p, mmPorKm) <= exageroMax);
+    if (!permitidos.length) permitidos = [passos[passos.length - 1]];
+  }
+  const ultimo = permitidos.length - 1;
+  let i = permitidos.findIndex((p) => contar(p) <= maximo);
+  if (i < 0) return permitidos[ultimo];
+  const n = contar(permitidos[i]);
+  if (n >= minimo || i === 0) return permitidos[i];
+  const anterior = contar(permitidos[i - 1]);
+  return anterior - maximo <= minimo - n ? permitidos[i - 1] : permitidos[i];
+}
+
+// Passo do mar em recorte contorno: o mar são só os bolsões abaixo de 0 m dentro do território (leito
+// de rio, lagoa). Parte do passo da terra e sobe na lista até o mar caber em `maximo` lâminas de tipo
+// "mar" (as lâminas 0 e 1, a base, não contam). Se nem o maior passo basta, fica o maior.
+export function escolherPassoMarContorno({ elevMin, passoTerra }, { maximo = MAX_LAMINAS_MAR_CONTORNO, passos = PASSOS_M } = {}) {
+  if (!(passoTerra > 0)) throw new Error(`passo de terra inválido: ${passoTerra}`);
+  let p = passoTerra;
+  const laminasMar = (passo) => Math.max(0, contarNiveisMar(elevMin, passo) - 1);
+  while (laminasMar(p) > maximo) {
+    const proximo = passos.find((q) => q > p);
+    if (proximo === undefined) break;
+    p = proximo;
+  }
+  return p;
+}
+
+// Teto das lâminas de terra: o nível da última lâmina mantida; tudo acima dele fica achatado nela.
+// Sem `elevP99`: base + `teto` passos (16). Com `elevP99`: o nível logo acima do P99 mais `acima`
+// passos (3), sem passar de base + `teto` passos. null quando a pilha natural não passa do teto.
+export function tetoDaTerra({ elevMax, elevMin = 0, passo, elevP99 = null, teto = TETO_LAMINAS_TERRA_ESCALA, acima = LAMINAS_ACIMA_P99 }) {
+  if (!(passo > 0)) throw new Error(`passo de terra inválido: ${passo}`);
+  const base = elevMin < 0 ? 0 : Math.floor(elevMin / passo) * passo;
+  let tetoM = base + teto * passo;
+  if (elevP99 != null) {
+    if (!(elevP99 > 0)) throw new Error(`tetoDaTerra: elevP99 precisa ser > 0 (veio ${elevP99})`);
+    tetoM = Math.min(tetoM, (Math.floor(elevP99 / passo) + 1 + acima) * passo);
+  }
+  const ultimo = (Math.ceil(elevMax / passo) - 1) * passo;   // o último nível natural (< elevMax)
+  return ultimo > tetoM ? tetoM : null;
+}
+
+// Percentil `p` (0..1) pelo posto mais próximo, ignorando NaN. null se não há valor.
+export function percentil(valores, p) {
+  let n = 0;
+  for (let k = 0; k < valores.length; k++) if (valores[k] === valores[k]) n++;
+  if (!n) return null;
+  const v = new Float32Array(n);
+  for (let k = 0, i = 0; k < valores.length; k++) if (valores[k] === valores[k]) v[i++] = valores[k];
+  v.sort();
+  const i = Math.min(n - 1, Math.max(0, Math.ceil(p * n) - 1));
+  return v[i];
+}
+
 // Lista de níveis da pilha, de baixo para cima: [{ nivel_m, tipo }].
 // Com mar (elevMin < 0): múltiplos de passoMar de floor(elevMin/passoMar)*passoMar até -passoMar,
 // depois 0 (costa, se houver terra), depois múltiplos de passoTerra abaixo de elevMax.
 // Sem mar: a base é floor(elevMin/passoTerra)*passoTerra (retângulo) e sobe em passoTerra.
-export function niveisDe({ elevMin, elevMax, passoTerra, passoMar }) {
+// Com `tetoM` (escalas grandes), a terra para no nível tetoM, inclusive, mesmo que elevMax seja maior.
+export function niveisDe({ elevMin, elevMax, passoTerra, passoMar, tetoM = null }) {
   if (!(passoTerra > 0)) throw new Error(`passo de terra inválido: ${passoTerra}`);
+  const cabe = tetoM != null ? (n) => n <= tetoM && n < elevMax : (n) => n < elevMax;
   const niveis = [];
   if (elevMin < 0) {
     if (!(passoMar > 0)) throw new Error(`passo de mar inválido: ${passoMar}`);
     const base = Math.floor(elevMin / passoMar) * passoMar;
     for (let n = base; n <= -passoMar; n += passoMar) niveis.push({ nivel_m: n, tipo: 'mar' });
     if (elevMax >= 0) niveis.push({ nivel_m: 0, tipo: 'costa' });
-    for (let n = passoTerra; n < elevMax; n += passoTerra) niveis.push({ nivel_m: n, tipo: 'terra' });
+    for (let n = passoTerra; cabe(n); n += passoTerra) niveis.push({ nivel_m: n, tipo: 'terra' });
   } else {
     const base = Math.floor(elevMin / passoTerra) * passoTerra;
     niveis.push({ nivel_m: base, tipo: 'terra' });
-    for (let n = base + passoTerra; n < elevMax; n += passoTerra) niveis.push({ nivel_m: n, tipo: 'terra' });
+    for (let n = base + passoTerra; cabe(n); n += passoTerra) niveis.push({ nivel_m: n, tipo: 'terra' });
   }
   return niveis;
 }
@@ -291,16 +400,44 @@ export function retanguloDaPeca(larguraMm, alturaMm) {
 // Dois campos borrados: terra (raio pequeno; o Copernicus é modelo de superfície e prédio vira confete)
 // e mar (raio grande, um bloco do GEBCO). O campo do mar recebe, nos nós de terra (terra >= 0), o
 // máximo entre os dois, para a costa caber dentro de toda lâmina de mar: a pilha fica encaixada.
-export function suavizarCampos(alturas, w, h, raioTerra, raioMar) {
+// Com `fora` (Uint8Array, 1 = nó fora do recorte), os nós fora recebem antes do blur o valor do vizinho
+// válido mais próximo (preencherNaN), para o -10000 não vazar para dentro do polígono; depois do blur
+// voltam a NaN nos dois campos, e o d3-contour trata NaN como abaixo de todo nível.
+export function suavizarCampos(alturas, w, h, raioTerra, raioMar, fora = null) {
   const n = w * h;
   if (alturas.length !== n) throw new Error(`suavizarCampos: ${alturas.length} valores para uma grade ${w}x${h}`);
-  const terra = new Float32Array(alturas);
+  if (fora && fora.length !== n) throw new Error(`suavizarCampos: máscara com ${fora.length} nós para uma grade ${w}x${h}`);
+  let base = alturas;
+  if (fora) {
+    base = new Float32Array(alturas);
+    for (let k = 0; k < n; k++) if (fora[k]) base[k] = NaN;
+    preencherNaN(base, w, h);
+  }
+  const terra = new Float32Array(base);
   if (raioTerra > 0) blur2({ data: terra, width: w, height: h }, raioTerra);
-  const borradoMar = new Float32Array(alturas);
+  const borradoMar = new Float32Array(base);
   if (raioMar > 0) blur2({ data: borradoMar, width: w, height: h }, raioMar);
   const mar = new Float32Array(n);
   for (let k = 0; k < n; k++) mar[k] = terra[k] >= 0 ? Math.max(borradoMar[k], terra[k]) : borradoMar[k];
+  if (fora) for (let k = 0; k < n; k++) if (fora[k]) terra[k] = mar[k] = NaN;
   return { terra, mar };
+}
+
+// Máscara dos nós fora do recorte (h <= FORA_M): Uint8Array com 1 nos nós fora, ou null se não há nenhum.
+export function mascaraFora(alturas) {
+  let fora = null;
+  for (let k = 0; k < alturas.length; k++) {
+    if (alturas[k] <= FORA_M) { if (!fora) fora = new Uint8Array(alturas.length); fora[k] = 1; }
+  }
+  return fora;
+}
+
+// Mínimo e máximo ignorando os nós da máscara.
+export function minMaxDentro(a, fora = null) {
+  if (!fora) return minMax(a);
+  let mn = Infinity, mx = -Infinity;
+  for (let k = 0; k < a.length; k++) { if (fora[k]) continue; const v = a[k]; if (v === v) { if (v < mn) mn = v; if (v > mx) mx = v; } }
+  return { min: mn, max: mx };
 }
 
 // d3-contour: um MultiPolygon por nível, em coordenadas de célula. Devolve Map nível -> MultiPolygon.
@@ -341,51 +478,113 @@ export function gerarLaminas({ alturas, w, h, metrosPorNo, km, opcoes = {} }) {
   const mmPorKm = larguraMm / km.largura;
   const alturaMm = Math.round(km.altura * mmPorKm * 50) / 50;
   const mpn = metrosPorNoDe(metrosPorNo);
+  // terra vinda do GMRT (lugar.json terra = "gmrt"): é GEBCO a ~450 m reamostrado, como no mar; o blur
+  // de 1 nó numa grade de 55 m deixa degraus quadrados (Manaus em confete)
+  const terraGmrt = opcoes.terra === 'gmrt';
   const suavizar = {
-    terra_nos: opcoes.suavizar_terra_nos ?? suavizarTerraPadrao(mpn),
+    terra_nos: opcoes.suavizar_terra_nos ?? (terraGmrt ? Math.ceil(METROS_BLOCO_GEBCO / mpn) : suavizarTerraPadrao(mpn)),
     mar_nos: opcoes.suavizar_mar_nos ?? Math.ceil(METROS_BLOCO_GEBCO / mpn),
   };
   const avisos = [];
 
-  // 1) suavização por tipo
-  const bruta = minMax(alturas);
-  const campos = suavizarCampos(alturas, w, h, suavizar.terra_nos, suavizar.mar_nos);
+  // 0) escala e recorte: nó FORA (h <= FORA_M) não é terra nem mar; com algum nó fora o recorte é contorno
+  const escala = opcoes.escala ?? 'local';
+  if (!ESCALAS.includes(escala)) throw new Error(`escala desconhecida: "${escala}" (${ESCALAS.join(', ')})`);
+  if (opcoes.recorte != null && !RECORTES.includes(opcoes.recorte)) throw new Error(`recorte desconhecido: "${opcoes.recorte}" (${RECORTES.join(', ')})`);
+  const fora = mascaraFora(alturas);
+  if (fora && opcoes.recorte === 'caixa') avisos.push('recorte "caixa" com nós fora do recorte no terreno: tratado como "contorno"');
+  const contorno = !!fora || opcoes.recorte === 'contorno';
+  const recorte = contorno ? 'contorno' : 'caixa';
+  // regras de escala: as três grandes e o município com mais de 150 km de largura (terra do GMRT)
+  const grande = ESCALAS_GRANDES.includes(escala) || (escala === 'municipio' && km.largura > KM_MUNICIPIO_GRANDE);
+  if (fora) {
+    let n = 0;
+    for (let k = 0; k < fora.length; k++) n += fora[k];
+    if (n === fora.length) throw new Error('todos os nós estão fora do recorte: nada para contornar');
+  }
+
+  // 1) suavização por tipo (os nós fora saem de mínimo, máximo e percentil)
+  const bruta = minMaxDentro(alturas, fora);
+  const campos = suavizarCampos(alturas, w, h, suavizar.terra_nos, suavizar.mar_nos, fora);
   const exTerra = minMax(campos.terra), exMar = minMax(campos.mar);
   // os níveis saem dos campos contornados: o mínimo do campo do mar e o máximo do campo da terra,
   // senão a lâmina de cima (ou a de baixo) podia sair vazia ou repetir o retângulo
   const elevMin = Math.min(exTerra.min, exMar.min);
   const elevMax = exTerra.max;
   const temMar = elevMin < 0;
+  // percentil 99 da terra (h > 0) dentro do recorte: nas escalas grandes é ele que dita o passo
+  let elevP99 = null;
+  if (grande) {
+    const terra = new Float32Array(campos.terra.length).fill(NaN);
+    for (let k = 0; k < terra.length; k++) if (campos.terra[k] > 0) terra[k] = campos.terra[k];
+    elevP99 = percentil(terra, PERCENTIL_TERRA_ESCALA);
+  }
 
   // 2) passos: o exagero é consequência da espessura, do passo e da escala; os tetos valem só para
-  // o passo escolhido aqui (passo vindo do lugar.json ou da linha de comando só gera aviso)
-  const passoTerra = conferirPasso('passo_terra_m', opcoes.passo_terra_m) ?? escolherPassoTerra({ elevMax, elevMin, espessuraMm, mmPorKm });
-  const passoMar = temMar ? (conferirPasso('passo_mar_m', opcoes.passo_mar_m) ?? escolherPassoMar({ elevMin, espessuraMm, mmPorKm })) : null;
-  const escolhidos = { passo_terra_m: opcoes.passo_terra_m == null, passo_mar_m: temMar && opcoes.passo_mar_m == null };
-  const nTerra = contarNiveisTerra(elevMax, passoTerra, elevMin);
+  // o passo escolhido aqui (passo vindo do lugar.json ou da linha de comando só gera aviso).
+  // Escala grande: terra pelo percentil 99 a partir da base (8 a 14 lâminas, exagero até 500x), teto
+  // no nível acima do P99 + 3 passos (máximo base + 16); mar em caixa com até 6 lâminas. Em contorno
+  // o mar segue o passo da terra, subindo até caber em 2 lâminas.
+  const porPercentil = grande && elevP99 > 0;
+  const passoTerra = conferirPasso('passo_terra_m', opcoes.passo_terra_m)
+    ?? (porPercentil ? escolherPassoTerraEscala({ elevP99, elevMin, espessuraMm, mmPorKm }) : escolherPassoTerra({ elevMax, elevMin, espessuraMm, mmPorKm }));
+  const passoMar = temMar
+    ? (conferirPasso('passo_mar_m', opcoes.passo_mar_m) ?? (contorno
+      ? escolherPassoMarContorno({ elevMin, passoTerra })
+      : grande
+        ? escolherPassoMar({ elevMin, espessuraMm, mmPorKm }, { maximo: MAX_LAMINAS_MAR_ESCALA, exageroMax: Infinity })
+        : escolherPassoMar({ elevMin, espessuraMm, mmPorKm })))
+    : null;
+  // o que vai para o lugar.json: só os passos das regras de local; os das regras de escala (percentil)
+  // e o do mar em contorno saem da regra a cada rodada, senão uma regra nova nunca chega aos lugares
+  const escolhidos = { passo_terra_m: opcoes.passo_terra_m == null && !porPercentil, passo_mar_m: temMar && opcoes.passo_mar_m == null && !contorno && !grande };
+  let tetoM = grande ? tetoDaTerra({ elevMax, elevMin, passo: passoTerra, elevP99: porPercentil ? elevP99 : null }) : null;
+  const nTerraTotal = contarNiveisTerra(elevMax, passoTerra, elevMin);
+  const nTerra = tetoM != null ? Math.min(nTerraTotal, TETO_LAMINAS_TERRA_ESCALA) : nTerraTotal;
   const nMar = temMar ? contarNiveisMar(elevMin, passoMar) : 0;
   const exagero = arredondar(exageroDe(espessuraMm, passoTerra, mmPorKm), 1);
   const exageroMar = temMar ? arredondar(exageroDe(espessuraMm, passoMar, mmPorKm), 1) : null;
-  if (nTerra > MAX_LAMINAS_TERRA) avisos.push(`terra com ${nTerra} lâminas (mais que ${MAX_LAMINAS_TERRA}) no passo ${passoTerra} m`);
-  if (temMar && nMar > MAX_LAMINAS_MAR) avisos.push(`mar com ${nMar} lâminas (mais que ${MAX_LAMINAS_MAR}) no passo ${passoMar} m`);
-  if (exagero > EXAGERO_TERRA_MAX) {
-    if (escolhidos.passo_terra_m && exagero <= EXAGERO_TERRA_PLANA_MAX) avisos.push(`lugar plano: terra com ${nTerra} lâminas no passo ${passoTerra} m, exagero ${fmtNum(exagero)}x (acima de ${EXAGERO_TERRA_MAX}x, dentro de ${EXAGERO_TERRA_PLANA_MAX}x)`);
-    else avisos.push(`exagero da terra ${fmtNum(exagero)}x (acima de ${EXAGERO_TERRA_MAX}x) no passo ${passoTerra} m`);
+  if (grande) {
+    if (porPercentil) avisos.push(`escala ${escala}: passo da terra ${passoTerra} m pelo percentil 99 (${fmtNum(elevP99)} m, ${contarNiveisTerra(elevP99, passoTerra, elevMin)} lâminas da base até ele); exagero ${fmtNum(exagero)}x declarado (teto ${EXAGERO_TERRA_ESCALA_MAX}x)`);
+    else avisos.push(`escala ${escala}: sem terra acima de 0 m, passo da terra pelas regras de local`);
+    if (tetoM != null) avisos.push(`teto da terra em ${tetoM} m (nível acima do P99 + ${LAMINAS_ACIMA_P99} passos, no máximo ${TETO_LAMINAS_TERRA_ESCALA} lâminas): cumes acima dele achatados na última lâmina (máximo ${fmtNum(elevMax)} m)`);
+    if (temMar && !contorno && nMar > MAX_LAMINAS_MAR_ESCALA) avisos.push(`mar com ${nMar} lâminas (mais que ${MAX_LAMINAS_MAR_ESCALA}) no passo ${passoMar} m`);
+    if (temMar && contorno && nMar - 1 > MAX_LAMINAS_MAR_CONTORNO) avisos.push(`mar em contorno com ${nMar - 1} lâminas (mais que ${MAX_LAMINAS_MAR_CONTORNO}) no passo ${passoMar} m`);
+  } else {
+    if (nTerra > MAX_LAMINAS_TERRA) avisos.push(`terra com ${nTerra} lâminas (mais que ${MAX_LAMINAS_TERRA}) no passo ${passoTerra} m`);
+    if (temMar && nMar > MAX_LAMINAS_MAR) avisos.push(`mar com ${nMar} lâminas (mais que ${MAX_LAMINAS_MAR}) no passo ${passoMar} m`);
+    if (exagero > EXAGERO_TERRA_MAX) {
+      if (escolhidos.passo_terra_m && exagero <= EXAGERO_TERRA_PLANA_MAX) avisos.push(`lugar plano: terra com ${nTerra} lâminas no passo ${passoTerra} m, exagero ${fmtNum(exagero)}x (acima de ${EXAGERO_TERRA_MAX}x, dentro de ${EXAGERO_TERRA_PLANA_MAX}x)`);
+      else avisos.push(`exagero da terra ${fmtNum(exagero)}x (acima de ${EXAGERO_TERRA_MAX}x) no passo ${passoTerra} m`);
+    }
+    if (temMar && exageroMar > EXAGERO_MAR_MAX) avisos.push(`exagero do mar ${fmtNum(exageroMar)}x (acima de ${EXAGERO_MAR_MAX}x) no passo ${passoMar} m`);
   }
-  if (temMar && exageroMar > EXAGERO_MAR_MAX) avisos.push(`exagero do mar ${fmtNum(exageroMar)}x (acima de ${EXAGERO_MAR_MAX}x) no passo ${passoMar} m`);
-  const niveis = niveisDe({ elevMin, elevMax, passoTerra, passoMar });
+  const niveis = niveisDe({ elevMin, elevMax, passoTerra, passoMar, tetoM });
+  // recorte contorno: a lâmina 1 repete o nível da base com o formato do território (todo nó dentro do
+  // polígono está acima da base; os nós fora ficam abaixo de todo nível e não entram em lâmina nenhuma).
+  // As duas são a base da peça, tipo "terra" mesmo com bolsão abaixo de 0 m: "mar" só nas lâminas 2+
+  // com nível negativo (senão a base sai no material do mar, preta ou azul)
+  if (contorno) {
+    niveis[0] = { ...niveis[0], tipo: 'terra' };
+    niveis.splice(1, 0, { ...niveis[0] });
+  }
 
   // 3) contornos: terra e costa no campo da terra, mar no campo do mar; lâmina 0 é o retângulo
   const grade = { w, h, larguraMm, alturaMm };
   const filtros = { toleranciaMm, areaMinMm2, areaMinFuroMm2 };
-  const nvTerra = niveis.filter((n, k) => k > 0 && n.tipo !== 'mar').map((n) => n.nivel_m);
-  const nvMar = niveis.filter((n, k) => k > 0 && n.tipo === 'mar').map((n) => n.nivel_m);
+  const filtrosTorre = { ...filtros, areaMinMm2: Math.max(areaMinMm2, AREA_MIN_TORRE_MM2) };
+  const unicos = (lista) => [...new Set(lista)];
+  const nvTerra = unicos(niveis.filter((n, k) => k > 0 && n.tipo !== 'mar').map((n) => n.nivel_m));
+  const nvMar = unicos(niveis.filter((n, k) => k > 0 && n.tipo === 'mar').map((n) => n.nivel_m));
   const cTerra = contornar(campos.terra, w, h, nvTerra);
   const cMar = contornar(campos.mar, w, h, nvMar);
   const laminas = niveis.map((n, k) => {
     let aneis;
     if (k === 0) aneis = [{ ext: retanguloDaPeca(larguraMm, alturaMm), furos: [] }];
-    else aneis = aneisDoMultiPolygon((n.tipo === 'mar' ? cMar : cTerra).get(n.nivel_m), grade, filtros);
+    else {
+      const torre = porPercentil && n.tipo !== 'mar' && n.nivel_m > elevP99;
+      aneis = aneisDoMultiPolygon((n.tipo === 'mar' ? cMar : cTerra).get(n.nivel_m), grade, torre ? filtrosTorre : filtros);
+    }
     return { k, nivel_m: n.nivel_m, tipo: n.tipo, z_mm: Math.round((k + 1) * espessuraMm * 100) / 100, aneis };
   });
   // lâmina vazia só pode existir acima do máximo: tira do topo e avisa
@@ -394,12 +593,21 @@ export function gerarLaminas({ alturas, w, h, metrosPorNo, km, opcoes = {} }) {
     avisos.push(`lâmina ${l.k} (${l.nivel_m} m) ficou sem anel acima de ${areaMinMm2} mm² e foi removida do topo`);
   }
   for (const l of laminas) if (l.aneis.length === 0) avisos.push(`lâmina ${l.k} (${l.nivel_m} m) ficou vazia no meio da pilha`);
+  // o teto é a lâmina que existe: se a do nível do teto sumiu no filtro de área, o teto desce para a
+  // lâmina mais alta que sobrou (a página diz "cumes achatados acima de X" e X precisa estar na pilha)
+  if (tetoM != null) {
+    const topo = laminas[laminas.length - 1].nivel_m;
+    if (topo < tetoM) { avisos.push(`teto ${tetoM} m sem lâmina depois do filtro de área: teto_m passa a ${topo} m`); tetoM = topo; }
+  }
 
-  // 4) água: região terra <= 0 (complemento da costa), contornando -terra no nível 0
+  // 4) água: região terra < 0, contornando -terra no nível 0 com os nós em 0 m exato empurrados para
+  // -AGUA_EPS_M (ficam de fora). Terra <= 0 engolia os vizinhos chapados em 0 m do recorte caixa (Brasil:
+  // 313 mil nós viravam "mar raso" sob a placa). No recorte contorno não há placa: o que está fora do
+  // polígono não é mar, é nada.
   let agua = null;
-  if (temMar) {
+  if (temMar && !contorno) {
     const neg = new Float32Array(w * h);
-    for (let k = 0; k < neg.length; k++) neg[k] = -campos.terra[k];
+    for (let k = 0; k < neg.length; k++) { const t = campos.terra[k]; neg[k] = t === 0 ? -AGUA_EPS_M : -t; }
     const c = contornar(neg, w, h, [0]).get(0);
     agua = { nivel_m: 0, aneis: aneisDoMultiPolygon(c, grade, filtros) };
   }
@@ -407,6 +615,8 @@ export function gerarLaminas({ alturas, w, h, metrosPorNo, km, opcoes = {} }) {
   // 5) exagero: calculado no passo 2, gravado aqui, nunca escondido
   const resumo = resumirLaminas(laminas, agua);
   return {
+    escala,
+    recorte,
     largura_mm: larguraMm,
     altura_mm: alturaMm,
     mm_por_km: arredondar(mmPorKm, 4),
@@ -415,8 +625,10 @@ export function gerarLaminas({ alturas, w, h, metrosPorNo, km, opcoes = {} }) {
     passo_mar_m: passoMar,
     exagero,
     exagero_mar: exageroMar,
+    teto_m: tetoM,
     elev_min_m: arredondar(elevMin, 1),
     elev_max_m: arredondar(elevMax, 1),
+    elev_p99_m: elevP99 == null ? null : arredondar(elevP99, 1),
     elev_bruta_m: { min: arredondar(bruta.min, 1), max: arredondar(bruta.max, 1) },
     suavizar,
     area_min_mm2: areaMinMm2,
@@ -478,6 +690,12 @@ export function parseArgs(argv) {
     if (!Number.isFinite(n) || n <= 0) throw new Error(`opção ${nome} precisa de um número > 0 (veio "${v}")`);
     return n;
   };
+  const texto = (i, nome, aceitos) => {
+    const v = argv[i + 1];
+    if (v === undefined || v.startsWith('-')) throw new Error(`opção ${nome} precisa de um valor`);
+    if (!aceitos.includes(v)) throw new Error(`opção ${nome} aceita ${aceitos.join(', ')} (veio "${v}")`);
+    return v;
+  };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     switch (a) {
@@ -489,6 +707,8 @@ export function parseArgs(argv) {
       case '--suavizar-mar': o.suavizar_mar_nos = numero(i, a); i++; break;
       case '--area-min': o.area_min_mm2 = numero(i, a); i++; break;
       case '--tolerancia-mm': o.tolerancia_mm = numero(i, a); i++; break;
+      case '--escala': o.escala = texto(i, a, ESCALAS); i++; break;
+      case '--recorte': o.recorte = texto(i, a, RECORTES); i++; break;
       case '--silencioso': o.silencioso = true; break;
       case '--ajuda': case '-h': case '--help': o.ajuda = true; break;
       default:
@@ -502,10 +722,15 @@ export function parseArgs(argv) {
   return o;
 }
 
-// Opções efetivas: linha de comando > lugar.json (bloco maquete) > padrão (resolvido em gerarLaminas).
-export function opcoesDoLugar(maquete = {}, cli = {}) {
+// Opções efetivas: linha de comando > lugar.json (bloco maquete; escala e recorte na raiz) > padrão
+// (resolvido em gerarLaminas).
+export function opcoesDoLugar(maquete = {}, cli = {}, lugar = {}) {
   const m = maquete && typeof maquete === 'object' ? maquete : {};
+  const l = lugar && typeof lugar === 'object' ? lugar : {};
   return {
+    escala: cli.escala ?? l.escala,
+    recorte: cli.recorte ?? l.recorte,
+    terra: l.terra,
     largura_mm: cli.largura_mm ?? m.largura_mm,
     espessura_mm: cli.espessura_mm ?? m.espessura_mm,
     passo_terra_m: cli.passo_terra_m ?? m.passo_terra_m,
@@ -536,7 +761,7 @@ export async function gerarArquivo({ raiz, slug, opcoes = {}, log = () => {} }) 
   if (!terreno.km || !terreno.metros_por_no) throw new Error('terreno.json sem km ou metros_por_no');
   log(`${slug} (${lugar.nome}): grade ${png.largura}x${png.altura} nós, ${fmtNum(terreno.km.largura)} x ${fmtNum(terreno.km.altura)} km, ${fmtNum(terreno.metros_por_no.x, 1)} m/nó, elevação bruta ${fmtNum(terreno.elev_min_m)} a ${fmtNum(terreno.elev_max_m)} m`);
 
-  const opcoesGerar = opcoesDoLugar(lugar.maquete, opcoes);
+  const opcoesGerar = opcoesDoLugar(lugar.maquete, opcoes, lugar);
   const tG = performance.now();
   const r = gerarLaminas({ alturas: png.alturas, w: png.largura, h: png.altura, metrosPorNo: terreno.metros_por_no, km: terreno.km, opcoes: opcoesGerar });
   const { resumo, escolhidos, avisos, ...corpo } = r;
@@ -562,7 +787,7 @@ export async function gerarArquivo({ raiz, slug, opcoes = {}, log = () => {} }) 
   const gravados = gravarPassosNoLugar(lugar.caminho, r, escolhidos);
   if (gravados.length) log(`lugar.json: gravado ${gravados.join(', ')} no bloco "maquete"`);
 
-  log(`lâminas: ${resumo.laminas} (${resumo.mar} mar, ${resumo.costa} costa, ${resumo.terra} terra); passo terra ${r.passo_terra_m} m${r.passo_mar_m ? `, mar ${r.passo_mar_m} m` : ''}; exagero ${fmtNum(r.exagero)}x na terra${r.exagero_mar ? ` e ${fmtNum(r.exagero_mar)}x no mar` : ''}; suavizar terra ${r.suavizar.terra_nos} / mar ${r.suavizar.mar_nos} nós; ${fmtSegundos(performance.now() - tG)}`);
+  log(`escala ${r.escala}, recorte ${r.recorte}${r.teto_m != null ? `, teto ${r.teto_m} m` : ''}; lâminas: ${resumo.laminas} (${resumo.mar} mar, ${resumo.costa} costa, ${resumo.terra} terra); passo terra ${r.passo_terra_m} m${r.passo_mar_m ? `, mar ${r.passo_mar_m} m` : ''}; exagero ${fmtNum(r.exagero)}x na terra${r.exagero_mar ? ` e ${fmtNum(r.exagero_mar)}x no mar` : ''}; suavizar terra ${r.suavizar.terra_nos} / mar ${r.suavizar.mar_nos} nós; ${fmtSegundos(performance.now() - tG)}`);
   log(`anéis: ${resumo.aneis} (maior com ${resumo.maior_anel_pontos} pontos, ${resumo.pontos} no total); tolerância ${fmtNum(r.tolerancia_mm, 2)} mm`);
   log(`gravado: ${path.relative(process.cwd(), caminho)} (${fmtBytes(bytes)}) em ${fmtSegundos(performance.now() - t0)}`);
   return { caminho, bytes, saida, resumo, avisos };

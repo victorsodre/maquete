@@ -1,0 +1,29 @@
+{
+  "slug": "pe",
+  "nome": "Pernambuco",
+  "escala": "estado",
+  "ibge": {
+    "nivel": "estados",
+    "codigo": "26",
+    "nome": "Pernambuco",
+    "sigla": "PE",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -7.1855,
+    "sul": -9.5713,
+    "oeste": -41.6204,
+    "leste": -34.5446
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

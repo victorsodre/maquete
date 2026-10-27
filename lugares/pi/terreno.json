@@ -1,0 +1,119 @@
+{
+  "slug": "pi",
+  "largura": 1024,
+  "altura": 1491,
+  "bbox": {
+    "norte": -2.4227,
+    "sul": -11.256,
+    "oeste": -46.2545,
+    "leste": -40.1442
+  },
+  "graus_por_no": {
+    "lon": 0.005967089843750002,
+    "lat": 0.005924413145539907
+  },
+  "metros_por_no": {
+    "x": 659.5,
+    "y": 659.5
+  },
+  "km": {
+    "largura": 675.4,
+    "altura": 983.3
+  },
+  "elev_min_m": -16,
+  "elev_max_m": 859.6,
+  "escala": "estado",
+  "recorte": {
+    "tipo": "contorno",
+    "ibge_nivel": "estados",
+    "ibge_codigo": "22",
+    "nos_dentro": 583555,
+    "fracao_dentro": 0.3822,
+    "nos_fora": 943229,
+    "nos_chapados": 0
+  },
+  "fontes": [
+    {
+      "id": "gmrt",
+      "url": "https://www.gmrt.org/services/GridServer?north=-2.4227&south=-11.256&west=-46.2545&east=-40.1442&layer=topo&format=geotiff&mresolution=660",
+      "camada": "topo",
+      "mresolution_pedido": 660,
+      "largura": 1392,
+      "altura": 2029,
+      "metros_por_no_devolvido": {
+        "x": 486.1,
+        "y": 485.5
+      },
+      "bbox_devolvido": {
+        "norte": -2.4140951747624166,
+        "sul": -11.262482787388073,
+        "oeste": -46.263429314005215,
+        "leste": -40.14184412349479
+      },
+      "nan": 2784,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:44:09-03:00",
+      "bytes": 11314070,
+      "sha256": "c5e164f676ebf40b83d2b76d222ec7e855a254ad348f41e9d0498d6fc55d9ec5",
+      "cache": false
+    },
+    {
+      "id": "gmrt-topo-mask",
+      "url": "https://www.gmrt.org/services/GridServer?north=-2.4227&south=-11.256&west=-46.2545&east=-40.1442&layer=topo-mask&format=geotiff&mresolution=660",
+      "camada": "topo-mask",
+      "mresolution_pedido": 660,
+      "largura": 1392,
+      "altura": 2029,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:44:23-03:00",
+      "bytes": 11314070,
+      "sha256": "736bdf25b2d58486fa151485cfafc4e6652157f92550d37083aaf276eab3e66a",
+      "cache": false
+    },
+    {
+      "id": "ibge-malha",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/estados/22?formato=application/vnd.geo+json&qualidade=maxima",
+      "nivel": "estados",
+      "codigo": "22",
+      "nome": "Piauí",
+      "qualidade": "maxima",
+      "poligonos": 1,
+      "aneis": 1,
+      "pontos": 1955,
+      "bbox_malha": {
+        "norte": -2.7499,
+        "sul": -10.9288,
+        "oeste": -46.0282,
+        "leste": -40.3705
+      },
+      "licenca": "dado público do IBGE (API de localidades e malhas, sem chave); termos de uso do portal a confirmar",
+      "atribuicao": "IBGE, Malhas Territoriais",
+      "obtido_em": "2026-10-26T22:43:54-03:00",
+      "bytes": 41061,
+      "sha256": "470e07595612c07fe2064d3b4aa657921d27215e4317a606525f2598146b68b4",
+      "cache": true
+    }
+  ],
+  "mascara": {
+    "pct_medido": 0,
+    "nos": 0,
+    "nos_mar": 129,
+    "base": "nós com elevação <= 0 m"
+  },
+  "nodata_preenchidos": 0,
+  "clampados": {
+    "abaixo": 0,
+    "acima": 0
+  },
+  "fixture": false,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "convencao": "nó = centro de célula; linha 0 = norte, coluna 0 = oeste; Terrain-RGB h = -10000 + (R*65536 + G*256 + B) * 0,1; h <= -9999 = fora do recorte (nem terra nem mar)",
+  "png": {
+    "bytes": 936474
+  },
+  "gerado_por": "maquete 0.1.0",
+  "gerado_em": "2026-10-26T22:44:24-03:00"
+}

@@ -1,0 +1,119 @@
+{
+  "slug": "macapa",
+  "largura": 1024,
+  "altura": 851,
+  "bbox": {
+    "norte": 1.2938,
+    "sul": -0.151,
+    "oeste": -51.5575,
+    "leste": -49.8187
+  },
+  "graus_por_no": {
+    "lon": 0.0016980468749999977,
+    "lat": 0.0016977673325499413
+  },
+  "metros_por_no": {
+    "x": 189,
+    "y": 189
+  },
+  "km": {
+    "largura": 193.6,
+    "altura": 160.8
+  },
+  "elev_min_m": -50.8,
+  "elev_max_m": 303.5,
+  "escala": "municipio",
+  "recorte": {
+    "tipo": "contorno",
+    "ibge_nivel": "municipios",
+    "ibge_codigo": "1600303",
+    "nos_dentro": 184974,
+    "fracao_dentro": 0.2123,
+    "nos_fora": 686450,
+    "nos_chapados": 0
+  },
+  "fontes": [
+    {
+      "id": "gmrt",
+      "url": "https://www.gmrt.org/services/GridServer?north=1.2938&south=-0.151&west=-51.5575&east=-49.8187&layer=topo&format=geotiff&mresolution=189",
+      "camada": "topo",
+      "mresolution_pedido": 189,
+      "largura": 1583,
+      "altura": 1316,
+      "metros_por_no_devolvido": {
+        "x": 122.4,
+        "y": 122.4
+      },
+      "bbox_devolvido": {
+        "norte": 1.2946291076154754,
+        "sul": -0.15216084342718572,
+        "oeste": -51.55828892144783,
+        "leste": -49.818053851989674
+      },
+      "nan": 1583,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:35:02-03:00",
+      "bytes": 8343806,
+      "sha256": "26e911043f6b545270f27888e91316f79de4f843dee8a6ed3af7df7146a10f5c",
+      "cache": false
+    },
+    {
+      "id": "gmrt-topo-mask",
+      "url": "https://www.gmrt.org/services/GridServer?north=1.2938&south=-0.151&west=-51.5575&east=-49.8187&layer=topo-mask&format=geotiff&mresolution=189",
+      "camada": "topo-mask",
+      "mresolution_pedido": 189,
+      "largura": 1583,
+      "altura": 1316,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:35:13-03:00",
+      "bytes": 8343806,
+      "sha256": "a6b30c1941bfe8e24d148083ba1a331050844f272a2239ba8bc8fe9b94b5460f",
+      "cache": false
+    },
+    {
+      "id": "ibge-malha",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/1600303?formato=application/vnd.geo+json&qualidade=maxima",
+      "nivel": "municipios",
+      "codigo": "1600303",
+      "nome": "Macapá",
+      "qualidade": "maxima",
+      "poligonos": 1,
+      "aneis": 1,
+      "pontos": 2091,
+      "bbox_malha": {
+        "norte": 1.2403,
+        "sul": -0.0975,
+        "oeste": -51.4931,
+        "leste": -49.8831
+      },
+      "licenca": "dado público do IBGE (API de localidades e malhas, sem chave); termos de uso do portal a confirmar",
+      "atribuicao": "IBGE, Malhas Territoriais",
+      "obtido_em": "2026-10-26T22:34:49-03:00",
+      "bytes": 41557,
+      "sha256": "ff054f1461dac3728ee94b21599c5e4b2e49b89bb6fbfa783254fd27ea06d508",
+      "cache": true
+    }
+  ],
+  "mascara": {
+    "pct_medido": 0,
+    "nos": 0,
+    "nos_mar": 21717,
+    "base": "nós com elevação <= 0 m"
+  },
+  "nodata_preenchidos": 0,
+  "clampados": {
+    "abaixo": 0,
+    "acima": 0
+  },
+  "fixture": false,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "convencao": "nó = centro de célula; linha 0 = norte, coluna 0 = oeste; Terrain-RGB h = -10000 + (R*65536 + G*256 + B) * 0,1; h <= -9999 = fora do recorte (nem terra nem mar)",
+  "png": {
+    "bytes": 276346
+  },
+  "gerado_por": "maquete 0.1.0",
+  "gerado_em": "2026-10-26T22:35:13-03:00"
+}

@@ -1,0 +1,29 @@
+{
+  "slug": "go",
+  "nome": "Goiás",
+  "escala": "estado",
+  "ibge": {
+    "nivel": "estados",
+    "codigo": "52",
+    "nome": "Goiás",
+    "sigla": "GO",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -12.1113,
+    "sul": -19.7822,
+    "oeste": -53.5422,
+    "leste": -45.6135
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 298,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "slug": "ac",
+  "nome": "Acre",
+  "escala": "estado",
+  "ibge": {
+    "nivel": "estados",
+    "codigo": "12",
+    "nome": "Acre",
+    "sigla": "AC",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -6.9504,
+    "sul": -11.307,
+    "oeste": -74.2851,
+    "leste": -66.3292
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

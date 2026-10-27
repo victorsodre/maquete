@@ -12,6 +12,7 @@
   "files": ["cli", "!cli/*.test.mjs", "README.md", "README.en.md", "LICENSE"],
   "scripts": {
     "lugar": "node cli/index.mjs",
+    "indice": "node scripts/indice.mjs",
     "serve": "node scripts/serve.mjs",
     "capture": "node captura/capture.mjs",
     "test": "node --test cli/*.test.mjs scripts/*.test.mjs captura/*.test.mjs"

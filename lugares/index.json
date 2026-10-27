@@ -1,0 +1,539 @@
+{
+  "gerado_em": "2026-10-27T03:01:52.336Z",
+  "escalas": [
+    {
+      "id": "pais",
+      "nome": "País"
+    },
+    {
+      "id": "regiao",
+      "nome": "Região"
+    },
+    {
+      "id": "estado",
+      "nome": "Estado"
+    },
+    {
+      "id": "municipio",
+      "nome": "Município"
+    },
+    {
+      "id": "local",
+      "nome": "Local"
+    }
+  ],
+  "lugares": [
+    {
+      "slug": "brasil",
+      "nome": "Brasil",
+      "escala": "pais",
+      "uf": null,
+      "km_largura": 4565.8,
+      "laminas": 20
+    },
+    {
+      "slug": "regiao-centro-oeste",
+      "nome": "Centro-Oeste",
+      "escala": "regiao",
+      "uf": null,
+      "km_largura": 1819.4,
+      "laminas": 13
+    },
+    {
+      "slug": "regiao-nordeste",
+      "nome": "Nordeste",
+      "escala": "regiao",
+      "uf": null,
+      "km_largura": 1653.5,
+      "laminas": 15
+    },
+    {
+      "slug": "regiao-norte",
+      "nome": "Norte",
+      "escala": "regiao",
+      "uf": null,
+      "km_largura": 3391.3,
+      "laminas": 12
+    },
+    {
+      "slug": "regiao-sudeste",
+      "nome": "Sudeste",
+      "escala": "regiao",
+      "uf": null,
+      "km_largura": 1520.2,
+      "laminas": 18
+    },
+    {
+      "slug": "regiao-sul",
+      "nome": "Sul",
+      "escala": "regiao",
+      "uf": null,
+      "km_largura": 1007,
+      "laminas": 18
+    },
+    {
+      "slug": "ac",
+      "nome": "Acre",
+      "escala": "estado",
+      "uf": "AC",
+      "km_largura": 874.4,
+      "laminas": 15
+    },
+    {
+      "slug": "al",
+      "nome": "Alagoas",
+      "escala": "estado",
+      "uf": "AL",
+      "km_largura": 365.6,
+      "laminas": 15
+    },
+    {
+      "slug": "ap",
+      "nome": "Amapá",
+      "escala": "estado",
+      "uf": "AP",
+      "km_largura": 600.9,
+      "laminas": 12
+    },
+    {
+      "slug": "am",
+      "nome": "Amazonas",
+      "escala": "estado",
+      "uf": "AM",
+      "km_largura": 2123.8,
+      "laminas": 12
+    },
+    {
+      "slug": "ba",
+      "nome": "Bahia",
+      "escala": "estado",
+      "uf": "BA",
+      "km_largura": 1080,
+      "laminas": 15
+    },
+    {
+      "slug": "ce",
+      "nome": "Ceará",
+      "escala": "estado",
+      "uf": "CE",
+      "km_largura": 499.2,
+      "laminas": 12
+    },
+    {
+      "slug": "df",
+      "nome": "Distrito Federal",
+      "escala": "estado",
+      "uf": "DF",
+      "km_largura": 113.1,
+      "laminas": 14
+    },
+    {
+      "slug": "es",
+      "nome": "Espírito Santo",
+      "escala": "estado",
+      "uf": "ES",
+      "km_largura": 250.5,
+      "laminas": 17
+    },
+    {
+      "slug": "go",
+      "nome": "Goiás",
+      "escala": "estado",
+      "uf": "GO",
+      "km_largura": 848.7,
+      "laminas": 13
+    },
+    {
+      "slug": "ma",
+      "nome": "Maranhão",
+      "escala": "estado",
+      "uf": "MA",
+      "km_largura": 832.5,
+      "laminas": 14
+    },
+    {
+      "slug": "mt",
+      "nome": "Mato Grosso",
+      "escala": "estado",
+      "uf": "MT",
+      "km_largura": 1338.1,
+      "laminas": 17
+    },
+    {
+      "slug": "ms",
+      "nome": "Mato Grosso do Sul",
+      "escala": "estado",
+      "uf": "MS",
+      "km_largura": 815.2,
+      "laminas": 18
+    },
+    {
+      "slug": "mg",
+      "nome": "Minas Gerais",
+      "escala": "estado",
+      "uf": "MG",
+      "km_largura": 1275.1,
+      "laminas": 18
+    },
+    {
+      "slug": "pa",
+      "nome": "Pará",
+      "escala": "estado",
+      "uf": "PA",
+      "km_largura": 1540.2,
+      "laminas": 15
+    },
+    {
+      "slug": "pb",
+      "nome": "Paraíba",
+      "escala": "estado",
+      "uf": "PB",
+      "km_largura": 473.8,
+      "laminas": 18
+    },
+    {
+      "slug": "pr",
+      "nome": "Paraná",
+      "escala": "estado",
+      "uf": "PR",
+      "km_largura": 721,
+      "laminas": 15
+    },
+    {
+      "slug": "pe",
+      "nome": "Pernambuco",
+      "escala": "estado",
+      "uf": "PE",
+      "km_largura": 779.3,
+      "laminas": 11
+    },
+    {
+      "slug": "pi",
+      "nome": "Piauí",
+      "escala": "estado",
+      "uf": "PI",
+      "km_largura": 675.4,
+      "laminas": 18
+    },
+    {
+      "slug": "rj",
+      "nome": "Rio de Janeiro",
+      "escala": "estado",
+      "uf": "RJ",
+      "km_largura": 438,
+      "laminas": 19
+    },
+    {
+      "slug": "rn",
+      "nome": "Rio Grande do Norte",
+      "escala": "estado",
+      "uf": "RN",
+      "km_largura": 432.1,
+      "laminas": 16
+    },
+    {
+      "slug": "rs",
+      "nome": "Rio Grande do Sul",
+      "escala": "estado",
+      "uf": "RS",
+      "km_largura": 825.1,
+      "laminas": 16
+    },
+    {
+      "slug": "ro",
+      "nome": "Rondônia",
+      "escala": "estado",
+      "uf": "RO",
+      "km_largura": 830.8,
+      "laminas": 15
+    },
+    {
+      "slug": "rr",
+      "nome": "Roraima",
+      "escala": "estado",
+      "uf": "RR",
+      "km_largura": 713.6,
+      "laminas": 15
+    },
+    {
+      "slug": "sc",
+      "nome": "Santa Catarina",
+      "escala": "estado",
+      "uf": "SC",
+      "km_largura": 583.4,
+      "laminas": 18
+    },
+    {
+      "slug": "sp",
+      "nome": "São Paulo",
+      "escala": "estado",
+      "uf": "SP",
+      "km_largura": 993.6,
+      "laminas": 17
+    },
+    {
+      "slug": "se",
+      "nome": "Sergipe",
+      "escala": "estado",
+      "uf": "SE",
+      "km_largura": 218.6,
+      "laminas": 13
+    },
+    {
+      "slug": "to",
+      "nome": "Tocantins",
+      "escala": "estado",
+      "uf": "TO",
+      "km_largura": 598.3,
+      "laminas": 18
+    },
+    {
+      "slug": "aracaju",
+      "nome": "Aracaju",
+      "escala": "municipio",
+      "uf": "SE",
+      "km_largura": 16.5,
+      "laminas": 7
+    },
+    {
+      "slug": "belem",
+      "nome": "Belém",
+      "escala": "municipio",
+      "uf": "PA",
+      "km_largura": 39.5,
+      "laminas": 7
+    },
+    {
+      "slug": "belo-horizonte",
+      "nome": "Belo Horizonte",
+      "escala": "municipio",
+      "uf": "MG",
+      "km_largura": 23.3,
+      "laminas": 18
+    },
+    {
+      "slug": "boa-vista",
+      "nome": "Boa Vista",
+      "escala": "municipio",
+      "uf": "RR",
+      "km_largura": 85.8,
+      "laminas": 6
+    },
+    {
+      "slug": "brasilia",
+      "nome": "Brasília",
+      "escala": "municipio",
+      "uf": "DF",
+      "km_largura": 113.1,
+      "laminas": 5
+    },
+    {
+      "slug": "campo-grande",
+      "nome": "Campo Grande",
+      "escala": "municipio",
+      "uf": "MS",
+      "km_largura": 148.7,
+      "laminas": 4
+    },
+    {
+      "slug": "cuiaba",
+      "nome": "Cuiabá",
+      "escala": "municipio",
+      "uf": "MT",
+      "km_largura": 135.9,
+      "laminas": 5
+    },
+    {
+      "slug": "curitiba",
+      "nome": "Curitiba",
+      "escala": "municipio",
+      "uf": "PR",
+      "km_largura": 22.2,
+      "laminas": 5
+    },
+    {
+      "slug": "florianopolis",
+      "nome": "Florianópolis",
+      "escala": "municipio",
+      "uf": "SC",
+      "km_largura": 30.4,
+      "laminas": 8
+    },
+    {
+      "slug": "fortaleza",
+      "nome": "Fortaleza",
+      "escala": "municipio",
+      "uf": "CE",
+      "km_largura": 28.4,
+      "laminas": 6
+    },
+    {
+      "slug": "goiania",
+      "nome": "Goiânia",
+      "escala": "municipio",
+      "uf": "GO",
+      "km_largura": 42.5,
+      "laminas": 5
+    },
+    {
+      "slug": "joao-pessoa",
+      "nome": "João Pessoa",
+      "escala": "municipio",
+      "uf": "PB",
+      "km_largura": 21.4,
+      "laminas": 5
+    },
+    {
+      "slug": "macapa",
+      "nome": "Macapá",
+      "escala": "municipio",
+      "uf": "AP",
+      "km_largura": 193.6,
+      "laminas": 13
+    },
+    {
+      "slug": "maceio",
+      "nome": "Maceió",
+      "escala": "municipio",
+      "uf": "AL",
+      "km_largura": 30.3,
+      "laminas": 9
+    },
+    {
+      "slug": "manaus",
+      "nome": "Manaus",
+      "escala": "municipio",
+      "uf": "AM",
+      "km_largura": 197.3,
+      "laminas": 17
+    },
+    {
+      "slug": "natal",
+      "nome": "Natal",
+      "escala": "municipio",
+      "uf": "RN",
+      "km_largura": 16.5,
+      "laminas": 8
+    },
+    {
+      "slug": "palmas",
+      "nome": "Palmas",
+      "escala": "municipio",
+      "uf": "TO",
+      "km_largura": 74.5,
+      "laminas": 7
+    },
+    {
+      "slug": "porto-alegre",
+      "nome": "Porto Alegre",
+      "escala": "municipio",
+      "uf": "RS",
+      "km_largura": 30.3,
+      "laminas": 6
+    },
+    {
+      "slug": "porto-velho",
+      "nome": "Porto Velho",
+      "escala": "municipio",
+      "uf": "RO",
+      "km_largura": 543.1,
+      "laminas": 10
+    },
+    {
+      "slug": "recife",
+      "nome": "Recife",
+      "escala": "municipio",
+      "uf": "PE",
+      "km_largura": 18.8,
+      "laminas": 8
+    },
+    {
+      "slug": "rio-branco",
+      "nome": "Rio Branco",
+      "escala": "municipio",
+      "uf": "AC",
+      "km_largura": 222.8,
+      "laminas": 11
+    },
+    {
+      "slug": "rio-de-janeiro",
+      "nome": "Rio de Janeiro",
+      "escala": "municipio",
+      "uf": "RJ",
+      "km_largura": 76.9,
+      "laminas": 8
+    },
+    {
+      "slug": "salvador-ba",
+      "nome": "Salvador",
+      "escala": "municipio",
+      "uf": "BA",
+      "km_largura": 46.3,
+      "laminas": 7
+    },
+    {
+      "slug": "sao-luis",
+      "nome": "São Luís",
+      "escala": "municipio",
+      "uf": "MA",
+      "km_largura": 30.2,
+      "laminas": 7
+    },
+    {
+      "slug": "sao-paulo",
+      "nome": "São Paulo",
+      "escala": "municipio",
+      "uf": "SP",
+      "km_largura": 50.8,
+      "laminas": 7
+    },
+    {
+      "slug": "teresina",
+      "nome": "Teresina",
+      "escala": "municipio",
+      "uf": "PI",
+      "km_largura": 44.5,
+      "laminas": 4
+    },
+    {
+      "slug": "vitoria",
+      "nome": "Vitória",
+      "escala": "municipio",
+      "uf": "ES",
+      "km_largura": 16.6,
+      "laminas": 16
+    },
+    {
+      "slug": "noronha",
+      "nome": "Fernando de Noronha",
+      "escala": "local",
+      "uf": null,
+      "km_largura": 22.2,
+      "laminas": 18
+    },
+    {
+      "slug": "floripa",
+      "nome": "Florianópolis",
+      "escala": "local",
+      "uf": null,
+      "km_largura": 49.3,
+      "laminas": 17
+    },
+    {
+      "slug": "rio",
+      "nome": "Rio de Janeiro e Baía de Guanabara",
+      "escala": "local",
+      "uf": null,
+      "km_largura": 56.4,
+      "laminas": 12
+    },
+    {
+      "slug": "salvador",
+      "nome": "Salvador e Baía de Todos-os-Santos",
+      "escala": "local",
+      "uf": null,
+      "km_largura": 59.7,
+      "laminas": 12
+    }
+  ]
+}

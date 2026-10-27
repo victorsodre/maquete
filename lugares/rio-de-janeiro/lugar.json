@@ -1,0 +1,31 @@
+{
+  "slug": "rio-de-janeiro",
+  "nome": "Rio de Janeiro",
+  "escala": "municipio",
+  "ibge": {
+    "nivel": "municipios",
+    "codigo": "3304557",
+    "nome": "Rio de Janeiro",
+    "sigla": "RJ",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -22.7327,
+    "sul": -23.0957,
+    "oeste": -43.8238,
+    "leste": -43.0741
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "copernicus",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado",
+    "passo_terra_m": 200,
+    "passo_mar_m": 5
+  }
+}

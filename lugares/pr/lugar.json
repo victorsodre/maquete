@@ -1,0 +1,29 @@
+{
+  "slug": "pr",
+  "nome": "Paraná",
+  "escala": "estado",
+  "ibge": {
+    "nivel": "estados",
+    "codigo": "41",
+    "nome": "Paraná",
+    "sigla": "PR",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -22.3483,
+    "sul": -26.8851,
+    "oeste": -54.8838,
+    "leste": -47.7596
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

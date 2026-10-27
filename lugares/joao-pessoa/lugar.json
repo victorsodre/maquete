@@ -1,0 +1,30 @@
+{
+  "slug": "joao-pessoa",
+  "nome": "João Pessoa",
+  "escala": "municipio",
+  "ibge": {
+    "nivel": "municipios",
+    "codigo": "2507507",
+    "nome": "João Pessoa",
+    "sigla": "PB",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -7.0484,
+    "sul": -7.2534,
+    "oeste": -34.9798,
+    "leste": -34.786
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "copernicus",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 281,
+    "espessura_mm": 3,
+    "material": "compensado",
+    "passo_terra_m": 20
+  }
+}

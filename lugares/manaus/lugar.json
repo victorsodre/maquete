@@ -1,0 +1,29 @@
+{
+  "slug": "manaus",
+  "nome": "Manaus",
+  "escala": "municipio",
+  "ibge": {
+    "nivel": "municipios",
+    "codigo": "1302603",
+    "nome": "Manaus",
+    "sigla": "AM",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -1.8724,
+    "sul": -3.2741,
+    "oeste": -60.8684,
+    "leste": -59.0942
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

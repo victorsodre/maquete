@@ -1,0 +1,30 @@
+{
+  "slug": "belo-horizonte",
+  "nome": "Belo Horizonte",
+  "escala": "municipio",
+  "ibge": {
+    "nivel": "municipios",
+    "codigo": "3106200",
+    "nome": "Belo Horizonte",
+    "sigla": "MG",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -19.7652,
+    "sul": -20.071,
+    "oeste": -44.0715,
+    "leste": -43.849
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "copernicus",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 205,
+    "espessura_mm": 3,
+    "material": "compensado",
+    "passo_terra_m": 50
+  }
+}

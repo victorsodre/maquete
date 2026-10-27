@@ -1,0 +1,119 @@
+{
+  "slug": "sc",
+  "largura": 1024,
+  "altura": 717,
+  "bbox": {
+    "norte": -25.8198,
+    "sul": -29.4911,
+    "oeste": -54.0562,
+    "leste": -48.1394
+  },
+  "graus_por_no": {
+    "lon": 0.005778124999999995,
+    "lat": 0.00512036262203626
+  },
+  "metros_por_no": {
+    "x": 569.7,
+    "y": 570
+  },
+  "km": {
+    "largura": 583.4,
+    "altura": 408.7
+  },
+  "elev_min_m": -46.5,
+  "elev_max_m": 1747.5,
+  "escala": "estado",
+  "recorte": {
+    "tipo": "contorno",
+    "ibge_nivel": "estados",
+    "ibge_codigo": "42",
+    "nos_dentro": 294829,
+    "fracao_dentro": 0.4016,
+    "nos_fora": 439379,
+    "nos_chapados": 0
+  },
+  "fontes": [
+    {
+      "id": "gmrt",
+      "url": "https://www.gmrt.org/services/GridServer?north=-25.8198&south=-29.4911&west=-54.0562&east=-48.1394&layer=topo&format=geotiff&mresolution=570",
+      "camada": "topo",
+      "mresolution_pedido": 570,
+      "largura": 1349,
+      "altura": 945,
+      "metros_por_no_devolvido": {
+        "x": 433.6,
+        "y": 433.6
+      },
+      "bbox_devolvido": {
+        "norte": -25.81772421315583,
+        "sul": -29.49893532728398,
+        "oeste": -54.06372233314401,
+        "leste": -48.131101885605986
+      },
+      "nan": 1349,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:47:23-03:00",
+      "bytes": 5107146,
+      "sha256": "4fa191c439301ba7e2ce21a59771e20dbf6cef0af8a5b8aa261c9a9dc2a14d03",
+      "cache": false
+    },
+    {
+      "id": "gmrt-topo-mask",
+      "url": "https://www.gmrt.org/services/GridServer?north=-25.8198&south=-29.4911&west=-54.0562&east=-48.1394&layer=topo-mask&format=geotiff&mresolution=570",
+      "camada": "topo-mask",
+      "mresolution_pedido": 570,
+      "largura": 1349,
+      "altura": 945,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:47:29-03:00",
+      "bytes": 5107146,
+      "sha256": "7e8fbe9b8f1c3b921c43213bcab38aed4c0b7d36fa723539aebd9d4dd3e79e1d",
+      "cache": false
+    },
+    {
+      "id": "ibge-malha",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/estados/42?formato=application/vnd.geo+json&qualidade=maxima",
+      "nivel": "estados",
+      "codigo": "42",
+      "nome": "Santa Catarina",
+      "qualidade": "maxima",
+      "poligonos": 2,
+      "aneis": 2,
+      "pontos": 1748,
+      "bbox_malha": {
+        "norte": -25.9558,
+        "sul": -29.3551,
+        "oeste": -53.8371,
+        "leste": -48.3585
+      },
+      "licenca": "dado público do IBGE (API de localidades e malhas, sem chave); termos de uso do portal a confirmar",
+      "atribuicao": "IBGE, Malhas Territoriais",
+      "obtido_em": "2026-10-26T22:47:15-03:00",
+      "bytes": 38243,
+      "sha256": "da9f195f4d9c5f3d416d15447668b15ef827c0b730792d52f65cf21c8aa2f411",
+      "cache": true
+    }
+  ],
+  "mascara": {
+    "pct_medido": 0,
+    "nos": 0,
+    "nos_mar": 2914,
+    "base": "nós com elevação <= 0 m"
+  },
+  "nodata_preenchidos": 0,
+  "clampados": {
+    "abaixo": 0,
+    "acima": 0
+  },
+  "fixture": false,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "convencao": "nó = centro de célula; linha 0 = norte, coluna 0 = oeste; Terrain-RGB h = -10000 + (R*65536 + G*256 + B) * 0,1; h <= -9999 = fora do recorte (nem terra nem mar)",
+  "png": {
+    "bytes": 521401
+  },
+  "gerado_por": "maquete 0.1.0",
+  "gerado_em": "2026-10-26T22:47:30-03:00"
+}

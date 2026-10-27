@@ -1,0 +1,119 @@
+{
+  "slug": "ac",
+  "largura": 1024,
+  "altura": 568,
+  "bbox": {
+    "norte": -6.9504,
+    "sul": -11.307,
+    "oeste": -74.2851,
+    "leste": -66.3292
+  },
+  "graus_por_no": {
+    "lon": 0.00776943359375,
+    "lat": 0.007670070422535212
+  },
+  "metros_por_no": {
+    "x": 853.9,
+    "y": 853.8
+  },
+  "km": {
+    "largura": 874.4,
+    "altura": 485
+  },
+  "elev_min_m": 120.3,
+  "elev_max_m": 637.5,
+  "escala": "estado",
+  "recorte": {
+    "tipo": "contorno",
+    "ibge_nivel": "estados",
+    "ibge_codigo": "12",
+    "nos_dentro": 226690,
+    "fracao_dentro": 0.3897,
+    "nos_fora": 354942,
+    "nos_chapados": 0
+  },
+  "fontes": [
+    {
+      "id": "gmrt",
+      "url": "https://www.gmrt.org/services/GridServer?north=-6.9504&south=-11.307&west=-74.2851&east=-66.3292&layer=topo&format=geotiff&mresolution=854",
+      "camada": "topo",
+      "mresolution_pedido": 854,
+      "largura": 1812,
+      "altura": 1006,
+      "metros_por_no_devolvido": {
+        "x": 483.3,
+        "y": 483.4
+      },
+      "bbox_devolvido": {
+        "norte": -6.946067604155265,
+        "sul": -11.314187935204064,
+        "oeste": -74.28735472891358,
+        "leste": -66.32006714608642
+      },
+      "nan": 1812,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:36:42-03:00",
+      "bytes": 7299902,
+      "sha256": "2e046264534eb18c342c53722360e0a502b79bc0172d51ed21fc4540f843e033",
+      "cache": false
+    },
+    {
+      "id": "gmrt-topo-mask",
+      "url": "https://www.gmrt.org/services/GridServer?north=-6.9504&south=-11.307&west=-74.2851&east=-66.3292&layer=topo-mask&format=geotiff&mresolution=854",
+      "camada": "topo-mask",
+      "mresolution_pedido": 854,
+      "largura": 1812,
+      "altura": 1006,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:36:52-03:00",
+      "bytes": 7299902,
+      "sha256": "04f22ab2e01c6fcab5a9ed4939c7623febf93163f1b0b953e0ecf56bf714b691",
+      "cache": false
+    },
+    {
+      "id": "ibge-malha",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/estados/12?formato=application/vnd.geo+json&qualidade=maxima",
+      "nivel": "estados",
+      "codigo": "12",
+      "nome": "Acre",
+      "qualidade": "maxima",
+      "poligonos": 1,
+      "aneis": 1,
+      "pontos": 988,
+      "bbox_malha": {
+        "norte": -7.1118,
+        "sul": -11.1456,
+        "oeste": -73.9904,
+        "leste": -66.6239
+      },
+      "licenca": "dado público do IBGE (API de localidades e malhas, sem chave); termos de uso do portal a confirmar",
+      "atribuicao": "IBGE, Malhas Territoriais",
+      "obtido_em": "2026-10-26T22:36:30-03:00",
+      "bytes": 21069,
+      "sha256": "425ea155211e5710d64794b98168d4463d690b75f630581d8a2ec65129e944bc",
+      "cache": true
+    }
+  ],
+  "mascara": {
+    "pct_medido": 0,
+    "nos": 0,
+    "nos_mar": 0,
+    "base": "nós com elevação <= 0 m"
+  },
+  "nodata_preenchidos": 0,
+  "clampados": {
+    "abaixo": 0,
+    "acima": 0
+  },
+  "fixture": false,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "convencao": "nó = centro de célula; linha 0 = norte, coluna 0 = oeste; Terrain-RGB h = -10000 + (R*65536 + G*256 + B) * 0,1; h <= -9999 = fora do recorte (nem terra nem mar)",
+  "png": {
+    "bytes": 352121
+  },
+  "gerado_por": "maquete 0.1.0",
+  "gerado_em": "2026-10-26T22:36:52-03:00"
+}

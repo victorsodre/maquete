@@ -1,0 +1,30 @@
+{
+  "slug": "curitiba",
+  "nome": "Curitiba",
+  "escala": "municipio",
+  "ibge": {
+    "nivel": "municipios",
+    "codigo": "4106902",
+    "nome": "Curitiba",
+    "sigla": "PR",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -25.3331,
+    "sul": -25.6574,
+    "oeste": -49.3975,
+    "leste": -49.177
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "copernicus",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 184,
+    "espessura_mm": 3,
+    "material": "compensado",
+    "passo_terra_m": 50
+  }
+}

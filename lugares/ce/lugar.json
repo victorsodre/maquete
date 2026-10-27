@@ -1,0 +1,29 @@
+{
+  "slug": "ce",
+  "nome": "Ceará",
+  "escala": "estado",
+  "ibge": {
+    "nivel": "estados",
+    "codigo": "23",
+    "nome": "Ceará",
+    "sigla": "CE",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -2.5814,
+    "sul": -8.0605,
+    "oeste": -41.5901,
+    "leste": -37.0859
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 246,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

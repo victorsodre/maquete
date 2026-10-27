@@ -1,0 +1,29 @@
+{
+  "slug": "pb",
+  "nome": "Paraíba",
+  "escala": "estado",
+  "ibge": {
+    "nivel": "estados",
+    "codigo": "25",
+    "nome": "Paraíba",
+    "sigla": "PB",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -5.9348,
+    "sul": -8.3941,
+    "oeste": -38.9241,
+    "leste": -34.6343
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

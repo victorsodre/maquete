@@ -1,0 +1,29 @@
+{
+  "slug": "regiao-centro-oeste",
+  "nome": "Centro-Oeste",
+  "escala": "regiao",
+  "ibge": {
+    "nivel": "regioes",
+    "codigo": "5",
+    "nome": "Centro-Oeste",
+    "sigla": "CO",
+    "qualidade": "intermediaria"
+  },
+  "bbox": {
+    "norte": -6.6876,
+    "sul": -24.7367,
+    "oeste": -62.2571,
+    "leste": -45.2784
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 272,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

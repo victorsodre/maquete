@@ -1,0 +1,30 @@
+{
+  "slug": "campo-grande",
+  "nome": "Campo Grande",
+  "escala": "municipio",
+  "ibge": {
+    "nivel": "municipios",
+    "codigo": "5002704",
+    "nome": "Campo Grande",
+    "sigla": "MS",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -20.1093,
+    "sul": -21.6419,
+    "oeste": -54.9772,
+    "leste": -53.5479
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "copernicus",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 261,
+    "espessura_mm": 3,
+    "material": "compensado",
+    "passo_terra_m": 250
+  }
+}

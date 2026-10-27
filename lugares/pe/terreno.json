@@ -1,0 +1,121 @@
+{
+  "slug": "pe",
+  "largura": 1024,
+  "altura": 349,
+  "bbox": {
+    "norte": -7.1855,
+    "sul": -9.5713,
+    "oeste": -41.6204,
+    "leste": -34.5446
+  },
+  "graus_por_no": {
+    "lon": 0.006909960937499994,
+    "lat": 0.006836103151862466
+  },
+  "metros_por_no": {
+    "x": 761,
+    "y": 761
+  },
+  "km": {
+    "largura": 779.3,
+    "altura": 265.6
+  },
+  "elev_min_m": -10.4,
+  "elev_max_m": 1141,
+  "escala": "estado",
+  "recorte": {
+    "tipo": "contorno",
+    "ibge_nivel": "estados",
+    "ibge_codigo": "26",
+    "nos_dentro": 170392,
+    "fracao_dentro": 0.4768,
+    "nos_fora": 186984,
+    "nos_chapados": 0
+  },
+  "ilhas_fora_do_bbox": 1,
+  "fontes": [
+    {
+      "id": "gmrt",
+      "url": "https://www.gmrt.org/services/GridServer?north=-7.1855&south=-9.5713&west=-41.6204&east=-34.5446&layer=topo&format=geotiff&mresolution=761",
+      "camada": "topo",
+      "mresolution_pedido": 761,
+      "largura": 1611,
+      "altura": 550,
+      "metros_por_no_devolvido": {
+        "x": 484.3,
+        "y": 484.8
+      },
+      "bbox_devolvido": {
+        "norte": -7.181563251999078,
+        "sul": -9.576928655504405,
+        "oeste": -41.62280409913626,
+        "leste": -34.53881699461375
+      },
+      "nan": 1611,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T23:56:41-03:00",
+      "bytes": 3548966,
+      "sha256": "07268ffcfc9fe58823827b64a79b3a50aa84c20a5eaa56c64d838be725b85616",
+      "cache": false
+    },
+    {
+      "id": "gmrt-topo-mask",
+      "url": "https://www.gmrt.org/services/GridServer?north=-7.1855&south=-9.5713&west=-41.6204&east=-34.5446&layer=topo-mask&format=geotiff&mresolution=761",
+      "camada": "topo-mask",
+      "mresolution_pedido": 761,
+      "largura": 1611,
+      "altura": 550,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T23:56:46-03:00",
+      "bytes": 3548966,
+      "sha256": "96fc1649c4d39a12eac03e86847fd176a36df1e083ba32d212f5e0f616d78b3b",
+      "cache": false
+    },
+    {
+      "id": "ibge-malha",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/estados/26?formato=application/vnd.geo+json&qualidade=maxima",
+      "nivel": "estados",
+      "codigo": "26",
+      "nome": "Pernambuco",
+      "qualidade": "maxima",
+      "poligonos": 3,
+      "aneis": 3,
+      "pontos": 1702,
+      "bbox_malha": {
+        "norte": -7.2739,
+        "sul": -9.4829,
+        "oeste": -41.3583,
+        "leste": -34.8067
+      },
+      "poligonos_fora_do_bbox": 1,
+      "licenca": "dado público do IBGE (API de localidades e malhas, sem chave); termos de uso do portal a confirmar",
+      "atribuicao": "IBGE, Malhas Territoriais",
+      "obtido_em": "2026-10-26T22:43:43-03:00",
+      "bytes": 35502,
+      "sha256": "f1f9acf276feb5cabdae9b4f402f6cb454e2d065247a8d7e55fde7e1c51e1d1f",
+      "cache": true
+    }
+  ],
+  "mascara": {
+    "pct_medido": 0,
+    "nos": 0,
+    "nos_mar": 14,
+    "base": "nós com elevação <= 0 m"
+  },
+  "nodata_preenchidos": 0,
+  "clampados": {
+    "abaixo": 0,
+    "acima": 0
+  },
+  "fixture": false,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "convencao": "nó = centro de célula; linha 0 = norte, coluna 0 = oeste; Terrain-RGB h = -10000 + (R*65536 + G*256 + B) * 0,1; h <= -9999 = fora do recorte (nem terra nem mar)",
+  "png": {
+    "bytes": 284383
+  },
+  "gerado_por": "maquete 0.1.0",
+  "gerado_em": "2026-10-26T23:56:46-03:00"
+}

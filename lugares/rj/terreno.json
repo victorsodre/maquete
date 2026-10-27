@@ -1,0 +1,119 @@
+{
+  "slug": "rj",
+  "largura": 1024,
+  "altura": 732,
+  "bbox": {
+    "norte": -20.659,
+    "sul": -23.4718,
+    "oeste": -45.0466,
+    "leste": -40.8006
+  },
+  "graus_por_no": {
+    "lon": 0.004146484374999995,
+    "lat": 0.003842622950819676
+  },
+  "metros_por_no": {
+    "x": 427.8,
+    "y": 427.8
+  },
+  "km": {
+    "largura": 438,
+    "altura": 313.1
+  },
+  "elev_min_m": -41.9,
+  "elev_max_m": 2664,
+  "escala": "estado",
+  "recorte": {
+    "tipo": "contorno",
+    "ibge_nivel": "estados",
+    "ibge_codigo": "33",
+    "nos_dentro": 240206,
+    "fracao_dentro": 0.3205,
+    "nos_fora": 509362,
+    "nos_chapados": 0
+  },
+  "fontes": [
+    {
+      "id": "gmrt",
+      "url": "https://www.gmrt.org/services/GridServer?north=-20.659&south=-23.4718&west=-45.0466&east=-40.8006&layer=topo&format=geotiff&mresolution=428",
+      "camada": "topo",
+      "mresolution_pedido": 428,
+      "largura": 1936,
+      "altura": 1385,
+      "metros_por_no_devolvido": {
+        "x": 226.8,
+        "y": 226.8
+      },
+      "bbox_devolvido": {
+        "norte": -20.654383421515625,
+        "sul": -23.47635805807016,
+        "oeste": -45.05163630995639,
+        "leste": -40.7955316587936
+      },
+      "nan": 3872,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:44:44-03:00",
+      "bytes": 10736886,
+      "sha256": "36a410d5ebee8c55e17d581c49270040432b7ba4834d3c1ef07c6f9b3b0c9ed6",
+      "cache": false
+    },
+    {
+      "id": "gmrt-topo-mask",
+      "url": "https://www.gmrt.org/services/GridServer?north=-20.659&south=-23.4718&west=-45.0466&east=-40.8006&layer=topo-mask&format=geotiff&mresolution=428",
+      "camada": "topo-mask",
+      "mresolution_pedido": 428,
+      "largura": 1936,
+      "altura": 1385,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:44:58-03:00",
+      "bytes": 10736886,
+      "sha256": "35aae4ab46a3bd6de10dcfc6a21858a1e8fc8e6b2560f8ec6993390ff76bc3fe",
+      "cache": false
+    },
+    {
+      "id": "ibge-malha",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/estados/33?formato=application/vnd.geo+json&qualidade=maxima",
+      "nivel": "estados",
+      "codigo": "33",
+      "nome": "Rio de Janeiro",
+      "qualidade": "maxima",
+      "poligonos": 15,
+      "aneis": 15,
+      "pontos": 1454,
+      "bbox_malha": {
+        "norte": -20.7632,
+        "sul": -23.3676,
+        "oeste": -44.8893,
+        "leste": -40.9579
+      },
+      "licenca": "dado público do IBGE (API de localidades e malhas, sem chave); termos de uso do portal a confirmar",
+      "atribuicao": "IBGE, Malhas Territoriais",
+      "obtido_em": "2026-10-26T22:44:25-03:00",
+      "bytes": 31883,
+      "sha256": "ca5deaa958eb334c27eea0713b3c11d09f34e75aa57a2de1e6ffff5c3599499d",
+      "cache": true
+    }
+  ],
+  "mascara": {
+    "pct_medido": 0,
+    "nos": 0,
+    "nos_mar": 266,
+    "base": "nós com elevação <= 0 m"
+  },
+  "nodata_preenchidos": 0,
+  "clampados": {
+    "abaixo": 0,
+    "acima": 0
+  },
+  "fixture": false,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "convencao": "nó = centro de célula; linha 0 = norte, coluna 0 = oeste; Terrain-RGB h = -10000 + (R*65536 + G*256 + B) * 0,1; h <= -9999 = fora do recorte (nem terra nem mar)",
+  "png": {
+    "bytes": 434978
+  },
+  "gerado_por": "maquete 0.1.0",
+  "gerado_em": "2026-10-26T22:44:58-03:00"
+}

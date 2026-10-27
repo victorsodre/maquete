@@ -1,0 +1,29 @@
+{
+  "slug": "regiao-sul",
+  "nome": "Sul",
+  "escala": "regiao",
+  "ibge": {
+    "nivel": "regioes",
+    "codigo": "4",
+    "nome": "Sul",
+    "sigla": "S",
+    "qualidade": "intermediaria"
+  },
+  "bbox": {
+    "norte": -22.0782,
+    "sul": -34.1926,
+    "oeste": -57.974,
+    "leste": -47.7162
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 224,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

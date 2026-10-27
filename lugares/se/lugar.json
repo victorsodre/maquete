@@ -1,0 +1,29 @@
+{
+  "slug": "se",
+  "nome": "Sergipe",
+  "escala": "estado",
+  "ibge": {
+    "nivel": "estados",
+    "codigo": "28",
+    "nome": "Sergipe",
+    "sigla": "SE",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -9.4329,
+    "sul": -11.6506,
+    "oeste": -38.319,
+    "leste": -36.3219
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 266,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

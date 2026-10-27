@@ -1,0 +1,119 @@
+{
+  "slug": "rio-branco",
+  "largura": 1024,
+  "altura": 542,
+  "bbox": {
+    "norte": -9.466,
+    "sul": -10.5245,
+    "oeste": -69.4391,
+    "leste": -67.4069
+  },
+  "graus_por_no": {
+    "lon": 0.001984570312500003,
+    "lat": 0.001952952029520296
+  },
+  "metros_por_no": {
+    "x": 217.6,
+    "y": 217.4
+  },
+  "km": {
+    "largura": 222.8,
+    "altura": 117.8
+  },
+  "elev_min_m": 105.4,
+  "elev_max_m": 333.2,
+  "escala": "municipio",
+  "recorte": {
+    "tipo": "contorno",
+    "ibge_nivel": "municipios",
+    "ibge_codigo": "1200401",
+    "nos_dentro": 188143,
+    "fracao_dentro": 0.339,
+    "nos_fora": 366865,
+    "nos_chapados": 0
+  },
+  "fontes": [
+    {
+      "id": "gmrt",
+      "url": "https://www.gmrt.org/services/GridServer?north=-9.466&south=-10.5245&west=-69.4391&east=-67.4069&layer=topo&format=geotiff&mresolution=218",
+      "camada": "topo",
+      "mresolution_pedido": 218,
+      "largura": 1853,
+      "altura": 980,
+      "metros_por_no_devolvido": {
+        "x": 120.5,
+        "y": 120.6
+      },
+      "bbox_devolvido": {
+        "norte": -9.463692138642367,
+        "sul": -10.525080699804665,
+        "oeste": -69.44183379270088,
+        "leste": -67.40496796511161
+      },
+      "nan": 1853,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:34:23-03:00",
+      "bytes": 7271966,
+      "sha256": "4cd9f5c3c9193224338d616cdb3576cff3ac6a02593f8f2084ada7f3ed126f3b",
+      "cache": false
+    },
+    {
+      "id": "gmrt-topo-mask",
+      "url": "https://www.gmrt.org/services/GridServer?north=-9.466&south=-10.5245&west=-69.4391&east=-67.4069&layer=topo-mask&format=geotiff&mresolution=218",
+      "camada": "topo-mask",
+      "mresolution_pedido": 218,
+      "largura": 1853,
+      "altura": 980,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:34:34-03:00",
+      "bytes": 7271966,
+      "sha256": "4cd9f5c3c9193224338d616cdb3576cff3ac6a02593f8f2084ada7f3ed126f3b",
+      "cache": false
+    },
+    {
+      "id": "ibge-malha",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/1200401?formato=application/vnd.geo+json&qualidade=maxima",
+      "nivel": "municipios",
+      "codigo": "1200401",
+      "nome": "Rio Branco",
+      "qualidade": "maxima",
+      "poligonos": 1,
+      "aneis": 1,
+      "pontos": 1305,
+      "bbox_malha": {
+        "norte": -9.5052,
+        "sul": -10.4853,
+        "oeste": -69.3638,
+        "leste": -67.4822
+      },
+      "licenca": "dado público do IBGE (API de localidades e malhas, sem chave); termos de uso do portal a confirmar",
+      "atribuicao": "IBGE, Malhas Territoriais",
+      "obtido_em": "2026-10-26T22:34:12-03:00",
+      "bytes": 28090,
+      "sha256": "3975bc09ec46fad3ce8a825c6478cc11cc3e117d79ed036084a9df3b60b48799",
+      "cache": true
+    }
+  ],
+  "mascara": {
+    "pct_medido": 0,
+    "nos": 0,
+    "nos_mar": 0,
+    "base": "nós com elevação <= 0 m"
+  },
+  "nodata_preenchidos": 0,
+  "clampados": {
+    "abaixo": 0,
+    "acima": 0
+  },
+  "fixture": false,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "convencao": "nó = centro de célula; linha 0 = norte, coluna 0 = oeste; Terrain-RGB h = -10000 + (R*65536 + G*256 + B) * 0,1; h <= -9999 = fora do recorte (nem terra nem mar)",
+  "png": {
+    "bytes": 289014
+  },
+  "gerado_por": "maquete 0.1.0",
+  "gerado_em": "2026-10-26T22:34:34-03:00"
+}

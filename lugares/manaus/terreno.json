@@ -1,0 +1,119 @@
+{
+  "slug": "manaus",
+  "largura": 1024,
+  "altura": 810,
+  "bbox": {
+    "norte": -1.8724,
+    "sul": -3.2741,
+    "oeste": -60.8684,
+    "leste": -59.0942
+  },
+  "graus_por_no": {
+    "lon": 0.0017326171875000004,
+    "lat": 0.0017304938271604936
+  },
+  "metros_por_no": {
+    "x": 192.7,
+    "y": 192.6
+  },
+  "km": {
+    "largura": 197.3,
+    "altura": 156
+  },
+  "elev_min_m": -189.5,
+  "elev_max_m": 571.4,
+  "escala": "municipio",
+  "recorte": {
+    "tipo": "contorno",
+    "ibge_nivel": "municipios",
+    "ibge_codigo": "1302603",
+    "nos_dentro": 309254,
+    "fracao_dentro": 0.3728,
+    "nos_fora": 520186,
+    "nos_chapados": 0
+  },
+  "fontes": [
+    {
+      "id": "gmrt",
+      "url": "https://www.gmrt.org/services/GridServer?north=-1.8724&south=-3.2741&west=-60.8684&east=-59.0942&layer=topo&format=geotiff&mresolution=193",
+      "camada": "topo",
+      "mresolution_pedido": 193,
+      "largura": 1616,
+      "altura": 1279,
+      "metros_por_no_devolvido": {
+        "x": 122.3,
+        "y": 122.3
+      },
+      "bbox_devolvido": {
+        "norte": -1.870090079556626,
+        "sul": -3.274888494486447,
+        "oeste": -60.86920200029025,
+        "leste": -59.092712062209756
+      },
+      "nan": 3232,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:35:27-03:00",
+      "bytes": 8278054,
+      "sha256": "86bdf2ebe6e8e06559dd166fd7e90c10b4b6b8abe9f1d93085be380665e9a4af",
+      "cache": false
+    },
+    {
+      "id": "gmrt-topo-mask",
+      "url": "https://www.gmrt.org/services/GridServer?north=-1.8724&south=-3.2741&west=-60.8684&east=-59.0942&layer=topo-mask&format=geotiff&mresolution=193",
+      "camada": "topo-mask",
+      "mresolution_pedido": 193,
+      "largura": 1616,
+      "altura": 1279,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:35:40-03:00",
+      "bytes": 8278054,
+      "sha256": "5122cce116d9cda31b571061d62283c950f5238488183abc8d09a6df9c0d1d74",
+      "cache": false
+    },
+    {
+      "id": "ibge-malha",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/1302603?formato=application/vnd.geo+json&qualidade=maxima",
+      "nivel": "municipios",
+      "codigo": "1302603",
+      "nome": "Manaus",
+      "qualidade": "maxima",
+      "poligonos": 1,
+      "aneis": 1,
+      "pontos": 529,
+      "bbox_malha": {
+        "norte": -1.9243,
+        "sul": -3.2222,
+        "oeste": -60.8027,
+        "leste": -59.1599
+      },
+      "licenca": "dado público do IBGE (API de localidades e malhas, sem chave); termos de uso do portal a confirmar",
+      "atribuicao": "IBGE, Malhas Territoriais",
+      "obtido_em": "2026-10-26T22:35:14-03:00",
+      "bytes": 11145,
+      "sha256": "2441834bf1d857bcfbe24ddae8565058566767c77eb3c7b35e6e1ae40de1dbdb",
+      "cache": true
+    }
+  ],
+  "mascara": {
+    "pct_medido": 78.6,
+    "nos": 982,
+    "nos_mar": 1250,
+    "base": "nós com elevação <= 0 m"
+  },
+  "nodata_preenchidos": 0,
+  "clampados": {
+    "abaixo": 0,
+    "acima": 0
+  },
+  "fixture": false,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "convencao": "nó = centro de célula; linha 0 = norte, coluna 0 = oeste; Terrain-RGB h = -10000 + (R*65536 + G*256 + B) * 0,1; h <= -9999 = fora do recorte (nem terra nem mar)",
+  "png": {
+    "bytes": 461489
+  },
+  "gerado_por": "maquete 0.1.0",
+  "gerado_em": "2026-10-26T22:35:40-03:00"
+}

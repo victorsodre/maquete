@@ -1,0 +1,30 @@
+{
+  "slug": "boa-vista",
+  "nome": "Boa Vista",
+  "escala": "municipio",
+  "ibge": {
+    "nivel": "municipios",
+    "codigo": "1400100",
+    "nome": "Boa Vista",
+    "sigla": "RR",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": 3.6531,
+    "sul": 2.3811,
+    "oeste": -61.0292,
+    "leste": -60.2572
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "copernicus",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 182,
+    "espessura_mm": 3,
+    "material": "compensado",
+    "passo_terra_m": 50
+  }
+}

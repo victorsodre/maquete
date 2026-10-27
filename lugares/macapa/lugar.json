@@ -1,0 +1,29 @@
+{
+  "slug": "macapa",
+  "nome": "Macapá",
+  "escala": "municipio",
+  "ibge": {
+    "nivel": "municipios",
+    "codigo": "1600303",
+    "nome": "Macapá",
+    "sigla": "AP",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": 1.2938,
+    "sul": -0.151,
+    "oeste": -51.5575,
+    "leste": -49.8187
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

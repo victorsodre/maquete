@@ -1,0 +1,31 @@
+{
+  "slug": "porto-alegre",
+  "nome": "Porto Alegre",
+  "escala": "municipio",
+  "ibge": {
+    "nivel": "municipios",
+    "codigo": "4314902",
+    "nome": "Porto Alegre",
+    "sigla": "RS",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -29.9188,
+    "sul": -30.2827,
+    "oeste": -51.3149,
+    "leste": -51.0002
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "copernicus",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 224,
+    "espessura_mm": 3,
+    "material": "compensado",
+    "passo_terra_m": 100,
+    "passo_mar_m": 5
+  }
+}

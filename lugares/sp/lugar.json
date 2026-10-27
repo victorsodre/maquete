@@ -1,0 +1,29 @@
+{
+  "slug": "sp",
+  "nome": "São Paulo",
+  "escala": "estado",
+  "ibge": {
+    "nivel": "estados",
+    "codigo": "35",
+    "nome": "São Paulo",
+    "sigla": "SP",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -19.5587,
+    "sul": -25.5301,
+    "oeste": -53.468,
+    "leste": -43.8035
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

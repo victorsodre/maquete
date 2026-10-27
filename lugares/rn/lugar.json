@@ -1,0 +1,29 @@
+{
+  "slug": "rn",
+  "nome": "Rio Grande do Norte",
+  "escala": "estado",
+  "ibge": {
+    "nivel": "estados",
+    "codigo": "24",
+    "nome": "Rio Grande do Norte",
+    "sigla": "RN",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -4.7453,
+    "sul": -7.0688,
+    "oeste": -38.7266,
+    "leste": -34.824
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

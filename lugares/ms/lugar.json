@@ -1,0 +1,29 @@
+{
+  "slug": "ms",
+  "nome": "Mato Grosso do Sul",
+  "escala": "estado",
+  "ibge": {
+    "nivel": "estados",
+    "codigo": "50",
+    "nome": "Mato Grosso do Sul",
+    "sigla": "MS",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -16.8902,
+    "sul": -24.3443,
+    "oeste": -58.4584,
+    "leste": -50.6344
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 295,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

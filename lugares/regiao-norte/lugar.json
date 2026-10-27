@@ -1,0 +1,29 @@
+{
+  "slug": "regiao-norte",
+  "nome": "Norte",
+  "escala": "regiao",
+  "ibge": {
+    "nivel": "regioes",
+    "codigo": "1",
+    "nome": "Norte",
+    "sigla": "N",
+    "qualidade": "intermediaria"
+  },
+  "bbox": {
+    "norte": 6.0304,
+    "sul": -14.4516,
+    "oeste": -75.1147,
+    "leste": -44.5679
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "slug": "fortaleza",
+  "nome": "Fortaleza",
+  "escala": "municipio",
+  "ibge": {
+    "nivel": "municipios",
+    "codigo": "2304400",
+    "nome": "Fortaleza",
+    "sigla": "CE",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -3.6839,
+    "sul": -3.9027,
+    "oeste": -38.6474,
+    "leste": -38.3919
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "copernicus",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado",
+    "passo_terra_m": 25,
+    "passo_mar_m": 5
+  }
+}

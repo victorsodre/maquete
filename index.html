@@ -27,10 +27,14 @@
     <h1 id="nome">…</h1>
     <p id="sub"></p>
     <p id="exagero"></p>
+    <p id="teto" hidden></p>
     <p id="mar" hidden></p>
     <p class="dica" id="dica">arraste para girar · roda do mouse para aproximar</p>
   </header>
   <div class="barra" role="group" aria-label="controles">
+    <!-- escala e lugar: preenchidos de lugares/index.json (npm run indice); sem o arquivo ficam escondidos -->
+    <label class="campo campo-navegar" hidden><span>Escala</span><select id="escala" aria-label="escala"></select></label>
+    <label class="campo campo-navegar" hidden><span>Lugar</span><select id="lugar" aria-label="lugar"></select></label>
     <button id="girar" type="button" aria-pressed="false">Girar</button>
     <label class="campo"><span>Material</span>
       <select id="material">

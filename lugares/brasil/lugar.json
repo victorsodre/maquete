@@ -1,0 +1,30 @@
+{
+  "slug": "brasil",
+  "nome": "Brasil",
+  "escala": "pais",
+  "ibge": {
+    "nivel": "paises",
+    "codigo": "BR",
+    "nome": "Brasil",
+    "sigla": "BR",
+    "qualidade": "intermediaria"
+  },
+  "bbox": {
+    "norte": 6.8324,
+    "sul": -35.3045,
+    "oeste": -75.5505,
+    "leste": -33.2355
+  },
+  "margem": 0.04,
+  "recorte": "caixa",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 292,
+    "espessura_mm": 3,
+    "material": "compensado",
+    "passo_mar_m": 1000
+  }
+}

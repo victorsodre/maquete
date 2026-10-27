@@ -1,0 +1,29 @@
+{
+  "slug": "ma",
+  "nome": "Maranhão",
+  "escala": "estado",
+  "ibge": {
+    "nivel": "estados",
+    "codigo": "21",
+    "nome": "Maranhão",
+    "sigla": "MA",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -0.6811,
+    "sul": -10.628,
+    "oeste": -49.0335,
+    "leste": -41.5184
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 226,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "slug": "al",
+  "nome": "Alagoas",
+  "escala": "estado",
+  "ibge": {
+    "nivel": "estados",
+    "codigo": "27",
+    "nome": "Alagoas",
+    "sigla": "AL",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -8.7488,
+    "sul": -10.5659,
+    "oeste": -38.361,
+    "leste": -35.0293
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

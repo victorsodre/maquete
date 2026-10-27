@@ -1,0 +1,31 @@
+{
+  "slug": "maceio",
+  "nome": "Maceió",
+  "escala": "municipio",
+  "ibge": {
+    "nivel": "municipios",
+    "codigo": "2704302",
+    "nome": "Maceió",
+    "sigla": "AL",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -9.3573,
+    "sul": -9.7268,
+    "oeste": -35.8246,
+    "leste": -35.5483
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "copernicus",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 221,
+    "espessura_mm": 3,
+    "material": "compensado",
+    "passo_terra_m": 50,
+    "passo_mar_m": 5
+  }
+}

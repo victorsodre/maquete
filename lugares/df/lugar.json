@@ -1,0 +1,29 @@
+{
+  "slug": "df",
+  "nome": "Distrito Federal",
+  "escala": "estado",
+  "ibge": {
+    "nivel": "estados",
+    "codigo": "53",
+    "nome": "Distrito Federal",
+    "sigla": "DF",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -15.4799,
+    "sul": -16.0719,
+    "oeste": -48.3248,
+    "leste": -47.2694
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "slug": "porto-alegre",
+  "largura": 1024,
+  "altura": 1369,
+  "bbox": {
+    "norte": -29.9188,
+    "sul": -30.2827,
+    "oeste": -51.3149,
+    "leste": -51.0002
+  },
+  "graus_por_no": {
+    "lon": 0.00030732421875000193,
+    "lat": 0.00026581446311175854
+  },
+  "metros_por_no": {
+    "x": 29.6,
+    "y": 29.6
+  },
+  "km": {
+    "largura": 30.3,
+    "altura": 40.5
+  },
+  "elev_min_m": -10.3,
+  "elev_max_m": 314.1,
+  "escala": "municipio",
+  "recorte": {
+    "tipo": "contorno",
+    "ibge_nivel": "municipios",
+    "ibge_codigo": "4314902",
+    "nos_dentro": 567505,
+    "fracao_dentro": 0.4048,
+    "nos_fora": 834351,
+    "nos_chapados": 0
+  },
+  "fontes": [
+    {
+      "id": "gmrt",
+      "url": "https://www.gmrt.org/services/GridServer?north=-29.9188&south=-30.2827&west=-51.3149&east=-51.0002&layer=topo&format=geotiff&mresolution=30",
+      "camada": "topo",
+      "mresolution_pedido": 30,
+      "largura": 574,
+      "altura": 766,
+      "metros_por_no_devolvido": {
+        "x": 53,
+        "y": 53
+      },
+      "bbox_devolvido": {
+        "norte": -29.918518766019474,
+        "sul": -30.283026027238567,
+        "oeste": -51.31521654378681,
+        "leste": -50.99935865152568
+      },
+      "nan": 1148,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:40:38-03:00",
+      "bytes": 1761150,
+      "sha256": "ac5a0d3628295a0cd1f24f20d7f48ba7cb83a012466be95525a69cf4ba003c5c",
+      "cache": false
+    },
+    {
+      "id": "gmrt-topo-mask",
+      "url": "https://www.gmrt.org/services/GridServer?north=-29.9188&south=-30.2827&west=-51.3149&east=-51.0002&layer=topo-mask&format=geotiff&mresolution=30",
+      "camada": "topo-mask",
+      "mresolution_pedido": 30,
+      "largura": 574,
+      "altura": 766,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:40:41-03:00",
+      "bytes": 1761150,
+      "sha256": "25e4f7eb9a816a21c0374c75551554d099bd919b16c5284c3dfd9adac81dd9d1",
+      "cache": false
+    },
+    {
+      "id": "copernicus-glo30",
+      "url": "https://copernicus-dem-30m.s3.amazonaws.com",
+      "tiles": [
+        "Copernicus_DSM_COG_10_S30_00_W052_00_DEM",
+        "Copernicus_DSM_COG_10_S31_00_W052_00_DEM"
+      ],
+      "tiles_oceano": [],
+      "overview": 0,
+      "overview_nos": 3600,
+      "graus_por_no": 0.0002777777777777778,
+      "licenca": "Licence for Copernicus DEM instance COP-DEM-GLO-30-F Global 30m Full, Free & Open (ESA; texto em https://documentation.dataspace.copernicus.eu/APIs/SentinelHub/Data/DEM/resources/license/License-COPDEM-30.pdf)",
+      "atribuicao": "produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved. The organisations in charge of the Copernicus programme by law or by delegation do not incur any liability for any use of the Copernicus WorldDEM-30.",
+      "obtido_em": "2026-10-26T22:40:51-03:00",
+      "bytes": 6709384,
+      "sha256": "c56a43bf469ae2bcf27d34f75748fe2957fd211c13254172772a29ecdbba8ce3",
+      "detalhe": [
+        {
+          "tile": "Copernicus_DSM_COG_10_S30_00_W052_00_DEM",
+          "janela": [
+            2465,
+            3307,
+            3600,
+            3600
+          ],
+          "bytes": 2646150,
+          "pedidos": 2,
+          "sha256": "949092a57bb2e437997f83832344a30a6d467ba5906e6a637a9dcf5a5e3327a1",
+          "obtido_em": "2026-10-26T22:40:49-03:00",
+          "cache": false,
+          "nodata_nos": 0
+        },
+        {
+          "tile": "Copernicus_DSM_COG_10_S31_00_W052_00_DEM",
+          "janela": [
+            2465,
+            0,
+            3600,
+            1020
+          ],
+          "bytes": 4063234,
+          "pedidos": 2,
+          "sha256": "e6c53daea2171305775f5596a25d9df22518f67d120ff09124b538eb577ceb12",
+          "obtido_em": "2026-10-26T22:40:51-03:00",
+          "cache": false,
+          "nodata_nos": 0
+        }
+      ]
+    },
+    {
+      "id": "ibge-malha",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/4314902?formato=application/vnd.geo+json&qualidade=maxima",
+      "nivel": "municipios",
+      "codigo": "4314902",
+      "nome": "Porto Alegre",
+      "qualidade": "maxima",
+      "poligonos": 3,
+      "aneis": 3,
+      "pontos": 502,
+      "bbox_malha": {
+        "norte": -29.9323,
+        "sul": -30.2692,
+        "oeste": -51.3032,
+        "leste": -51.0119
+      },
+      "licenca": "dado público do IBGE (API de localidades e malhas, sem chave); termos de uso do portal a confirmar",
+      "atribuicao": "IBGE, Malhas Territoriais",
+      "obtido_em": "2026-10-26T22:40:34-03:00",
+      "bytes": 11099,
+      "sha256": "f5b98f836efd8197f010d44df6b7471c2eb3bab87225186cf526b9137c6d90f6",
+      "cache": true
+    }
+  ],
+  "mascara": {
+    "pct_medido": 81.3,
+    "nos": 21465,
+    "nos_mar": 26417,
+    "base": "nós com elevação <= 0 m"
+  },
+  "nodata_preenchidos": 0,
+  "clampados": {
+    "abaixo": 0,
+    "acima": 0
+  },
+  "fixture": false,
+  "terra": "copernicus",
+  "mar": "gmrt",
+  "convencao": "nó = centro de célula; linha 0 = norte, coluna 0 = oeste; Terrain-RGB h = -10000 + (R*65536 + G*256 + B) * 0,1; h <= -9999 = fora do recorte (nem terra nem mar)",
+  "png": {
+    "bytes": 661866
+  },
+  "gerado_por": "maquete 0.1.0",
+  "gerado_em": "2026-10-26T22:40:52-03:00"
+}

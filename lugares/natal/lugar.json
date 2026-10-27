@@ -1,0 +1,31 @@
+{
+  "slug": "natal",
+  "nome": "Natal",
+  "escala": "municipio",
+  "ibge": {
+    "nivel": "municipios",
+    "codigo": "2408102",
+    "nome": "Natal",
+    "sigla": "RN",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -5.6962,
+    "sul": -5.9076,
+    "oeste": -35.2968,
+    "leste": -35.1474
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "copernicus",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 211,
+    "espessura_mm": 3,
+    "material": "compensado",
+    "passo_terra_m": 25,
+    "passo_mar_m": 10
+  }
+}

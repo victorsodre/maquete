@@ -1,0 +1,121 @@
+{
+  "slug": "es",
+  "largura": 1024,
+  "altura": 1675,
+  "bbox": {
+    "norte": -17.7555,
+    "sul": -21.4375,
+    "oeste": -41.9681,
+    "leste": -39.5793
+  },
+  "graus_por_no": {
+    "lon": 0.0023328124999999963,
+    "lat": 0.0021982089552238797
+  },
+  "metros_por_no": {
+    "x": 244.6,
+    "y": 244.7
+  },
+  "km": {
+    "largura": 250.5,
+    "altura": 409.9
+  },
+  "elev_min_m": -25.1,
+  "elev_max_m": 5083.1,
+  "escala": "estado",
+  "recorte": {
+    "tipo": "contorno",
+    "ibge_nivel": "estados",
+    "ibge_codigo": "32",
+    "nos_dentro": 773501,
+    "fracao_dentro": 0.451,
+    "nos_fora": 941699,
+    "nos_chapados": 0
+  },
+  "ilhas_fora_do_bbox": 1,
+  "fontes": [
+    {
+      "id": "gmrt",
+      "url": "https://www.gmrt.org/services/GridServer?north=-17.7555&south=-21.4375&west=-41.9681&east=-39.5793&layer=topo&format=geotiff&mresolution=245",
+      "camada": "topo",
+      "mresolution_pedido": 245,
+      "largura": 1091,
+      "altura": 1781,
+      "metros_por_no_devolvido": {
+        "x": 230.6,
+        "y": 230.5
+      },
+      "bbox_devolvido": {
+        "norte": -17.753929240904913,
+        "sul": -21.441833262422293,
+        "oeste": -41.97326760948251,
+        "leste": -39.57385153114249
+      },
+      "nan": 2182,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T23:28:31-03:00",
+      "bytes": 7786898,
+      "sha256": "2a8c57f0badcf3aa8fb7d817f1a000acfbab99ddd80b47848baeea2c68d0c09a",
+      "cache": false
+    },
+    {
+      "id": "gmrt-topo-mask",
+      "url": "https://www.gmrt.org/services/GridServer?north=-17.7555&south=-21.4375&west=-41.9681&east=-39.5793&layer=topo-mask&format=geotiff&mresolution=245",
+      "camada": "topo-mask",
+      "mresolution_pedido": 245,
+      "largura": 1091,
+      "altura": 1781,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T23:28:42-03:00",
+      "bytes": 7786898,
+      "sha256": "356c1e51bbc4a85614bef7a4537ccbdb07387321b16b1bb0c6eb29d35ec09a09",
+      "cache": false
+    },
+    {
+      "id": "ibge-malha",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/estados/32?formato=application/vnd.geo+json&qualidade=maxima",
+      "nivel": "estados",
+      "codigo": "32",
+      "nome": "Espírito Santo",
+      "qualidade": "maxima",
+      "poligonos": 2,
+      "aneis": 2,
+      "pontos": 751,
+      "bbox_malha": {
+        "norte": -17.8919,
+        "sul": -21.3011,
+        "oeste": -41.8796,
+        "leste": -39.6678
+      },
+      "poligonos_fora_do_bbox": 1,
+      "licenca": "dado público do IBGE (API de localidades e malhas, sem chave); termos de uso do portal a confirmar",
+      "atribuicao": "IBGE, Malhas Territoriais",
+      "obtido_em": "2026-10-26T22:39:31-03:00",
+      "bytes": 16520,
+      "sha256": "820930350fb6d610d2bfe640148b0cf7ae45d9836304871a922afa446d2cd685",
+      "cache": true
+    }
+  ],
+  "mascara": {
+    "pct_medido": 0,
+    "nos": 0,
+    "nos_mar": 511,
+    "base": "nós com elevação <= 0 m"
+  },
+  "nodata_preenchidos": 0,
+  "clampados": {
+    "abaixo": 0,
+    "acima": 0
+  },
+  "fixture": false,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "convencao": "nó = centro de célula; linha 0 = norte, coluna 0 = oeste; Terrain-RGB h = -10000 + (R*65536 + G*256 + B) * 0,1; h <= -9999 = fora do recorte (nem terra nem mar)",
+  "png": {
+    "bytes": 1294854
+  },
+  "gerado_por": "maquete 0.1.0",
+  "gerado_em": "2026-10-26T23:28:42-03:00"
+}

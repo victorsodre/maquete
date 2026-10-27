@@ -1,0 +1,119 @@
+{
+  "slug": "regiao-centro-oeste",
+  "largura": 1024,
+  "altura": 1131,
+  "bbox": {
+    "norte": -6.6876,
+    "sul": -24.7367,
+    "oeste": -62.2571,
+    "leste": -45.2784
+  },
+  "graus_por_no": {
+    "lon": 0.016580761718750003,
+    "lat": 0.015958532272325375
+  },
+  "metros_por_no": {
+    "x": 1776.8,
+    "y": 1776.5
+  },
+  "km": {
+    "largura": 1819.4,
+    "altura": 2009.2
+  },
+  "elev_min_m": 72,
+  "elev_max_m": 1575,
+  "escala": "regiao",
+  "recorte": {
+    "tipo": "contorno",
+    "ibge_nivel": "regioes",
+    "ibge_codigo": "5",
+    "nos_dentro": 511882,
+    "fracao_dentro": 0.442,
+    "nos_fora": 646262,
+    "nos_chapados": 0
+  },
+  "fontes": [
+    {
+      "id": "gmrt",
+      "url": "https://www.gmrt.org/services/GridServer?north=-6.6876&south=-24.7367&west=-62.2571&east=-45.2784&layer=topo&format=geotiff&mresolution=1777",
+      "camada": "topo",
+      "mresolution_pedido": 1777,
+      "largura": 1934,
+      "altura": 2145,
+      "metros_por_no_devolvido": {
+        "x": 942.3,
+        "y": 937.7
+      },
+      "bbox_devolvido": {
+        "norte": -6.677854658253309,
+        "sul": -24.74705220320509,
+        "oeste": -62.27490461717537,
+        "leste": -45.26806413282462
+      },
+      "nan": 3868,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:36:01-03:00",
+      "bytes": 16611246,
+      "sha256": "ce5ce5a2af6f8fe1499993e788d2881bdcb62f7f29e6670995a97f278af9ef5c",
+      "cache": false
+    },
+    {
+      "id": "gmrt-topo-mask",
+      "url": "https://www.gmrt.org/services/GridServer?north=-6.6876&south=-24.7367&west=-62.2571&east=-45.2784&layer=topo-mask&format=geotiff&mresolution=1777",
+      "camada": "topo-mask",
+      "mresolution_pedido": 1777,
+      "largura": 1934,
+      "altura": 2145,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:36:29-03:00",
+      "bytes": 16611246,
+      "sha256": "3efe9a05284f87a27ee399177aa2c05628a45ad44cee34f970b0af402398fd5d",
+      "cache": false
+    },
+    {
+      "id": "ibge-malha",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/regioes/5?formato=application/vnd.geo+json&qualidade=intermediaria",
+      "nivel": "regioes",
+      "codigo": "5",
+      "nome": "Centro-Oeste",
+      "qualidade": "intermediaria",
+      "poligonos": 1,
+      "aneis": 3,
+      "pontos": 378,
+      "bbox_malha": {
+        "norte": -7.3561,
+        "sul": -24.0682,
+        "oeste": -61.6283,
+        "leste": -45.9072
+      },
+      "licenca": "dado público do IBGE (API de localidades e malhas, sem chave); termos de uso do portal a confirmar",
+      "atribuicao": "IBGE, Malhas Territoriais",
+      "obtido_em": "2026-10-26T22:35:39-03:00",
+      "bytes": 8345,
+      "sha256": "38c0e2c18f7301b6ed8766c43a0fc6d0add42e7c3b83f15f197f01722f440116",
+      "cache": true
+    }
+  ],
+  "mascara": {
+    "pct_medido": 0,
+    "nos": 0,
+    "nos_mar": 0,
+    "base": "nós com elevação <= 0 m"
+  },
+  "nodata_preenchidos": 0,
+  "clampados": {
+    "abaixo": 0,
+    "acima": 0
+  },
+  "fixture": false,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "convencao": "nó = centro de célula; linha 0 = norte, coluna 0 = oeste; Terrain-RGB h = -10000 + (R*65536 + G*256 + B) * 0,1; h <= -9999 = fora do recorte (nem terra nem mar)",
+  "png": {
+    "bytes": 843336
+  },
+  "gerado_por": "maquete 0.1.0",
+  "gerado_em": "2026-10-26T22:36:29-03:00"
+}

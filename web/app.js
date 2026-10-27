@@ -44,6 +44,9 @@ const LOOK = {
 };
 const MATERIAIS = ['compensado', 'cartao', 'gesso'];
 const NOME_MATERIAL = { compensado: 'compensado', cartao: 'cartão', gesso: 'gesso' };
+// escalas do contrato (SPEC.md): o laminas.json traz "escala"; ausente = local
+const NOME_ESCALA = { pais: 'País', regiao: 'Região', estado: 'Estado', municipio: 'Município', local: 'Local' };
+const ORDEM_ESCALA = Object.keys(NOME_ESCALA);
 
 // ---------------------------------------------------------------- URL e modos
 const url = new URL(location.href);
@@ -431,12 +434,23 @@ async function iniciar() {
   function montarUi() {
     const ui = $('ui'); ui.hidden = false;
     $('nome').textContent = laminas.nome || slug;
-    $('sub').textContent = `${fmt(L, 1)} × ${fmt(A, 1)} mm · ${n} lâminas de ${fmt(E, 1)} mm · passo de ${fmt(laminas.passo_terra_m)} m na terra${temMar ? ` e ${fmt(laminas.passo_mar_m)} m no mar` : ''}`;
+    // escala e largura real vêm do laminas.json ("escala" ausente = local); o passo fica na linha do exagero
+    const escala = NOME_ESCALA[laminas.escala] ? laminas.escala : 'local';
+    const kmLargura = Number(laminas.km && laminas.km.largura);
+    const cabeca = [NOME_ESCALA[escala], kmLargura > 0 ? `${fmt(kmLargura, kmLargura < 100 ? 1 : 0)} km de largura` : null].filter(Boolean).join(' · ');
+    $('sub').textContent = `${cabeca} · ${fmt(L, 1)} × ${fmt(A, 1)} mm · ${n} lâminas de ${fmt(E, 1)} mm`;
     const exTerra = Number(laminas.exagero), exMar = Number(laminas.exagero_mar);
     const exTxt = temMar && Number.isFinite(exMar) && Math.round(exMar) !== Math.round(exTerra)
       ? `relevo ${fmt(exTerra)}x mais alto que o real na terra (${fmt(exMar)}x no mar)`
       : `relevo ${fmt(exTerra)}x mais alto que o real`;
-    $('exagero').textContent = `${exTxt}; cada lâmina de ${fmt(E, 1)} mm vale ${fmt(laminas.passo_terra_m)} m na terra${temMar ? ` e ${fmt(laminas.passo_mar_m)} m no mar` : ''}`;
+    // o exagero cresce com a escala (país passa de 100x): dizer junto de qual escala é, sem esconder nada
+    const exEscala = laminas.escala ? `, escala ${NOME_ESCALA[escala].toLowerCase()}` : '';
+    $('exagero').textContent = `${exTxt}${exEscala}; cada lâmina de ${fmt(E, 1)} mm vale ${fmt(laminas.passo_terra_m)} m na terra${temMar ? ` e ${fmt(laminas.passo_mar_m)} m no mar` : ''}`;
+    const teto = Number(laminas.teto_m);
+    if (laminas.teto_m !== null && laminas.teto_m !== undefined && Number.isFinite(teto)) {
+      $('teto').textContent = `cumes achatados acima de ${fmt(teto)} m`;
+      $('teto').hidden = false;
+    }
     const pMar = $('mar');
     if (temMar) {
       const pct = laminas.mascara && Number.isFinite(Number(laminas.mascara.pct_medido)) ? Number(laminas.mascara.pct_medido) : null;
@@ -444,6 +458,13 @@ async function iniciar() {
       pMar.hidden = false;
     }
     montarCreditos();
+    // a barra fica logo acima dos créditos: a altura deles varia com a largura da tela (e com "fontes e licenças" aberto)
+    const creditos = $('creditos');
+    const medirCreditos = () => ui.style.setProperty('--creditos-h', `${creditos.offsetHeight}px`);
+    medirCreditos();
+    if (window.ResizeObserver) new ResizeObserver(medirCreditos).observe(creditos);
+    else window.addEventListener('resize', medirCreditos);
+    montarNavegacao(escala).catch((e) => console.warn(`sem seletor de lugares (${e?.message || e})`));
     const toque = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
     $('dica').textContent = toque ? 'arraste para girar · pince para aproximar' : 'arraste para girar · roda do mouse para aproximar';
 
@@ -499,6 +520,53 @@ async function iniciar() {
     controls.enabled = true;
     atualizarUi();
     setTimeout(() => $('dica').classList.add('off'), 9000);
+  }
+
+  // seletores de escala e lugar: lugares/index.json (npm run indice). Sem o arquivo (404), os dois
+  // campos continuam escondidos e nada quebra. Trocar navega para ?lugar=<slug> (recarrega a página:
+  // a cena é montada uma vez por lugar, e recarregar é o caminho mais robusto).
+  async function montarNavegacao(escalaAtual) {
+    const sEscala = $('escala'), sLugar = $('lugar');
+    if (!sEscala || !sLugar) return;
+    const indice = await carregarJson(`${BASE}lugares/index.json`);
+    const lugares = (Array.isArray(indice.lugares) ? indice.lugares : [])
+      .filter((l) => l && typeof l.slug === 'string' && /^[a-z0-9_-]+$/i.test(l.slug) && NOME_ESCALA[l.escala]);
+    if (!lugares.length) return;
+    const escalasIndice = Array.isArray(indice.escalas) && indice.escalas.length ? indice.escalas : ORDEM_ESCALA.map((id) => ({ id, nome: NOME_ESCALA[id] }));
+    // só escalas com algum lugar gerado, na ordem do contrato
+    const escalas = ORDEM_ESCALA
+      .filter((id) => lugares.some((l) => l.escala === id))
+      .map((id) => ({ id, nome: (escalasIndice.find((e) => e && e.id === id) || {}).nome || NOME_ESCALA[id] }));
+    const atual = lugares.find((l) => l.slug === slug);
+    const escalaSel = atual ? atual.escala : (escalas.some((e) => e.id === escalaAtual) ? escalaAtual : escalas[0].id);
+
+    const opcao = (valor, rotulo) => { const o = document.createElement('option'); o.value = valor; o.textContent = rotulo; return o; };
+    for (const e of escalas) sEscala.append(opcao(e.id, e.nome));
+    sEscala.value = escalaSel;
+    const preencherLugares = (id) => {
+      sLugar.replaceChildren();
+      for (const l of lugares.filter((x) => x.escala === id)) sLugar.append(opcao(l.slug, l.uf ? `${l.nome} (${l.uf})` : l.nome));
+      if (atual && atual.escala === id) sLugar.value = atual.slug;
+    };
+    preencherLugares(escalaSel);
+    if (!atual) {   // lugar aberto que não está no índice: entra na lista só para o campo mostrar onde se está
+      sLugar.prepend(opcao(slug, laminas.nome || slug));
+      sLugar.value = slug;
+    }
+
+    const irPara = (destino) => {
+      if (!destino || destino === slug) return;
+      const u = new URL(location.href);
+      u.search = '';
+      u.searchParams.set('lugar', destino);
+      // mantém o que é escolha do usuário (material, água, modo simples, moldura); t e levantar recomeçam
+      if (estado.material !== 'compensado') u.searchParams.set('material', estado.material);
+      for (const k of ['agua', 'simples', 'moldura']) if (url.searchParams.has(k)) u.searchParams.set(k, url.searchParams.get(k));
+      location.assign(u.toString());
+    };
+    sEscala.addEventListener('change', () => { preencherLugares(sEscala.value); irPara(sLugar.value); });
+    sLugar.addEventListener('change', () => irPara(sLugar.value));
+    for (const el of document.querySelectorAll('.campo-navegar')) el.hidden = false;
   }
 
   // créditos: nós do DOM (os textos vêm do laminas.json; nada de HTML por string)

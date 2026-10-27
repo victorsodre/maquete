@@ -11,18 +11,28 @@ import {
 } from './terrain.mjs';
 import { baixarGmrt, lerGeoTiffLocal, mresolutionPadrao, metrosPorNoDoRaster, estimarBytesGmrt, GMRT_BYTES_MAX, GMRT_LICENCA, GMRT_ATRIBUICAO } from './gmrt.mjs';
 import { coletarCopernicus } from './copernicus.mjs';
-import { PACOTE, escreverJson, TIMEOUT_PADRAO_MS, ehPrincipal } from './rede.mjs';
+import { PACOTE, escreverJson, lerJson, TIMEOUT_PADRAO_MS, ehPrincipal } from './rede.mjs';
+import {
+  listarRegioes, listarEstados, listarMunicipios, obterMalha, resolverPais, resolverRegiao, resolverEstado, resolverMunicipio,
+  bboxComMargem, blocoIbge, validarBlocoIbge, validarQualidade, qualidadePadrao, fonteIbge, contarPontos, poligonosForaDoBbox, ESCALA_DO_NIVEL, MARGEM_PADRAO,
+} from './ibge.mjs';
+import { recortarTerreno, validarRecorte, minMaxDentro, ehFora } from './recorte.mjs';
 
 const RAIZ_PACOTE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+export const ESCALAS = ['pais', 'regiao', 'estado', 'municipio', 'local'];
+export const LARGURA_IBGE_PADRAO = 1024;
+export const KM_MAX_COPERNICUS_MUNICIPIO = 150;
 
 export const AJUDA = `maquete ${PACOTE.version}: baixa o relevo (Copernicus na terra, GMRT no mar) e grava terreno.png + terreno.json
 
 Uso:
   npx maquete <slug> [opções]
   npx maquete --bbox N,S,O,L --slug <slug> --nome "Nome do lugar" [opções]
+  npx maquete --pais | --regiao <nome|sigla|1..5> | --uf <sigla> | --municipio <nome|código> [--uf <sigla>] [opções]
 
 Opções:
-  --largura N       largura da grade em nós (padrão: largura_max_nos do lugar.json, 2048)
+  --largura N       largura da grade em nós (padrão: largura_max_nos do lugar.json, 2048; 1024 nos lugares do IBGE)
   --so-gmrt         ignora o Copernicus e usa só o GMRT (terra mais grosseira)
   --sem-mascara     não baixa a camada topo-mask (fração medida fica nula)
   --mresolution N   metros por nó pedidos ao GridServer (padrão: largura do bbox em m / largura)
@@ -32,12 +42,31 @@ Opções:
   --timeout <min>   tempo máximo por download (padrão 10 min)
   --ajuda, -h       esta ajuda
 
+Lugares do IBGE (escalas país, região, estado e município; o polígono vem das Malhas Territoriais do IBGE):
+  --pais                  Brasil inteiro (slug brasil)
+  --regiao <v>            região por nome, sigla ou número 1..5 (slug regiao-sul, regiao-centro-oeste, ...)
+  --uf <sigla>            sozinho, o estado (slug pela sigla minúscula: sp, rj, ...); com --municipio, desempata homônimos
+  --municipio <v>         município por nome (acento-insensível) ou código de 7 dígitos (slug pelo nome em kebab: sao-paulo)
+  --recorte <tipo>        contorno (a peça vira o formato do território; fora = nada) ou caixa (padrão: vizinhos
+                          chapados em 0 m, mar com batimetria)
+  --qualidade <q>         minima | intermediaria | maxima (padrão: intermediaria no país e na região, maxima no resto)
+  --margem <fração>       folga em volta do polígono, fração do bbox (padrão ${MARGEM_PADRAO})
+                          (o bbox ignora ilha oceânica: só polígonos com centróide a até 1,5 x a diagonal do maior;
+                          o terreno.json grava quantos ficaram fora em ilhas_fora_do_bbox)
+  --slug <slug>           troca o slug padrão (ex.: dois municípios homônimos)
+  Com essas opções a CLI escolhe sozinha a terra (GMRT no país, região e estado; Copernicus no município de até
+  ${KM_MAX_COPERNICUS_MUNICIPIO} km de largura, senão GMRT), a grade de ${LARGURA_IBGE_PADRAO} nós e a largura da peça (lado maior em 300 mm), e grava
+  tudo no lugar.json (escala, ibge, recorte, margem). A rodada seguinte com só o slug refaz igual.
+  Exemplos: npx maquete --uf SE --recorte contorno · npx maquete --municipio "Fernando de Noronha" --uf PE
+            npx maquete --regiao sul · npx maquete --pais --recorte caixa
+
 Os lugares ficam em ./lugares/<slug>/ (pasta atual). Com --bbox, a CLI cria ./lugares/<slug>/lugar.json
 e grava nele as opções da criação (--largura, --mresolution, --so-gmrt, --sem-mascara), para as rodadas
-seguintes refazerem a mesma grade sem repetir as opções. Cache: lugares/<slug>/cache/ (gitignored).`;
+seguintes refazerem a mesma grade sem repetir as opções. Cache: lugares/<slug>/cache/ (gitignored);
+listas e malhas do IBGE em ./dados/cache-ibge/ (gitignored).`;
 
 export function parseArgs(argv) {
-  const o = { _: [], forcar: false, silencioso: false, soGmrt: false, semMascara: false, ajuda: false };
+  const o = { _: [], forcar: false, silencioso: false, soGmrt: false, semMascara: false, ajuda: false, pais: false };
   const pegaValor = (i, nome) => {
     const v = argv[i + 1];
     if (v === undefined || (v.startsWith('--') && v.length > 2)) throw new Error(`opção ${nome} precisa de um valor`);
@@ -57,6 +86,13 @@ export function parseArgs(argv) {
       case '--bbox': o.bbox = pegaValor(i, a); i++; break;
       case '--slug': o.slug = pegaValor(i, a); i++; break;
       case '--nome': o.nome = pegaValor(i, a); i++; break;
+      case '--pais': o.pais = true; break;
+      case '--regiao': o.regiao = pegaValor(i, a); i++; break;
+      case '--uf': o.uf = pegaValor(i, a); i++; break;
+      case '--municipio': o.municipio = pegaValor(i, a); i++; break;
+      case '--recorte': o.recorte = validarRecorte(pegaValor(i, a)); i++; break;
+      case '--qualidade': o.qualidade = validarQualidade(pegaValor(i, a)); i++; break;
+      case '--margem': o.margem = Number(pegaValor(i, a)); i++; break;
       case '--ajuda': case '-h': case '--help': o.ajuda = true; break;
       default:
         if (a.startsWith('-')) throw new Error(`opção desconhecida: ${a} (veja --ajuda)`);
@@ -66,6 +102,13 @@ export function parseArgs(argv) {
   if (o.largura !== undefined && (!Number.isInteger(o.largura) || o.largura < 2)) throw new Error(`--largura precisa ser inteiro >= 2 (veio ${o.largura})`);
   if (o.mresolution !== undefined && (!Number.isFinite(o.mresolution) || o.mresolution < 1)) throw new Error(`--mresolution precisa ser número >= 1 (veio ${o.mresolution})`);
   if (o.timeoutMin !== undefined && (!Number.isFinite(o.timeoutMin) || o.timeoutMin <= 0)) throw new Error(`--timeout em minutos, > 0 (veio ${o.timeoutMin})`);
+  if (o.margem !== undefined && (!Number.isFinite(o.margem) || o.margem < 0 || o.margem > 1)) throw new Error(`--margem é fração do bbox entre 0 e 1 (veio ${o.margem})`);
+  const ibge = [o.pais && '--pais', o.regiao !== undefined && '--regiao', o.municipio !== undefined && '--municipio'].filter(Boolean);
+  if (ibge.length > 1) throw new Error(`um território por vez (veio ${ibge.join(' e ')})`);
+  if (o.uf !== undefined && (o.pais || o.regiao !== undefined)) throw new Error('--uf não combina com --pais nem com --regiao');
+  o.ibge = ibge.length === 1 || (o.uf !== undefined);
+  if (o.ibge && o.bbox !== undefined) throw new Error('--bbox não combina com as opções do IBGE (--pais, --regiao, --uf, --municipio)');
+  if (!o.ibge && o.bbox !== undefined && (o.recorte !== undefined || o.qualidade !== undefined || o.margem !== undefined)) throw new Error('--recorte, --qualidade e --margem só valem com --pais, --regiao, --uf ou --municipio (ou com o slug de um lugar do IBGE)');
   return o;
 }
 
@@ -112,6 +155,41 @@ function validarSlug(slug) {
   return slug;
 }
 
+// Largura da peça para o lado maior ficar em 300 mm (contrato, regra 5).
+export function larguraMmPorProporcao(km, maior = 300) {
+  if (!(km.largura > 0) || !(km.altura > 0)) return maior;
+  return Math.round(maior * Math.min(1, km.largura / km.altura));
+}
+
+// Terra por escala: país, região e estado só GMRT (largura de centenas a milhares de km numa grade de
+// 1024 nós: o Copernicus a 30 m seria download à toa); município com Copernicus até 150 km de largura.
+export function terraPorEscala(escala, kmLargura) {
+  if (escala === 'municipio') return kmLargura <= KM_MAX_COPERNICUS_MUNICIPIO ? 'copernicus' : 'gmrt';
+  return 'gmrt';
+}
+
+// lugar.json de um território do IBGE (país, região, estado ou município).
+export function lugarIbge({ slug, territorio, bboxMalha, margem = MARGEM_PADRAO, recorte = 'caixa', qualidade, largura_max_nos = LARGURA_IBGE_PADRAO, terra, mascara = true }) {
+  const escala = ESCALA_DO_NIVEL[territorio.nivel];
+  if (!escala) throw new Error(`nível do IBGE sem escala: ${territorio.nivel}`);
+  const bbox = bboxComMargem(bboxMalha, margem);
+  const km = kmDoBbox(bbox);
+  return {
+    slug,
+    nome: territorio.nome,
+    escala,
+    ibge: blocoIbge(territorio, qualidade),
+    bbox,
+    margem,
+    recorte: validarRecorte(recorte),
+    largura_max_nos,
+    terra: terra || terraPorEscala(escala, km.largura),
+    mar: 'gmrt',
+    mascara,
+    maquete: { largura_mm: larguraMmPorProporcao(km), espessura_mm: 3, material: 'compensado' },
+  };
+}
+
 // Onde ficam os lugares: a pasta atual. A raiz do pacote só vale para ler um lugar que já existe
 // lá (clone do repositório rodado de uma subpasta); criar é sempre em ./lugares/<slug>/, senão
 // `npx maquete --bbox ...` numa pasta vazia gravava dentro de node_modules ou do cache do npx.
@@ -138,7 +216,71 @@ export function lerLugar(raiz, slug) {
   if (lugar.mar && lugar.mar !== 'gmrt') throw new Error(`mar desconhecido em lugar.json: "${lugar.mar}" (a v1 só tem gmrt)`);
   const largura = lugar.largura_max_nos ?? 2048;
   if (!Number.isInteger(largura) || largura < 2) throw new Error(`largura_max_nos inválido em lugar.json: ${largura}`);
-  return { ...lugar, slug, largura_max_nos: largura, caminho, pasta: path.dirname(caminho) };
+  const escala = lugar.escala ?? 'local';
+  if (!ESCALAS.includes(escala)) throw new Error(`escala desconhecida em lugar.json: "${escala}" (${ESCALAS.join(', ')})`);
+  if (lugar.ibge !== undefined && lugar.ibge !== null) validarBlocoIbge(lugar.ibge);
+  if (escala !== 'local' && !lugar.ibge) throw new Error(`lugar.json com escala "${escala}" precisa do bloco "ibge" (nivel, codigo); crie com --pais, --regiao, --uf ou --municipio`);
+  if (lugar.recorte !== undefined && lugar.recorte !== null) validarRecorte(lugar.recorte);
+  if (lugar.recorte && !lugar.ibge) throw new Error('lugar.json com "recorte" precisa do bloco "ibge" (o polígono vem de lá)');
+  if (lugar.margem !== undefined && (!Number.isFinite(lugar.margem) || lugar.margem < 0 || lugar.margem > 1)) throw new Error(`margem inválida em lugar.json: ${lugar.margem}`);
+  return { ...lugar, slug, escala, largura_max_nos: largura, caminho, pasta: path.dirname(caminho) };
+}
+
+// Cache das listas e malhas do IBGE: compartilhado entre os lugares, ao lado de lugares/ (dados/cache-ibge/).
+export function cacheIbgeDe(raiz) {
+  return path.join(raiz, 'dados', 'cache-ibge');
+}
+
+// Resolve o território pedido na linha de comando (uma chamada de rede por lista, com cache).
+export async function resolverTerritorio(opcoes, { cacheDir, forcar = false, timeoutMs, log } = {}) {
+  const rede = { cacheDir, forcar, timeoutMs, log };
+  if (opcoes.pais) return resolverPais();
+  if (opcoes.regiao !== undefined) return resolverRegiao(opcoes.regiao, await listarRegioes(rede));
+  if (opcoes.municipio !== undefined) {
+    const estados = await listarEstados(rede);
+    const municipios = await listarMunicipios(rede);
+    return resolverMunicipio(opcoes.municipio, municipios, { uf: opcoes.uf, estados });
+  }
+  if (opcoes.uf !== undefined) return resolverEstado(opcoes.uf, await listarEstados(rede));
+  throw new Error('nenhum território pedido (--pais, --regiao, --uf ou --municipio)');
+}
+
+// Cria (ou reaproveita) lugares/<slug>/lugar.json para um território do IBGE. Devolve o slug.
+export async function criarLugarIbge({ opcoes, raiz, log = () => {} }) {
+  const cacheDir = cacheIbgeDe(raiz);
+  const timeoutMs = opcoes.timeoutMin ? opcoes.timeoutMin * 60 * 1000 : TIMEOUT_PADRAO_MS;
+  const rede = { cacheDir, forcar: !!opcoes.forcar, timeoutMs, log };
+  const territorio = await resolverTerritorio(opcoes, rede);
+  const slug = validarSlug(opcoes.slug || territorio.slug);
+  const qualidade = opcoes.qualidade || qualidadePadrao(territorio.nivel);
+  log(`IBGE: ${ESCALA_DO_NIVEL[territorio.nivel]} ${territorio.nome}${territorio.sigla ? ` (${territorio.sigla})` : ''}, código ${territorio.codigo}, malha ${qualidade}`);
+  const malha = await obterMalha({ nivel: territorio.nivel, codigo: territorio.codigo, qualidade, ...rede });
+  log(`IBGE: malha com ${malha.poligonos.length} polígono(s), ${contarPontos(malha.poligonos)} pontos, ${fmtBytes(malha.bytes)}${malha.cache ? ' (cache)' : ''}; bbox N ${fmtNum(malha.bbox.norte, 4)} S ${fmtNum(malha.bbox.sul, 4)} O ${fmtNum(malha.bbox.oeste, 4)} L ${fmtNum(malha.bbox.leste, 4)}${malha.ilhas_fora_do_bbox ? ` (${malha.ilhas_fora_do_bbox} polígono(s) isolado(s) fora do bbox: ilha oceânica)` : ''}`);
+  const pasta = path.join(raiz, 'lugares', slug);
+  const caminho = path.join(pasta, 'lugar.json');
+  const existente = fs.existsSync(caminho) ? lerJson(caminho) : null;
+  if (existente && !(existente.ibge && existente.ibge.nivel === territorio.nivel && String(existente.ibge.codigo) === territorio.codigo)) {
+    const quem = existente.ibge ? `${existente.ibge.nome || existente.nome} (${existente.ibge.nivel}/${existente.ibge.codigo})` : (existente.nome || slug);
+    throw new Error(`${path.relative(process.cwd(), caminho)} já existe e é de ${quem}; use --slug <outro> para ${territorio.nome}`);
+  }
+  const base = existente || {};
+  const margem = opcoes.margem ?? base.margem ?? MARGEM_PADRAO;
+  const novo = lugarIbge({
+    slug, territorio, bboxMalha: malha.bbox, margem,
+    recorte: opcoes.recorte || base.recorte || 'caixa',
+    qualidade,
+    largura_max_nos: opcoes.largura ?? base.largura_max_nos ?? LARGURA_IBGE_PADRAO,
+    terra: opcoes.soGmrt ? 'gmrt' : undefined,
+    mascara: opcoes.semMascara ? false : (base.mascara !== false),
+  });
+  if (existente && existente.maquete) novo.maquete = { ...existente.maquete, largura_mm: novo.maquete.largura_mm };
+  if (Number.isFinite(opcoes.mresolution)) novo.mresolution = opcoes.mresolution;
+  else if (existente && Number.isFinite(existente.mresolution)) novo.mresolution = existente.mresolution;
+  fs.mkdirSync(pasta, { recursive: true });
+  escreverJson(caminho, novo);
+  const km = kmDoBbox(novo.bbox);
+  log(`${existente ? 'atualizado' : 'criado'} ${path.relative(process.cwd(), caminho)}: escala ${novo.escala}, recorte ${novo.recorte}, caixa de ${fmtNum(km.largura)} x ${fmtNum(km.altura)} km (margem ${margem}), peça ${novo.maquete.largura_mm} mm de largura, ${novo.largura_max_nos} nós, terra ${novo.terra}, máscara ${novo.mascara ? 'sim' : 'não'}`);
+  return slug;
 }
 
 export async function gerarTerreno({ lugar, opcoes = {}, log = () => {} }) {
@@ -222,17 +364,37 @@ export async function gerarTerreno({ lugar, opcoes = {}, log = () => {} }) {
   const fusao = fundirGrade(copGrade, gmrtGrade, existe);
   const alturas = fusao.alturas;
   const nodataPreenchidos = preencherNaN(alturas, grade.largura, grade.altura);
-  const { min, max } = minMax(alturas);
-  log(`fusão: ${fmtSegundos(performance.now() - tR)}; ${fusao.nos_copernicus} nós de terra do Copernicus, ${fusao.copernicus_nodata} nodata do Copernicus cobertos pelo GMRT, ${nodataPreenchidos} buracos preenchidos pelo vizinho; elevação ${fmtNum(min)} a ${fmtNum(max)} m`);
+  const bruto = minMax(alturas);
+  log(`fusão: ${fmtSegundos(performance.now() - tR)}; ${fusao.nos_copernicus} nós de terra do Copernicus, ${fusao.copernicus_nodata} nodata do Copernicus cobertos pelo GMRT, ${nodataPreenchidos} buracos preenchidos pelo vizinho; elevação ${fmtNum(bruto.min)} a ${fmtNum(bruto.max)} m`);
 
-  // 6) Máscara: fração dos nós de mar (h <= 0) com medição direta
+  // 5b) Recorte pelo polígono do IBGE (país, região, estado, município)
+  let recorteJson = null;
+  let dentro = null;
+  let ilhasForaDoBbox = 0;
+  if (lugar.ibge) {
+    const tipo = validarRecorte(opcoes.recorte || lugar.recorte || 'caixa');
+    const qualidade = opcoes.qualidade || lugar.ibge.qualidade || qualidadePadrao(lugar.ibge.nivel);
+    const malha = await obterMalha({ nivel: lugar.ibge.nivel, codigo: lugar.ibge.codigo, qualidade, cacheDir: cacheIbgeDe(path.dirname(path.dirname(lugar.pasta))), forcar, timeoutMs, log });
+    const tRc = performance.now();
+    const r = recortarTerreno({ alturas, poligonos: malha.poligonos, bbox, grade, tipo, ibge: lugar.ibge });
+    dentro = r.dentro;
+    recorteJson = r.resumo;
+    fontes.push(fonteIbge(malha, lugar.ibge));
+    ilhasForaDoBbox = poligonosForaDoBbox(malha.poligonos, bbox);
+    if (ilhasForaDoBbox) log(`${ilhasForaDoBbox} polígono(s) da malha fora do bbox (ilha oceânica): fora da grade, não entram na peça`);
+    log(`recorte ${tipo} (${lugar.ibge.nivel}/${lugar.ibge.codigo}, malha ${malha.qualidade}, ${contarPontos(malha.poligonos)} pontos): ${recorteJson.nos_dentro} de ${alturas.length} nós dentro do polígono (${fmtNum(100 * recorteJson.fracao_dentro)} %), ${tipo === 'contorno' ? `${recorteJson.nos_fora} nós fora` : `${recorteJson.nos_chapados} nós de terra vizinha chapados em 0 m`}, ${fmtSegundos(performance.now() - tRc)}`);
+  }
+  const { min, max } = recorteJson ? minMaxDentro(alturas) : bruto;
+  if (recorteJson) log(`elevação dentro do recorte: ${fmtNum(min)} a ${fmtNum(max)} m`);
+
+  // 6) Máscara: fração dos nós de mar (h <= 0, fora do recorte não conta) com medição direta
   let mascaraJson = { pct_medido: null, nos: 0 };
   if (mascaraRaster) {
     const mk = reamostrarParaGrade(mascaraRaster, bbox, grade, 'vizinho');
     let medidos = 0;
     let mar = 0;
     for (let k = 0; k < alturas.length; k++) {
-      if (alturas[k] <= 0) { mar++; if (mk[k] === mk[k]) medidos++; }
+      if (alturas[k] <= 0 && !ehFora(alturas[k])) { mar++; if (mk[k] === mk[k]) medidos++; }
     }
     mascaraJson = { pct_medido: mar ? arredondar(100 * medidos / mar, 1) : 0, nos: medidos, nos_mar: mar, base: 'nós com elevação <= 0 m' };
     log(`máscara: ${medidos} de ${mar} nós de mar medidos de verdade (${fmtNum(mascaraJson.pct_medido)} %)`);
@@ -255,6 +417,9 @@ export async function gerarTerreno({ lugar, opcoes = {}, log = () => {} }) {
     km: { largura: arredondar(grade.km.largura, 1), altura: arredondar(grade.km.altura, 1) },
     elev_min_m: arredondar(min, 1),
     elev_max_m: arredondar(max, 1),
+    escala: lugar.escala || 'local',
+    recorte: recorteJson,
+    ilhas_fora_do_bbox: ilhasForaDoBbox,
     fontes,
     mascara: mascaraJson,
     nodata_preenchidos: nodataPreenchidos,
@@ -262,12 +427,20 @@ export async function gerarTerreno({ lugar, opcoes = {}, log = () => {} }) {
     fixture: false,
     terra,
     mar: 'gmrt',
-    convencao: 'nó = centro de célula; linha 0 = norte, coluna 0 = oeste; Terrain-RGB h = -10000 + (R*65536 + G*256 + B) * 0,1',
+    convencao: 'nó = centro de célula; linha 0 = norte, coluna 0 = oeste; Terrain-RGB h = -10000 + (R*65536 + G*256 + B) * 0,1; h <= -9999 = fora do recorte (nem terra nem mar)',
     png: { bytes: bytesPng },
     gerado_por: `maquete ${PACOTE.version}`,
     gerado_em: agoraIso(),
   };
   escreverJson(caminhoJson, terreno);
+  // --recorte / --qualidade numa rodada só com o slug ficam gravados, para a próxima refazer igual.
+  if (lugar.ibge && ((opcoes.recorte && opcoes.recorte !== lugar.recorte) || (opcoes.qualidade && opcoes.qualidade !== lugar.ibge.qualidade))) {
+    const atual = lerJson(lugar.caminho) || {};
+    if (opcoes.recorte) atual.recorte = opcoes.recorte;
+    if (opcoes.qualidade) atual.ibge = { ...(atual.ibge || lugar.ibge), qualidade: opcoes.qualidade };
+    escreverJson(lugar.caminho, atual);
+    log(`lugar.json atualizado (recorte ${atual.recorte}, malha ${atual.ibge.qualidade})`);
+  }
   log(`gravado: ${path.relative(process.cwd(), caminhoPng)} (${fmtBytes(bytesPng)}, ${fmtSegundos(performance.now() - tP)}) e terreno.json`);
   log(`pronto em ${fmtSegundos(performance.now() - t0)}`);
   return { terreno, caminhoPng, caminhoJson, ms: performance.now() - t0 };
@@ -275,14 +448,18 @@ export async function gerarTerreno({ lugar, opcoes = {}, log = () => {} }) {
 
 export async function main(argv = process.argv.slice(2)) {
   const opcoes = parseArgs(argv);
-  if (opcoes.ajuda || (!opcoes._.length && !opcoes.bbox)) {
+  if (opcoes.ajuda || (!opcoes._.length && !opcoes.bbox && !opcoes.ibge)) {
     console.log(AJUDA);
     return opcoes.ajuda ? 0 : 2;
   }
   const log = opcoes.silencioso ? () => {} : (m) => console.log(m);
   let slug = opcoes._[0];
   let raiz;
-  if (opcoes.bbox) {
+  if (opcoes.ibge) {
+    if (opcoes._.length) throw new Error(`com --pais, --regiao, --uf ou --municipio o slug sai sozinho (ou vem de --slug); não passe "${opcoes._[0]}" solto`);
+    raiz = process.cwd();   // criar é sempre na pasta atual
+    slug = await criarLugarIbge({ opcoes, raiz, log });
+  } else if (opcoes.bbox) {
     if (!opcoes.slug) throw new Error('--bbox precisa de --slug <slug> (e, de preferência, --nome "...")');
     slug = validarSlug(opcoes.slug);
     const bbox = parseBboxTexto(opcoes.bbox);
@@ -305,6 +482,7 @@ export async function main(argv = process.argv.slice(2)) {
     raiz = raizDosLugares(process.cwd(), slug);
   }
   const lugar = lerLugar(raiz, slug);
+  if (!lugar.ibge && (opcoes.recorte || opcoes.qualidade || opcoes.margem !== undefined)) throw new Error(`${slug} não é um lugar do IBGE (sem bloco "ibge" no lugar.json): --recorte, --qualidade e --margem não se aplicam`);
   await gerarTerreno({ lugar, opcoes, log });
   return 0;
 }

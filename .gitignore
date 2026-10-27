@@ -9,3 +9,11 @@ captura/saida/
 *.tif
 *.tiff
 *.nc
+# listas e malhas do IBGE (refaz com um comando)
+dados/cache-ibge/
+# terreno.png dos lugares do IBGE não entra (refaz com um comando); só os 4 locais originais ficam
+lugares/*/terreno.png
+!lugares/rio/terreno.png
+!lugares/floripa/terreno.png
+!lugares/salvador/terreno.png
+!lugares/noronha/terreno.png

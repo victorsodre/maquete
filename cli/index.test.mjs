@@ -6,7 +6,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { parseArgs, parseBboxTexto, lugarPadrao, lerLugar, raizDosLugares, exageroSugerido, AJUDA } from './index.mjs';
+import { parseArgs, parseBboxTexto, lugarPadrao, lugarIbge, lerLugar, raizDosLugares, exageroSugerido, larguraMmPorProporcao, terraPorEscala, cacheIbgeDe, AJUDA } from './index.mjs';
 import { ehPrincipal } from './rede.mjs';
 
 const AQUI = path.dirname(fileURLToPath(import.meta.url));
@@ -31,6 +31,99 @@ test('opções da linha de comando', () => {
   assert.equal(b.slug, 'teste-x');
   assert.equal(b.nome, 'Teste X');
   assert.match(AJUDA, /npx maquete <slug>/);
+});
+
+test('opções do IBGE: --pais, --regiao, --uf, --municipio, --recorte, --qualidade, --margem', () => {
+  const a = parseArgs(['--uf', 'SE', '--recorte', 'contorno']);
+  assert.equal(a.ibge, true);
+  assert.equal(a.uf, 'SE');
+  assert.equal(a.recorte, 'contorno');
+  const b = parseArgs(['--municipio', 'Fernando de Noronha', '--uf', 'PE', '--qualidade', 'maxima', '--margem', '0.1']);
+  assert.equal(b.municipio, 'Fernando de Noronha');
+  assert.equal(b.uf, 'PE');
+  assert.equal(b.qualidade, 'maxima');
+  assert.equal(b.margem, 0.1);
+  assert.equal(parseArgs(['--pais']).ibge, true);
+  assert.equal(parseArgs(['--regiao', '5']).regiao, '5');
+  assert.equal(parseArgs(['rio']).ibge, false);
+  assert.equal(parseArgs(['sp', '--recorte', 'caixa']).recorte, 'caixa', 'slug de lugar do IBGE aceita --recorte');
+  assert.throws(() => parseArgs(['--pais', '--regiao', 'sul']), /um território por vez/);
+  assert.throws(() => parseArgs(['--pais', '--uf', 'SP']), /--uf não combina/);
+  assert.throws(() => parseArgs(['--pais', '--bbox', '1,0,0,1']), /--bbox não combina/);
+  assert.throws(() => parseArgs(['--recorte', 'oval']), /recorte desconhecido/);
+  assert.throws(() => parseArgs(['--qualidade', 'alta']), /qualidade desconhecida/);
+  assert.throws(() => parseArgs(['--uf', 'SE', '--margem', '3']), /--margem é fração/);
+  assert.throws(() => parseArgs(['--bbox', '1,0,0,1', '--slug', 'x', '--recorte', 'caixa']), /só valem com --pais/);
+  assert.match(AJUDA, /--municipio <v>/);
+  assert.match(AJUDA, /--recorte <tipo>/);
+});
+
+test('lugar.json de um território do IBGE: escala, ibge, recorte, margem, terra e peça', () => {
+  const se = { nivel: 'estados', codigo: '28', nome: 'Sergipe', sigla: 'SE', slug: 'se' };
+  const bboxMalha = { norte: -9.515, sul: -11.5685, oeste: -38.245, leste: -36.3959 };
+  const l = lugarIbge({ slug: 'se', territorio: se, bboxMalha, recorte: 'contorno' });
+  assert.equal(l.slug, 'se');
+  assert.equal(l.nome, 'Sergipe');
+  assert.equal(l.escala, 'estado');
+  assert.deepEqual(l.ibge, { nivel: 'estados', codigo: '28', nome: 'Sergipe', sigla: 'SE', qualidade: 'maxima' });
+  assert.deepEqual(l.bbox, { norte: -9.4329, sul: -11.6506, oeste: -38.319, leste: -36.3219 });
+  assert.equal(l.margem, 0.04);
+  assert.equal(l.recorte, 'contorno');
+  assert.equal(l.largura_max_nos, 1024);
+  assert.equal(l.terra, 'gmrt', 'estado é sempre GMRT');
+  assert.equal(l.mar, 'gmrt');
+  assert.equal(l.mascara, true);
+  assert.equal(l.maquete.largura_mm, 266, 'Sergipe é um pouco mais alto (228 km) que largo (202 km): altura em 300 mm, largura 266 mm');
+  assert.equal(l.maquete.espessura_mm, 3);
+  assert.equal('passo_terra_m' in l.maquete, false, 'o passo fica para o cli/laminas.mjs escolher pela escala');
+  assert.deepEqual(Object.keys(l), ['slug', 'nome', 'escala', 'ibge', 'bbox', 'margem', 'recorte', 'largura_max_nos', 'terra', 'mar', 'mascara', 'maquete']);
+  // país: intermediaria e recorte caixa por padrão
+  const br = lugarIbge({ slug: 'brasil', territorio: { nivel: 'paises', codigo: 'BR', nome: 'Brasil', sigla: 'BR' }, bboxMalha: { norte: 5.2718, sul: -33.7439, oeste: -73.9833, leste: -34.8027 } });
+  assert.equal(br.escala, 'pais');
+  assert.equal(br.recorte, 'caixa');
+  assert.equal(br.ibge.qualidade, 'intermediaria');
+  assert.equal(br.terra, 'gmrt');
+  assert.ok(br.maquete.largura_mm < 300 && br.maquete.largura_mm > 250, `Brasil é um pouco mais alto que largo: ${br.maquete.largura_mm} mm`);
+  // município pequeno: Copernicus; município largo: GMRT
+  const nor = lugarIbge({ slug: 'fernando-de-noronha', territorio: { nivel: 'municipios', codigo: '2605459', nome: 'Fernando de Noronha', sigla: 'PE' }, bboxMalha: { norte: -3.8048, sul: -3.88, oeste: -32.4755, leste: -32.3778 } });
+  assert.equal(nor.escala, 'municipio');
+  assert.equal(nor.terra, 'copernicus');
+  assert.equal(nor.ibge.sigla, 'PE');
+  const alt = lugarIbge({ slug: 'altamira', territorio: { nivel: 'municipios', codigo: '1500602', nome: 'Altamira', sigla: 'PA' }, bboxMalha: { norte: -2.5, sul: -9.5, oeste: -55.5, leste: -51.5 } });
+  assert.equal(alt.terra, 'gmrt', 'município de 400 km de largura vai de GMRT');
+  assert.equal(alt.maquete.largura_mm, 170, 'mais alto que largo: lado maior (altura) em 300 mm');
+  assert.throws(() => lugarIbge({ slug: 'x', territorio: se, bboxMalha, recorte: 'oval' }), /recorte desconhecido/);
+  assert.equal(larguraMmPorProporcao({ largura: 100, altura: 50 }), 300);
+  assert.equal(larguraMmPorProporcao({ largura: 50, altura: 100 }), 150);
+  assert.equal(terraPorEscala('municipio', 150), 'copernicus');
+  assert.equal(terraPorEscala('municipio', 150.1), 'gmrt');
+  assert.equal(terraPorEscala('regiao', 10), 'gmrt');
+  assert.equal(cacheIbgeDe('/x'), path.join('/x', 'dados', 'cache-ibge'));
+});
+
+test('lerLugar valida escala, ibge e recorte (lugar antigo sem escala = local)', () => {
+  const raiz = fs.mkdtempSync(path.join(os.tmpdir(), 'maquete-escala-'));
+  const pasta = path.join(raiz, 'lugares', 'se');
+  fs.mkdirSync(pasta, { recursive: true });
+  const bbox = { norte: 1, sul: 0, oeste: 0, leste: 1 };
+  const grava = (obj) => fs.writeFileSync(path.join(pasta, 'lugar.json'), JSON.stringify({ slug: 'se', bbox, ...obj }));
+  grava({});
+  assert.equal(lerLugar(raiz, 'se').escala, 'local', 'sem escala é local');
+  grava({ escala: 'estado', ibge: { nivel: 'estados', codigo: '28', nome: 'Sergipe', sigla: 'SE', qualidade: 'maxima' }, recorte: 'contorno', margem: 0.04 });
+  const l = lerLugar(raiz, 'se');
+  assert.equal(l.escala, 'estado');
+  assert.equal(l.recorte, 'contorno');
+  grava({ escala: 'cidade' });
+  assert.throws(() => lerLugar(raiz, 'se'), /escala desconhecida/);
+  grava({ escala: 'estado' });
+  assert.throws(() => lerLugar(raiz, 'se'), /precisa do bloco "ibge"/);
+  grava({ recorte: 'caixa' });
+  assert.throws(() => lerLugar(raiz, 'se'), /"recorte" precisa do bloco "ibge"/);
+  grava({ escala: 'estado', ibge: { nivel: 'estados', codigo: '28' }, recorte: 'oval' });
+  assert.throws(() => lerLugar(raiz, 'se'), /recorte desconhecido/);
+  grava({ escala: 'estado', ibge: { nivel: 'estados', codigo: '28' }, margem: 5 });
+  assert.throws(() => lerLugar(raiz, 'se'), /margem inválida/);
+  fs.rmSync(raiz, { recursive: true, force: true });
 });
 
 test('--bbox N,S,O,L vira bbox validado', () => {

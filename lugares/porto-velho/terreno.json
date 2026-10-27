@@ -1,0 +1,119 @@
+{
+  "slug": "porto-velho",
+  "largura": 1024,
+  "altura": 459,
+  "bbox": {
+    "norte": -7.8949,
+    "sul": -10.0814,
+    "oeste": -66.9932,
+    "leste": -62.0542
+  },
+  "graus_por_no": {
+    "lon": 0.0048232421875,
+    "lat": 0.004763616557734206
+  },
+  "metros_por_no": {
+    "x": 530.3,
+    "y": 530.3
+  },
+  "km": {
+    "largura": 543.1,
+    "altura": 243.4
+  },
+  "elev_min_m": 37.9,
+  "elev_max_m": 389.8,
+  "escala": "municipio",
+  "recorte": {
+    "tipo": "contorno",
+    "ibge_nivel": "municipios",
+    "ibge_codigo": "1100205",
+    "nos_dentro": 122083,
+    "fracao_dentro": 0.2597,
+    "nos_fora": 347933,
+    "nos_chapados": 0
+  },
+  "fontes": [
+    {
+      "id": "gmrt",
+      "url": "https://www.gmrt.org/services/GridServer?north=-7.8949&south=-10.0814&west=-66.9932&east=-62.0542&layer=topo&format=geotiff&mresolution=530",
+      "camada": "topo",
+      "mresolution_pedido": 530,
+      "largura": 1127,
+      "altura": 507,
+      "metros_por_no_devolvido": {
+        "x": 483.6,
+        "y": 484.1
+      },
+      "bbox_devolvido": {
+        "norte": -7.887325817956114,
+        "sul": -10.092191532293489,
+        "oeste": -67.00122265451543,
+        "leste": -62.04418750173457
+      },
+      "nan": 2254,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:40:58-03:00",
+      "bytes": 2289978,
+      "sha256": "ed61a18b4b34cde2cadbf397b71f63eebae987e40dbd5157c6f255a8532df2db",
+      "cache": false
+    },
+    {
+      "id": "gmrt-topo-mask",
+      "url": "https://www.gmrt.org/services/GridServer?north=-7.8949&south=-10.0814&west=-66.9932&east=-62.0542&layer=topo-mask&format=geotiff&mresolution=530",
+      "camada": "topo-mask",
+      "mresolution_pedido": 530,
+      "largura": 1127,
+      "altura": 507,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:41:01-03:00",
+      "bytes": 2289978,
+      "sha256": "e260d3ce0187040c37e7436e0da1bd7df88aa04d04a1d847c3bc2d24b2690609",
+      "cache": false
+    },
+    {
+      "id": "ibge-malha",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/1100205?formato=application/vnd.geo+json&qualidade=maxima",
+      "nivel": "municipios",
+      "codigo": "1100205",
+      "nome": "Porto Velho",
+      "qualidade": "maxima",
+      "poligonos": 1,
+      "aneis": 1,
+      "pontos": 3065,
+      "bbox_malha": {
+        "norte": -7.9759,
+        "sul": -10.0004,
+        "oeste": -66.8103,
+        "leste": -62.2371
+      },
+      "licenca": "dado público do IBGE (API de localidades e malhas, sem chave); termos de uso do portal a confirmar",
+      "atribuicao": "IBGE, Malhas Territoriais",
+      "obtido_em": "2026-10-26T22:40:53-03:00",
+      "bytes": 63785,
+      "sha256": "7f9a78aa2edef40b5fb6541e7304aa6f55dd72b1e37721e7ce533a96f4b5f435",
+      "cache": true
+    }
+  ],
+  "mascara": {
+    "pct_medido": 0,
+    "nos": 0,
+    "nos_mar": 0,
+    "base": "nós com elevação <= 0 m"
+  },
+  "nodata_preenchidos": 0,
+  "clampados": {
+    "abaixo": 0,
+    "acima": 0
+  },
+  "fixture": false,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "convencao": "nó = centro de célula; linha 0 = norte, coluna 0 = oeste; Terrain-RGB h = -10000 + (R*65536 + G*256 + B) * 0,1; h <= -9999 = fora do recorte (nem terra nem mar)",
+  "png": {
+    "bytes": 185205
+  },
+  "gerado_por": "maquete 0.1.0",
+  "gerado_em": "2026-10-26T22:41:01-03:00"
+}

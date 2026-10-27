@@ -1,0 +1,29 @@
+{
+  "slug": "mt",
+  "nome": "Mato Grosso",
+  "escala": "estado",
+  "ibge": {
+    "nivel": "estados",
+    "codigo": "51",
+    "nome": "Mato Grosso",
+    "sigla": "MT",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -6.9213,
+    "sul": -18.4693,
+    "oeste": -62.0897,
+    "leste": -49.7685
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

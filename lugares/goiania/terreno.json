@@ -1,0 +1,152 @@
+{
+  "slug": "goiania",
+  "largura": 1024,
+  "altura": 1095,
+  "bbox": {
+    "norte": -16.4387,
+    "sul": -16.847,
+    "oeste": -49.4617,
+    "leste": -49.0632
+  },
+  "graus_por_no": {
+    "lon": 0.00038916015624999856,
+    "lat": 0.00037287671232876765
+  },
+  "metros_por_no": {
+    "x": 41.5,
+    "y": 41.5
+  },
+  "km": {
+    "largura": 42.5,
+    "altura": 45.5
+  },
+  "elev_min_m": 664.4,
+  "elev_max_m": 1036.6,
+  "escala": "municipio",
+  "recorte": {
+    "tipo": "contorno",
+    "ibge_nivel": "municipios",
+    "ibge_codigo": "5208707",
+    "nos_dentro": 425720,
+    "fracao_dentro": 0.3797,
+    "nos_fora": 695560,
+    "nos_chapados": 0
+  },
+  "fontes": [
+    {
+      "id": "gmrt",
+      "url": "https://www.gmrt.org/services/GridServer?north=-16.4387&south=-16.847&west=-49.4617&east=-49.0632&layer=topo&format=geotiff&mresolution=42",
+      "camada": "topo",
+      "mresolution_pedido": 42,
+      "largura": 728,
+      "altura": 778,
+      "metros_por_no_devolvido": {
+        "x": 58.7,
+        "y": 58.7
+      },
+      "bbox_devolvido": {
+        "norte": -16.437929149865877,
+        "sul": -16.847920077761486,
+        "oeste": -49.46237220396858,
+        "leste": -49.06191978821892
+      },
+      "nan": 1456,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:36:47-03:00",
+      "bytes": 2269014,
+      "sha256": "af11cd2f650141003c87fbcfbe6374aa38a70cd26a0480d05d4469d0f46d96cf",
+      "cache": false
+    },
+    {
+      "id": "gmrt-topo-mask",
+      "url": "https://www.gmrt.org/services/GridServer?north=-16.4387&south=-16.847&west=-49.4617&east=-49.0632&layer=topo-mask&format=geotiff&mresolution=42",
+      "camada": "topo-mask",
+      "mresolution_pedido": 42,
+      "largura": 728,
+      "altura": 778,
+      "licenca": "CC BY 4.0",
+      "atribuicao": "Ryan, W. B. F., S.M. Carbotte, J. Coplan, S. O'Hara, A. Melkonian, R. Arko, R.A. Weissel, V. Ferrini, A. Goodwillie, F. Nitsche, J. Bonczkowski, and R. Zemsky (2009), Global Multi-Resolution Topography (GMRT) synthesis data set, Geochem. Geophys. Geosyst., 10, Q03014, doi:10.1029/2008GC002332",
+      "obtido_em": "2026-10-26T22:36:51-03:00",
+      "bytes": 2269014,
+      "sha256": "af11cd2f650141003c87fbcfbe6374aa38a70cd26a0480d05d4469d0f46d96cf",
+      "cache": false
+    },
+    {
+      "id": "copernicus-glo30",
+      "url": "https://copernicus-dem-30m.s3.amazonaws.com",
+      "tiles": [
+        "Copernicus_DSM_COG_10_S17_00_W050_00_DEM"
+      ],
+      "tiles_oceano": [],
+      "overview": 0,
+      "overview_nos": 3600,
+      "graus_por_no": 0.0002777777777777778,
+      "licenca": "Licence for Copernicus DEM instance COP-DEM-GLO-30-F Global 30m Full, Free & Open (ESA; texto em https://documentation.dataspace.copernicus.eu/APIs/SentinelHub/Data/DEM/resources/license/License-COPDEM-30.pdf)",
+      "atribuicao": "produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved. The organisations in charge of the Copernicus programme by law or by delegation do not incur any liability for any use of the Copernicus WorldDEM-30.",
+      "obtido_em": "2026-10-26T22:36:57-03:00",
+      "bytes": 12845059,
+      "sha256": "04ff9f59c4eaefb72aaea0370afcfebc17e3770636c2c8f72ea47c620d750707",
+      "detalhe": [
+        {
+          "tile": "Copernicus_DSM_COG_10_S17_00_W050_00_DEM",
+          "janela": [
+            1937,
+            1578,
+            3374,
+            3051
+          ],
+          "bytes": 12845059,
+          "pedidos": 3,
+          "sha256": "04ff9f59c4eaefb72aaea0370afcfebc17e3770636c2c8f72ea47c620d750707",
+          "obtido_em": "2026-10-26T22:36:57-03:00",
+          "cache": false,
+          "nodata_nos": 0
+        }
+      ]
+    },
+    {
+      "id": "ibge-malha",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/5208707?formato=application/vnd.geo+json&qualidade=maxima",
+      "nivel": "municipios",
+      "codigo": "5208707",
+      "nome": "Goiânia",
+      "qualidade": "maxima",
+      "poligonos": 1,
+      "aneis": 1,
+      "pontos": 518,
+      "bbox_malha": {
+        "norte": -16.4538,
+        "sul": -16.8319,
+        "oeste": -49.4469,
+        "leste": -49.078
+      },
+      "licenca": "dado público do IBGE (API de localidades e malhas, sem chave); termos de uso do portal a confirmar",
+      "atribuicao": "IBGE, Malhas Territoriais",
+      "obtido_em": "2026-10-26T22:36:41-03:00",
+      "bytes": 11438,
+      "sha256": "5785f7b162fba78033de3aea0e4591d3d35970cae5d7b473e67977f27b5e8d2c",
+      "cache": true
+    }
+  ],
+  "mascara": {
+    "pct_medido": 0,
+    "nos": 0,
+    "nos_mar": 0,
+    "base": "nós com elevação <= 0 m"
+  },
+  "nodata_preenchidos": 0,
+  "clampados": {
+    "abaixo": 0,
+    "acima": 0
+  },
+  "fixture": false,
+  "terra": "copernicus",
+  "mar": "gmrt",
+  "convencao": "nó = centro de célula; linha 0 = norte, coluna 0 = oeste; Terrain-RGB h = -10000 + (R*65536 + G*256 + B) * 0,1; h <= -9999 = fora do recorte (nem terra nem mar)",
+  "png": {
+    "bytes": 534623
+  },
+  "gerado_por": "maquete 0.1.0",
+  "gerado_em": "2026-10-26T22:36:58-03:00"
+}

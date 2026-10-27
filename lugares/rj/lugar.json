@@ -1,0 +1,29 @@
+{
+  "slug": "rj",
+  "nome": "Rio de Janeiro",
+  "escala": "estado",
+  "ibge": {
+    "nivel": "estados",
+    "codigo": "33",
+    "nome": "Rio de Janeiro",
+    "sigla": "RJ",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -20.659,
+    "sul": -23.4718,
+    "oeste": -45.0466,
+    "leste": -40.8006
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

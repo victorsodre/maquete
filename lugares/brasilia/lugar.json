@@ -1,0 +1,30 @@
+{
+  "slug": "brasilia",
+  "nome": "Brasília",
+  "escala": "municipio",
+  "ibge": {
+    "nivel": "municipios",
+    "codigo": "5300108",
+    "nome": "Brasília",
+    "sigla": "DF",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -15.4799,
+    "sul": -16.0719,
+    "oeste": -48.3248,
+    "leste": -47.2693
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "copernicus",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado",
+    "passo_terra_m": 200
+  }
+}

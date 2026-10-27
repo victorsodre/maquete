@@ -1,0 +1,30 @@
+{
+  "slug": "palmas",
+  "nome": "Palmas",
+  "escala": "municipio",
+  "ibge": {
+    "nivel": "municipios",
+    "codigo": "1721000",
+    "nome": "Palmas",
+    "sigla": "TO",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -9.9019,
+    "sul": -10.4816,
+    "oeste": -48.4482,
+    "leste": -47.7681
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "copernicus",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado",
+    "passo_terra_m": 100
+  }
+}

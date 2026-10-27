@@ -1,0 +1,29 @@
+{
+  "slug": "ro",
+  "nome": "Rondônia",
+  "escala": "estado",
+  "ibge": {
+    "nivel": "estados",
+    "codigo": "11",
+    "nome": "Rondônia",
+    "sigla": "RO",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -7.7472,
+    "sul": -13.9224,
+    "oeste": -67.0917,
+    "leste": -59.493
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

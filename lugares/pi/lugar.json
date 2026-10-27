@@ -1,0 +1,29 @@
+{
+  "slug": "pi",
+  "nome": "Piauí",
+  "escala": "estado",
+  "ibge": {
+    "nivel": "estados",
+    "codigo": "22",
+    "nome": "Piauí",
+    "sigla": "PI",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -2.4227,
+    "sul": -11.256,
+    "oeste": -46.2545,
+    "leste": -40.1442
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 206,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "slug": "goiania",
+  "nome": "Goiânia",
+  "escala": "municipio",
+  "ibge": {
+    "nivel": "municipios",
+    "codigo": "5208707",
+    "nome": "Goiânia",
+    "sigla": "GO",
+    "qualidade": "maxima"
+  },
+  "bbox": {
+    "norte": -16.4387,
+    "sul": -16.847,
+    "oeste": -49.4617,
+    "leste": -49.0632
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "copernicus",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 281,
+    "espessura_mm": 3,
+    "material": "compensado",
+    "passo_terra_m": 100
+  }
+}

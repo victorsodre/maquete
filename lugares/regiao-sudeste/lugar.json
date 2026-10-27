@@ -1,0 +1,29 @@
+{
+  "slug": "regiao-sudeste",
+  "nome": "Sudeste",
+  "escala": "regiao",
+  "ibge": {
+    "nivel": "regioes",
+    "codigo": "3",
+    "nome": "Sudeste",
+    "sigla": "SE",
+    "qualidade": "intermediaria"
+  },
+  "bbox": {
+    "norte": -13.811,
+    "sul": -25.7511,
+    "oeste": -53.6427,
+    "leste": -39.1303
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 300,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}

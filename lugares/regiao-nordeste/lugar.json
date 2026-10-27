@@ -1,0 +1,29 @@
+{
+  "slug": "regiao-nordeste",
+  "nome": "Nordeste",
+  "escala": "regiao",
+  "ibge": {
+    "nivel": "regioes",
+    "codigo": "2",
+    "nome": "Nordeste",
+    "sigla": "NE",
+    "qualidade": "intermediaria"
+  },
+  "bbox": {
+    "norte": -0.3614,
+    "sul": -19.0286,
+    "oeste": -49.3133,
+    "leste": -34.2446
+  },
+  "margem": 0.04,
+  "recorte": "contorno",
+  "largura_max_nos": 1024,
+  "terra": "gmrt",
+  "mar": "gmrt",
+  "mascara": true,
+  "maquete": {
+    "largura_mm": 239,
+    "espessura_mm": 3,
+    "material": "compensado"
+  }
+}
